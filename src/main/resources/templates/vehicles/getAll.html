@@ -7,7 +7,12 @@
 <body>
 <h1>Все автомобили</h1>
 <div th:each="vehicle : ${vehicles}">
-    <span th:text="${vehicle.getYear()} + ', ' + ${vehicle.getBodyType()} + ', ' + ${vehicle.getColor()}"></span>
+    <span th:text="${vehicle.getId()} + ', ' +
+    ${vehicle.getNumber()} + ', ' +
+    ${vehicle.getYear()} + ', ' +
+    ${vehicle.getBodyType()} + ', ' +
+    ${vehicle.getColor()}">
+    </span>
 </div>
 </body>
 </html>

@@ -2,6 +2,6 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <include relativeToChangelogFile="true" file="20240210_create_vehicle_table.xml"/>
-    <include relativeToChangelogFile="true" file="20240210_insert_test_vehicles.xml"/>
+    <include relativeToChangelogFile="true" file="20250210_1_create_vehicle_table.xml"/>
+    <include relativeToChangelogFile="true" file="20250210_2_insert_test_vehicles.xml"/>
 </databaseChangeLog>

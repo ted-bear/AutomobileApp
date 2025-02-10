@@ -16,6 +16,9 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "number", nullable = false)
+    private String number;
+
     @Column(name = "year", nullable = false)
     private int year;
 
@@ -43,7 +46,8 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(final int year,
+    public Vehicle(final String number,
+                   final int year,
                    final String color,
                    final String bodyType,
                    final int mileage,
@@ -51,6 +55,7 @@ public class Vehicle {
                    final String condition,
                    final String fuelType,
                    final String transmission) {
+        this.number = number;
         this.year = year;
         this.color = color;
         this.bodyType = bodyType;
@@ -59,6 +64,18 @@ public class Vehicle {
         this.condition = condition;
         this.fuelType = fuelType;
         this.transmission = transmission;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public int getYear() {

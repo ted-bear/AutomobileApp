@@ -2,10 +2,15 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="20220415_create_user_table" author="Egor Toporkov">
+
+    <changeSet id="20250210_1_create_user_table" author="Egor Toporkov">
         <createTable tableName="vehicle">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="number" type="varchar(10)">
+                <constraints nullable="false"/>
             </column>
 
             <column name="year" type="int">

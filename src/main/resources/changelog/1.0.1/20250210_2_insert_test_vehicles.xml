@@ -2,8 +2,9 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="20240210_insert_test_vehicles" author="Egor Toporkov">
+    <changeSet id="20240210_2_insert_test_vehicles" author="Egor Toporkov">
         <insert tableName="vehicle">
+            <column name="number" value="а999аа"/>
             <column name="year" value="2020"/>
             <column name="color" value="Синий"/>
             <column name="body_type" value="Седан"/>
@@ -14,6 +15,7 @@
             <column name="transmission" value="Автоматическая"/>
         </insert>
         <insert tableName="vehicle">
+            <column name="number" value="х000хх"/>
             <column name="year" value="2018"/>
             <column name="color" value="Красный"/>
             <column name="body_type" value="Хэтчбек"/>
@@ -24,6 +26,7 @@
             <column name="transmission" value="Механическая"/>
         </insert>
         <insert tableName="vehicle">
+            <column name="number" value="в111вв"/>
             <column name="year" value="2022"/>
             <column name="color" value="Черный"/>
             <column name="body_type" value="Внедорожник"/>
