@@ -24,6 +24,6 @@ public class VehicleController {
         final List<Vehicle> vehicles = vehicleService.findAll();
         model.addAttribute("vehicles", vehicles);
 
-        return "vehicles/getAll";
+        return "vehicles/listAll";
     }
 }

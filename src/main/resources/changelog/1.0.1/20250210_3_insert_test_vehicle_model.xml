@@ -2,9 +2,10 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="20250210_3_insert_test_models" author="Egor Toporkov">
-        <insert tableName="model">
-            <column name="model_name" value="Volkswagen Polo"/>
+    <changeSet id="20250210_3_insert_test_vehicle_model" author="Egor Toporkov">
+        <insert tableName="vehicle_model">
+            <column name="brand_name" value="Volkswagen"/>
+            <column name="model_name" value="Polo"/>
             <column name="body_type" value="Седан"/>
             <column name="drive" value="Передний"/>
             <column name="engine_type" value="Бензиновый"/>
@@ -16,8 +17,9 @@
             <column name="doors_number" value="5"/>
             <column name="suspension" value="Пружинная"/>
         </insert>
-        <insert tableName="model">
-            <column name="model_name" value="Audi A7"/>
+        <insert tableName="vehicle_model">
+            <column name="brand_name" value="Audi"/>
+            <column name="model_name" value="A7"/>
             <column name="body_type" value="Лифтбек"/>
             <column name="drive" value="Полный"/>
             <column name="engine_type" value="Бензиновый"/>
@@ -29,8 +31,9 @@
             <column name="doors_number" value="3"/>
             <column name="suspension" value="Пружинная"/>
         </insert>
-        <insert tableName="model">
-            <column name="model_name" value="BMW X6"/>
+        <insert tableName="vehicle_model">
+            <column name="brand_name" value="BMW"/>
+            <column name="model_name" value="X6"/>
             <column name="body_type" value="Внедорожник"/>
             <column name="drive" value="Полный"/>
             <column name="engine_type" value="Бензиновый"/>

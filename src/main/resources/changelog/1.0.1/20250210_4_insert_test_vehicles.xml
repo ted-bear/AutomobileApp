@@ -2,7 +2,7 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="20250210_2_insert_test_vehicles" author="Egor Toporkov">
+    <changeSet id="20250210_4_insert_test_vehicles" author="Egor Toporkov">
         <insert tableName="vehicle">
             <column name="number" value="а999аа"/>
             <column name="year" value="2020"/>
@@ -10,7 +10,7 @@
             <column name="mileage" value="30000"/>
             <column name="price" value="1500000.00"/>
             <column name="condition" value="Б/у"/>
-            <column name="model_id" value="1"/>
+            <column name="vehicle_model_id" value="1"/>
         </insert>
         <insert tableName="vehicle">
             <column name="number" value="х000хх"/>
@@ -19,7 +19,7 @@
             <column name="mileage" value="50000"/>
             <column name="price" value="1200000.00"/>
             <column name="condition" value="Б/у"/>
-            <column name="model_id" value="2"/>
+            <column name="vehicle_model_id" value="2"/>
         </insert>
         <insert tableName="vehicle">
             <column name="number" value="в111вв"/>
@@ -28,7 +28,7 @@
             <column name="mileage" value="10000"/>
             <column name="price" value="2000000.00"/>
             <column name="condition" value="Новый"/>
-            <column name="model_id" value="3"/>
+            <column name="vehicle_model_id" value="3"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

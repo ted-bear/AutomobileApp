@@ -37,9 +37,9 @@ public class Vehicle {
     private String condition;
 
     @ManyToOne
-    @JoinColumn(name = "model_id",
+    @JoinColumn(name = "vehicle_model_id",
             referencedColumnName = "id")
-    private Model model;
+    private VehicleModel vehicleModel;
 
     public Vehicle() {
     }
@@ -110,11 +110,11 @@ public class Vehicle {
         this.condition = condition;
     }
 
-    public Model getModel() {
-        return model;
+    public VehicleModel getModel() {
+        return vehicleModel;
     }
 
-    public void setModel(Model model) {
-        this.model = model;
+    public void setModel(VehicleModel vehicleModel) {
+        this.vehicleModel = vehicleModel;
     }
 }

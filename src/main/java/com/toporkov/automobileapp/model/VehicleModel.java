@@ -12,13 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "model")
-public class Model {
+@Table(name = "vehicle_model")
+public class VehicleModel {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "brand_name", nullable = false)
+    private String brandName;
 
     @Column(name = "model_name", nullable = false)
     private String modelName;
@@ -53,23 +56,25 @@ public class Model {
     @Column(name = "suspension", nullable = false)
     private String suspension;
 
-    @OneToMany(mappedBy = "model")
+    @OneToMany(mappedBy = "vehicleModel")
     private List<Vehicle> vehicles = new ArrayList<>();
 
-    public Model() {
+    public VehicleModel() {
     }
 
-    public Model(final String modelName,
-                 final String bodyType,
-                 final String drive,
-                 final String engineType,
-                 final int enginePower,
-                 final double engineVolume,
-                 final int maxSpeed,
-                 final String transmission,
-                 final int seatsNumber,
-                 final int doorsNumber,
-                 final String suspension) {
+    public VehicleModel(final String brandName,
+                        final String modelName,
+                        final String bodyType,
+                        final String drive,
+                        final String engineType,
+                        final int enginePower,
+                        final double engineVolume,
+                        final int maxSpeed,
+                        final String transmission,
+                        final int seatsNumber,
+                        final int doorsNumber,
+                        final String suspension) {
+        this.brandName = brandName;
         this.modelName = modelName;
         this.bodyType = bodyType;
         this.drive = drive;
@@ -81,6 +86,14 @@ public class Model {
         this.seatsNumber = seatsNumber;
         this.doorsNumber = doorsNumber;
         this.suspension = suspension;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public int getMaxSpeed() {
