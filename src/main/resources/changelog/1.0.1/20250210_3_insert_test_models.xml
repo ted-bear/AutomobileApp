@@ -1,0 +1,46 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="20250210_3_insert_test_models" author="Egor Toporkov">
+        <insert tableName="model">
+            <column name="model_name" value="Volkswagen Polo"/>
+            <column name="body_type" value="Седан"/>
+            <column name="drive" value="Передний"/>
+            <column name="engine_type" value="Бензиновый"/>
+            <column name="engine_power" value="125"/>
+            <column name="engine_volume" value="1.4"/>
+            <column name="max_speed" value="150"/>
+            <column name="transmission" value="Механика"/>
+            <column name="seats_number" value="5"/>
+            <column name="doors_number" value="5"/>
+            <column name="suspension" value="Пружинная"/>
+        </insert>
+        <insert tableName="model">
+            <column name="model_name" value="Audi A7"/>
+            <column name="body_type" value="Лифтбек"/>
+            <column name="drive" value="Полный"/>
+            <column name="engine_type" value="Бензиновый"/>
+            <column name="engine_power" value="340"/>
+            <column name="engine_volume" value="3.0"/>
+            <column name="max_speed" value="230"/>
+            <column name="transmission" value="Автомат"/>
+            <column name="seats_number" value="3"/>
+            <column name="doors_number" value="3"/>
+            <column name="suspension" value="Пружинная"/>
+        </insert>
+        <insert tableName="model">
+            <column name="model_name" value="BMW X6"/>
+            <column name="body_type" value="Внедорожник"/>
+            <column name="drive" value="Полный"/>
+            <column name="engine_type" value="Бензиновый"/>
+            <column name="engine_power" value="530"/>
+            <column name="engine_volume" value="4.4"/>
+            <column name="max_speed" value="250"/>
+            <column name="transmission" value="Автомат"/>
+            <column name="seats_number" value="5"/>
+            <column name="doors_number" value="5"/>
+            <column name="suspension" value="Пружинная"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

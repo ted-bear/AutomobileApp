@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,9 +27,6 @@ public class Vehicle {
     @Column(name = "color", nullable = false)
     private String color;
 
-    @Column(name = "body_type", nullable = false)
-    private String bodyType;
-
     @Column(name = "mileage", nullable = false)
     private int mileage;
 
@@ -37,11 +36,10 @@ public class Vehicle {
     @Column(name = "condition", nullable = false)
     private String condition;
 
-    @Column(name = "fuel_type", nullable = false)
-    private String fuelType;
-
-    @Column(name = "transmission", nullable = false)
-    private String transmission;
+    @ManyToOne
+    @JoinColumn(name = "model_id",
+            referencedColumnName = "id")
+    private Model model;
 
     public Vehicle() {
     }
@@ -49,21 +47,15 @@ public class Vehicle {
     public Vehicle(final String number,
                    final int year,
                    final String color,
-                   final String bodyType,
                    final int mileage,
                    final double price,
-                   final String condition,
-                   final String fuelType,
-                   final String transmission) {
+                   final String condition) {
         this.number = number;
         this.year = year;
         this.color = color;
-        this.bodyType = bodyType;
         this.mileage = mileage;
         this.price = price;
         this.condition = condition;
-        this.fuelType = fuelType;
-        this.transmission = transmission;
     }
 
     public int getId() {
@@ -94,14 +86,6 @@ public class Vehicle {
         this.color = color;
     }
 
-    public String getBodyType() {
-        return bodyType;
-    }
-
-    public void setBodyType(String bodyType) {
-        this.bodyType = bodyType;
-    }
-
     public int getMileage() {
         return mileage;
     }
@@ -126,19 +110,11 @@ public class Vehicle {
         this.condition = condition;
     }
 
-    public String getFuelType() {
-        return fuelType;
+    public Model getModel() {
+        return model;
     }
 
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public String getTransmission() {
-        return transmission;
-    }
-
-    public void setTransmission(String transmission) {
-        this.transmission = transmission;
+    public void setModel(Model model) {
+        this.model = model;
     }
 }

@@ -2,39 +2,33 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="20240210_2_insert_test_vehicles" author="Egor Toporkov">
+    <changeSet id="20250210_2_insert_test_vehicles" author="Egor Toporkov">
         <insert tableName="vehicle">
             <column name="number" value="а999аа"/>
             <column name="year" value="2020"/>
             <column name="color" value="Синий"/>
-            <column name="body_type" value="Седан"/>
             <column name="mileage" value="30000"/>
             <column name="price" value="1500000.00"/>
             <column name="condition" value="Б/у"/>
-            <column name="fuel_type" value="Бензин"/>
-            <column name="transmission" value="Автоматическая"/>
+            <column name="model_id" value="1"/>
         </insert>
         <insert tableName="vehicle">
             <column name="number" value="х000хх"/>
             <column name="year" value="2018"/>
             <column name="color" value="Красный"/>
-            <column name="body_type" value="Хэтчбек"/>
             <column name="mileage" value="50000"/>
             <column name="price" value="1200000.00"/>
             <column name="condition" value="Б/у"/>
-            <column name="fuel_type" value="Дизель"/>
-            <column name="transmission" value="Механическая"/>
+            <column name="model_id" value="2"/>
         </insert>
         <insert tableName="vehicle">
             <column name="number" value="в111вв"/>
             <column name="year" value="2022"/>
             <column name="color" value="Черный"/>
-            <column name="body_type" value="Внедорожник"/>
             <column name="mileage" value="10000"/>
             <column name="price" value="2000000.00"/>
             <column name="condition" value="Новый"/>
-            <column name="fuel_type" value="Гибрид"/>
-            <column name="transmission" value="Автоматическая"/>
+            <column name="model_id" value="3"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

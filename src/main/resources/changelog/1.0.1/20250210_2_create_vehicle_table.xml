@@ -1,0 +1,50 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="20250210_1_create_vehicle_table" author="Egor Toporkov">
+        <createTable tableName="vehicle">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="number" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="year" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="color" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="mileage" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="price" type="numeric(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="condition" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="model_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="vehicle" baseColumnNames="model_id" constraintName="fk_model"
+                                 referencedTableName="model"
+                                 referencedColumnNames="id"/>
+
+        <rollback>
+            <dropTable tableName="vehicle"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

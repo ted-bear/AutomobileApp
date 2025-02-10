@@ -3,21 +3,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="20250210_1_create_user_table" author="Egor Toporkov">
-        <createTable tableName="vehicle">
+    <changeSet id="20250210_3_create_model_table" author="Egor Toporkov">
+        <createTable tableName="model">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="number" type="varchar(10)">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="year" type="int">
-                <constraints nullable="false"/>
-            </column>
-
-            <column name="color" type="varchar(255)">
+            <column name="model_name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
 
@@ -25,28 +17,45 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="mileage" type="int">
-                <constraints nullable="false"/>
-            </column>
-            <column name="price" type="numeric(10, 2)">
+            <column name="drive" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="condition" type="varchar(50)">
+            <column name="engine_type" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="fuel_type" type="varchar(50)">
+            <column name="engine_power" type="int">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="transmission" type="varchar(50)">
+            <column name="engine_volume" type="numeric(10, 1)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="max_speed" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="transmission" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="seats_number" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="doors_number" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="suspension" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
         <rollback>
-            <dropTable tableName="Vehicle"/>
+            <dropTable tableName="Model"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>
