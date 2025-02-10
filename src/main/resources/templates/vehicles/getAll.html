@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All vehicles</title>
+</head>
+<body>
+<h1>Все автомобили</h1>
+<div th:each="vehicle : ${vehicles}">
+    <span th:text="${vehicle.getYear()} + ', ' + ${vehicle.getBodyType()} + ', ' + ${vehicle.getColor()}"></span>
+</div>
+</body>
+</html>

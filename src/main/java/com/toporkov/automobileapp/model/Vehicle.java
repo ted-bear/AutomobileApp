@@ -43,14 +43,14 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(int year,
-                   String color,
-                   String bodyType,
-                   int mileage,
-                   double price,
-                   String condition,
-                   String fuelType,
-                   String transmission) {
+    public Vehicle(final int year,
+                   final String color,
+                   final String bodyType,
+                   final int mileage,
+                   final double price,
+                   final String condition,
+                   final String fuelType,
+                   final String transmission) {
         this.year = year;
         this.color = color;
         this.bodyType = bodyType;
