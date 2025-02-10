@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: "AutomobileApp"
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5434/postgres}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+
