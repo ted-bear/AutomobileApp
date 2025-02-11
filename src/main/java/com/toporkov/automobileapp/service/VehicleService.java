@@ -74,6 +74,9 @@ public class VehicleService {
     public void delete(Integer id) {
         Assert.notNull(id, "Vehicle to delete id shouldn't be null");
 
+        final Optional<Vehicle> aVehicle = vehicleRepository.findById(id);
+        aVehicle.ifPresent(v -> v.getVehicleModel().getVehicles().remove(v));
+
         vehicleRepository.deleteById(id);
     }
 }
