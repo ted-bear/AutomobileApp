@@ -88,6 +88,10 @@ public class VehicleModel {
         this.suspension = suspension;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getBrandName() {
         return brandName;
     }
