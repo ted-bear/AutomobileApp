@@ -6,7 +6,7 @@
 </head>
 <body>
 <a href="/vehicles">Вернуться на главную</a>
-<h1>Vehicle page</h1>
+<h1>Страница машины</h1>
 <div>
     <span th:text="'Id в системе: ' + ${vehicle.getId()}"></span>
     <br>
@@ -23,14 +23,14 @@
     <span th:text="'Пробег: ' + ${vehicle.getMileage()}"></span>
     <br>
 
-    <span th:text="'Состояние: ' + ${vehicle.getCondition()}"></span>
+    <span th:text="'Состояние: ' + ${vehicle.getCondition().getDescription()}"></span>
     <br>
 
     <span th:text="'Цена: ' + ${vehicle.getPrice()}"></span>
     <br>
 
-    <a th:href="@{/vehicleModels/{id}(id=${vehicle.getModel().getId()})}"
-       th:text="'Модель: ' + ${vehicle.getModel().getBrandName()} + ' ' + ${vehicle.getModel().getModelName()}"></a>
+    <a th:href="@{/vehicleModels/{id}(id=${vehicle.getVehicleModel().getId()})}"
+       th:text="'Модель: ' + ${vehicle.getVehicleModel().getBrandName()} + ' ' + ${vehicle.getVehicleModel().getModelName()}"></a>
     <br>
 
     <hr>

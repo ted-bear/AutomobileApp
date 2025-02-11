@@ -2,12 +2,18 @@ package com.toporkov.automobileapp.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "vehicle")
@@ -18,23 +24,31 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Номер автомобиля не должен быть пустым")
+    @Pattern(regexp = "[а-я][0-9]{3}[а-я]{2}", message = "Номер автомобиля должен быть в формате x999xx")
     @Column(name = "number", nullable = false)
     private String number;
 
+    @Min(value = 1900, message = "Год выпуска должен быть больше 1900")
     @Column(name = "year", nullable = false)
     private int year;
 
+    @NotBlank(message = "Цвет не должен быть пустым")
     @Column(name = "color", nullable = false)
     private String color;
 
+    @Min(value = 0, message = "Пробег не может быть меньше 0")
     @Column(name = "mileage", nullable = false)
     private int mileage;
 
+    @Min(value = 0, message = "Цена не может быть меньше 0")
     @Column(name = "price", nullable = false)
     private double price;
 
+    @NotNull(message = "Цена не должна быть пустой")
     @Column(name = "condition", nullable = false)
-    private String condition;
+    @Enumerated(value = EnumType.STRING)
+    private Condition condition;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_model_id",
@@ -49,7 +63,7 @@ public class Vehicle {
                    final String color,
                    final int mileage,
                    final double price,
-                   final String condition) {
+                   final Condition condition) {
         this.number = number;
         this.year = year;
         this.color = color;
@@ -106,19 +120,19 @@ public class Vehicle {
         this.price = price;
     }
 
-    public String getCondition() {
+    public Condition getCondition() {
         return condition;
     }
 
-    public void setCondition(String condition) {
+    public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
-    public VehicleModel getModel() {
+    public VehicleModel getVehicleModel() {
         return vehicleModel;
     }
 
-    public void setModel(VehicleModel vehicleModel) {
+    public void setVehicleModel(VehicleModel vehicleModel) {
         this.vehicleModel = vehicleModel;
     }
 }

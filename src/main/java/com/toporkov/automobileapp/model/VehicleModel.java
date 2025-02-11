@@ -141,7 +141,7 @@ public class VehicleModel {
     }
 
     public void addVehicle(Vehicle vehicle) {
-        vehicle.setModel(this);
+        vehicle.setVehicleModel(this);
         vehicles.add(vehicle);
     }
 

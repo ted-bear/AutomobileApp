@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.Vehicle;
+import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,10 +31,16 @@ public class VehicleService {
         return vehicleRepository.findById(id).orElseThrow(VehicleNotFoundException::new);
     }
 
+    public Optional<Vehicle> getByNumber(String number) {
+        Assert.notNull(number, "Number shouldn't be null");
+        return vehicleRepository.findByNumber(number);
+    }
+
     @Transactional
     public void save(Vehicle vehicle) {
         Assert.notNull(vehicle, "Vehicle to save shouldn't be null");
 
+        vehicle.getVehicleModel().addVehicle(vehicle);
         vehicleRepository.save(vehicle);
     }
 
@@ -41,8 +49,25 @@ public class VehicleService {
         Assert.notNull(id, "Vehicle to update id shouldn't be null");
         Assert.notNull(vehicle, "Vehicle to update shouldn't be null");
 
+        updateRelations(id, vehicle);
+
         vehicle.setId(id);
         vehicleRepository.save(vehicle);
+    }
+
+    private void updateRelations(Integer id, Vehicle vehicle) {
+        final Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
+
+        if (optionalVehicle.isPresent()) {
+            final Vehicle vehicleToUpdate = optionalVehicle.get();
+            final VehicleModel oldVehicleModel = vehicleToUpdate.getVehicleModel();
+            final VehicleModel newVehicleModel = vehicle.getVehicleModel();
+
+            if (oldVehicleModel.getId() != newVehicleModel.getId()) {
+                oldVehicleModel.getVehicles().remove(vehicleToUpdate);
+                newVehicleModel.addVehicle(vehicleToUpdate);
+            }
+        }
     }
 
     @Transactional

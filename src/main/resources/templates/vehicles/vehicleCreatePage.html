@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание машины</title>
+</head>
+<body>
+<a href="/vehicles">Вернуться на главную</a>
+<h1>Форма создания машины</h1>
+<form th:action="@{/vehicles}"
+      th:method="POST"
+      th:object="${vehicle}">
+
+    <label for="number">Введите номер машины:</label>
+    <input id="number" th:field="*{number}" type="text">
+    <div style="color:red" th:errors="*{number}" th:if="${#fields.hasErrors('number')}"></div>
+
+    <br>
+
+    <label for="year">Введите год выпуска:</label>
+    <input id="year" th:field="*{year}" type="number">
+    <div style="color:red" th:errors="*{year}" th:if="${#fields.hasErrors('year')}"></div>
+
+    <br>
+
+    <label for="color">Введите цвет:</label>
+    <input id="color" th:field="*{color}" type="text">
+    <div style="color:red" th:errors="*{color}" th:if="${#fields.hasErrors('color')}"></div>
+
+    <br>
+
+    <label for="mileage">Введите пробег:</label>
+    <input id="mileage" th:field="*{mileage}" type="number">
+    <div style="color:red" th:errors="*{mileage}" th:if="${#fields.hasErrors('mileage')}"></div>
+
+    <br>
+
+    <label for="condition">Состояние машины:</label>
+    <select id="condition" th:field="*{condition}">
+        <option th:each="condition : ${conditions}"
+                th:text="${condition.getDescription()}"
+                th:value="${condition}">
+        </option>
+    </select>
+
+    <br>
+
+    <label for="price">Цена машины:</label>
+    <input id="price" th:field="*{price}" type="number">
+    <div style="color:red" th:errors="*{price}" th:if="${#fields.hasErrors('price')}"></div>
+
+    <br>
+
+    <label for="vehicleModel">Выберите модель машины</label>
+    <select id="vehicleModel" th:field="*{vehicleModel}" th:object="${vehicle}">
+        <option th:each="vehicleModel : ${vehicleModels}"
+                th:text="${vehicleModel.getBrandName()} + ' ' + ${vehicleModel.getModelName()}"
+                th:value="${vehicleModel.getId()}">
+        </option>
+    </select>
+    <br>
+    <hr>
+
+    <input type="submit" value="Создать">
+</form>
+</body>
+</html>

@@ -11,3 +11,7 @@ spring:
   liquibase:
     change-log: "classpath:changelog/changelog-master.xml"
     enabled: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
