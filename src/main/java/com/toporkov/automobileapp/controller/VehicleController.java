@@ -4,6 +4,7 @@ import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.service.VehicleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,5 +34,11 @@ public class VehicleController {
         final Vehicle vehicle = vehicleService.getById(id);
         model.addAttribute("vehicle", vehicle);
         return "vehicles/vehiclePage";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteVehicle(@PathVariable("id") int id) {
+        vehicleService.delete(id);
+        return "redirect:/vehicles";
     }
 }
