@@ -5,6 +5,7 @@ import com.toporkov.automobileapp.service.VehicleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -25,5 +26,12 @@ public class VehicleController {
         model.addAttribute("vehicles", vehicles);
 
         return "vehicles/listAll";
+    }
+
+    @GetMapping("/{id}")
+    public String getVehiclePage(@PathVariable("id") int id, Model model) {
+        final Vehicle vehicle = vehicleService.getById(id);
+        model.addAttribute("vehicle", vehicle);
+        return "vehicles/vehiclePage";
     }
 }

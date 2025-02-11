@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle</title>
+</head>
+<body>
+<a href="/vehicles">Вернуться на главную</a>
+<h1>Vehicle page</h1>
+<div>
+    <span th:text="'Id в системе: ' + ${vehicle.getId()}"></span>
+    <br>
+
+    <span th:text="'Номер: ' + ${vehicle.getNumber()}"></span>
+    <br>
+
+    <span th:text="'Год выпуска: ' + ${vehicle.getYear()}"></span>
+    <br>
+
+    <span th:text="'Цвет: ' + ${vehicle.getColor()}"></span>
+    <br>
+
+    <span th:text="'Пробег: ' + ${vehicle.getMileage()}"></span>
+    <br>
+
+    <span th:text="'Состояние: ' + ${vehicle.getCondition()}"></span>
+    <br>
+
+    <span th:text="'Цена: ' + ${vehicle.getPrice()}"></span>
+    <br>
+
+    <a th:href="@{/vehicleModels/{id}(id=${vehicle.getModel().getId()})}"
+       th:text="'Модель: ' + ${vehicle.getModel().getBrandName()} + ' ' + ${vehicle.getModel().getModelName()}"></a>
+    <br>
+
+    <hr>
+    <form th:action="@{/vehicles/{id}/edit(id=${vehicle.getId()})}" th:method="GET">
+        <input type="submit" value="Редактировать"/>
+    </form>
+
+    <form th:action="@{/vehicles/{id}(id=${vehicle.getId()})}" th:method="DELETE">
+        <input type="submit" value="Удалить"/>
+    </form>
+</div>
+</body>
+</html>
