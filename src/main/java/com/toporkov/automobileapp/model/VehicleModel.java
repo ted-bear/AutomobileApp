@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,39 +22,51 @@ public class VehicleModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Имя бренда не должно быть пустым")
     @Column(name = "brand_name", nullable = false)
     private String brandName;
 
+    @NotBlank(message = "Имя модели не должно быть пустым")
     @Column(name = "model_name", nullable = false)
     private String modelName;
 
+    @NotBlank(message = "Тип кузова не должен быть пустым")
     @Column(name = "body_type", nullable = false)
     private String bodyType;
 
+    @NotBlank(message = "Привод не должен быть пустым")
     @Column(name = "drive", nullable = false)
     private String drive;
 
+    @NotBlank(message = "Тип двигателя не должен быть пустым")
     @Column(name = "engine_type", nullable = false)
     private String engineType;
 
+    @Min(value = 10, message = "Мощность двигателя не может быть меньше 10 л.с.")
     @Column(name = "engine_power", nullable = false)
     private int enginePower;
 
+    @Min(value = 1, message = "Мощность двигателя не может быть меньше 1 л.")
     @Column(name = "engine_volume", nullable = false)
     private double engineVolume;
 
+    @Min(value = 0, message = "Максимальная не может быть меньше 1 км/ч")
     @Column(name = "max_speed", nullable = false)
     private int maxSpeed;
 
+    @NotBlank(message = "Трансмиссия не должна быть пустой")
     @Column(name = "transmission", nullable = false)
     private String transmission;
 
+    @Min(value = 1, message = "Количество сидений не может быть меньше одного")
     @Column(name = "seats_number", nullable = false)
     private int seatsNumber;
 
+    @Min(value = 1, message = "Количество дверей не может быть меньше одного")
     @Column(name = "doors_number", nullable = false)
     private int doorsNumber;
 
+    @NotBlank(message = "Подвеска не должна быть пустой")
     @Column(name = "suspension", nullable = false)
     private String suspension;
 

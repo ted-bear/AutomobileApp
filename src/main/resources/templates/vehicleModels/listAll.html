@@ -7,14 +7,16 @@
 <body>
 <h1>Все модели автомобилей</h1>
 <div th:each="vehicleModel : ${vehicleModels}">
-    <span th:text="'id: ' + ${vehicleModel.getId()} + '; ' +
+    <a th:href="@{/vehicleModels/{id}(id=${vehicleModel.getId()})}"
+       th:text="'id: ' + ${vehicleModel.getId()} + '; ' +
     'Brand name: ' + ${vehicleModel.getBrandName()} + '; ' +
     'Model name: ' + ${vehicleModel.getModelName()} + '; ' +
-    'Body type: ' + ${vehicleModel.getBodyType()} + '; ' +
-    'Maximum speed: ' + ${vehicleModel.getMaxSpeed()} + '; ' +
-    'Engine type: ' + ${vehicleModel.getEngineType()} + '; ' +
-    'Doors number: ' + ${vehicleModel.getDoorsNumber()}">
-    </span>
+    'Body type: ' + ${vehicleModel.getBodyType()}">
+    </a>
 </div>
+<hr>
+<form action="/vehicleModels/create" method="get">
+    <input type="submit" value="Создать">
+</form>
 </body>
 </html>

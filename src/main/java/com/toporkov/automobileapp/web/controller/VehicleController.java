@@ -1,4 +1,4 @@
-package com.toporkov.automobileapp.controller;
+package com.toporkov.automobileapp.web.controller;
 
 import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.model.Vehicle;
@@ -45,7 +45,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
-    public String getVehiclePage(@PathVariable("id") int id, Model model) {
+    public String showVehiclePage(@PathVariable("id") int id, Model model) {
         final Vehicle vehicle = vehicleService.getById(id);
         model.addAttribute("vehicle", vehicle);
         return "vehicles/vehiclePage";

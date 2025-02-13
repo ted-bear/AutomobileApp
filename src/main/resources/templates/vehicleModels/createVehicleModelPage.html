@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Vehicle Model</title>
+</head>
+<body>
+<a th:href="@{/vehicleModels}">Вернуться</a>
+
+<h1>Страница создания модели транспортного средства</h1>
+<form th:action="@{/vehicleModels}"
+      th:method="POST"
+      th:object="${vehicleModel}">
+
+    <label for="brandName">Введите название бренда:</label>
+    <input id="brandName" th:field="*{brandName}" type="text">
+    <div style="color:red" th:errors="*{brandName}" th:if="${#fields.hasErrors('brandName')}"></div>
+
+    <br>
+
+    <label for="modelName">Введите название модели:</label>
+    <input id="modelName" th:field="*{modelName}" type="text">
+    <div style="color:red" th:errors="*{modelName}" th:if="${#fields.hasErrors('modelName')}"></div>
+
+    <br>
+
+    <label for="bodyType">Введите тип кузова:</label>
+    <input id="bodyType" th:field="*{bodyType}" type="text">
+    <div style="color:red" th:errors="*{bodyType}" th:if="${#fields.hasErrors('bodyType')}"></div>
+
+    <br>
+
+    <label for="drive">Введите привод:</label>
+    <input id="drive" th:field="*{drive}" type="text">
+    <div style="color:red" th:errors="*{drive}" th:if="${#fields.hasErrors('drive')}"></div>
+
+    <br>
+
+    <label for="engineType">Введите тип двигателя:</label>
+    <input id="engineType" th:field="*{engineType}" type="text">
+    <div style="color:red" th:errors="*{engineType}" th:if="${#fields.hasErrors('engineType')}"></div>
+
+    <br>
+
+    <label for="enginePower">Введите мощность двигателя:</label>
+    <input id="enginePower" th:field="*{enginePower}" type="number">
+    <div style="color:red" th:errors="*{enginePower}" th:if="${#fields.hasErrors('enginePower')}"></div>
+
+    <br>
+
+    <label for="engineVolume">Введите объем двигателя:</label>
+    <input id="engineVolume" th:field="*{engineVolume}" type="number">
+    <div style="color:red" th:errors="*{engineVolume}" th:if="${#fields.hasErrors('engineVolume')}"></div>
+
+    <br>
+
+    <label for="maxSpeed">Введите максимальную скорость:</label>
+    <input id="maxSpeed" th:field="*{maxSpeed}" type="number">
+    <div style="color:red" th:errors="*{maxSpeed}" th:if="${#fields.hasErrors('maxSpeed')}"></div>
+
+    <br>
+
+    <label for="transmission">Введите тип трансмиссии:</label>
+    <input id="transmission" th:field="*{transmission}" type="text">
+    <div style="color:red" th:errors="*{transmission}" th:if="${#fields.hasErrors('transmission')}"></div>
+
+    <br>
+
+    <label for="seatsNumber">Введите количество мест:</label>
+    <input id="seatsNumber" th:field="*{seatsNumber}" type="number">
+    <div style="color:red" th:errors="*{seatsNumber}" th:if="${#fields.hasErrors('seatsNumber')}"></div>
+
+    <br>
+
+    <label for="doorsNumber">Введите количество дверей:</label>
+    <input id="doorsNumber" th:field="*{doorsNumber}" type="number">
+    <div style="color:red" th:errors="*{doorsNumber}" th:if="${#fields.hasErrors('doorsNumber')}"></div>
+
+    <br>
+
+    <label for="suspension">Введите тип подвески:</label>
+    <input id="suspension" th:field="*{suspension}" type="text">
+    <div style="color:red" th:errors="*{suspension}" th:if="${#fields.hasErrors('suspension')}"></div>
+
+    <br>
+    <hr>
+
+    <input type="submit" value="Создать">
+</form>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Model Page</title>
+</head>
+<body>
+<a href="/vehicleModels">Вернуться на главную</a>
+<h1>Страница модели транспортного средства</h1>
+<div>
+    <span th:text="'Id в системе: ' + ${vehicleModel.getId()}"></span>
+    <br>
+
+    <span th:text="'Бренд: ' + ${vehicleModel.getBrandName()}"></span>
+    <br>
+
+    <span th:text="'Модель: ' + ${vehicleModel.getModelName()}"></span>
+    <br>
+
+    <span th:text="'Тип кузова: ' + ${vehicleModel.getBodyType()}"></span>
+    <br>
+
+    <span th:text="'Привод: ' + ${vehicleModel.getDrive()}"></span>
+    <br>
+
+    <span th:text="'Тип двигателя: ' + ${vehicleModel.getEngineType()}"></span>
+    <br>
+
+    <span th:text="'Мощность двигателя: ' + ${vehicleModel.getEnginePower()}"></span>
+    <br>
+
+    <span th:text="'Объем двигателя: ' + ${vehicleModel.getEngineVolume()}"></span>
+    <br>
+
+    <span th:text="'Трансмиссия: ' + ${vehicleModel.getTransmission()}"></span>
+    <br>
+
+    <span th:text="'Количество мест: ' + ${vehicleModel.getSeatsNumber()}"></span>
+    <br>
+
+    <span th:text="'Количество дверей: ' + ${vehicleModel.getDoorsNumber()}"></span>
+    <br>
+
+    <span th:text="'Подвеска: ' + ${vehicleModel.getSuspension()}"></span>
+    <br>
+
+    <hr>
+    <form th:action="@{/vehicleModels/{id}/edit(id=${vehicleModel.getId()})}" th:method="GET">
+        <input type="submit" value="Редактировать"/>
+    </form>
+
+    <form th:action="@{/vehicleModels/{id}(id=${vehicleModel.getId()})}" th:method="DELETE">
+        <input type="submit" value="Удалить"/>
+    </form>
+</div>
+</body>
+</html>
