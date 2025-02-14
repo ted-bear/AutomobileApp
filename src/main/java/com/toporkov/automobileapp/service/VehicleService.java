@@ -21,8 +21,8 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public List<Vehicle> findAll() {
-        return vehicleRepository.findAll();
+    public List<Vehicle> findAllActive() {
+        return vehicleRepository.findAllByIsActiveTrue();
     }
 
     public Vehicle getById(Integer id) {
@@ -73,10 +73,11 @@ public class VehicleService {
     @Transactional
     public void delete(Integer id) {
         Assert.notNull(id, "Vehicle to delete id shouldn't be null");
-
-        final Optional<Vehicle> aVehicle = vehicleRepository.findById(id);
-        aVehicle.ifPresent(v -> v.getVehicleModel().getVehicles().remove(v));
-
-        vehicleRepository.deleteById(id);
+        vehicleRepository
+                .findById(id)
+                .ifPresent(vehicle -> {
+                    vehicle.setActive(false);
+                    vehicleRepository.save(vehicle);
+                });
     }
 }

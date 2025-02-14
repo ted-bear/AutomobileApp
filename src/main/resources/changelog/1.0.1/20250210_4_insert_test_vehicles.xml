@@ -11,6 +11,7 @@
             <column name="price" value="1500000.00"/>
             <column name="condition" value="USED"/>
             <column name="vehicle_model_id" value="1"/>
+            <column name="is_active" value="true"/>
         </insert>
         <insert tableName="vehicle">
             <column name="number" value="х000хх"/>
@@ -20,6 +21,7 @@
             <column name="price" value="1200000.00"/>
             <column name="condition" value="USED"/>
             <column name="vehicle_model_id" value="2"/>
+            <column name="is_active" value="true"/>
         </insert>
         <insert tableName="vehicle">
             <column name="number" value="в111вв"/>
@@ -29,6 +31,7 @@
             <column name="price" value="2000000.00"/>
             <column name="condition" value="NEW"/>
             <column name="vehicle_model_id" value="3"/>
+            <column name="is_active" value="true"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

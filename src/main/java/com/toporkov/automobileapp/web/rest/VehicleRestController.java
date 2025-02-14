@@ -27,7 +27,7 @@ public class VehicleRestController {
 
     @GetMapping
     public VehicleListDto getAll() {
-        final List<Vehicle> vehicles = vehicleService.findAll();
+        final List<Vehicle> vehicles = vehicleService.findAllActive();
         final List<VehicleDto> vehicleDtos = vehicles.stream().map(vehicleMapper::mapEntityToDto).toList();
         return new VehicleListDto(vehicleDtos);
     }

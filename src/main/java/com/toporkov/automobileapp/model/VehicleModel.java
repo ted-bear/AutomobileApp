@@ -71,6 +71,9 @@ public class VehicleModel {
     @Column(name = "suspension", nullable = false)
     private String suspension;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @OneToMany(mappedBy = "vehicleModel")
     private List<Vehicle> vehicles = new ArrayList<>();
 
@@ -218,6 +221,14 @@ public class VehicleModel {
 
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override

@@ -16,6 +16,7 @@
             <column name="seats_number" value="5"/>
             <column name="doors_number" value="5"/>
             <column name="suspension" value="Пружинная"/>
+            <column name="is_active" value="true"/>
         </insert>
         <insert tableName="vehicle_model">
             <column name="brand_name" value="Audi"/>
@@ -30,6 +31,7 @@
             <column name="seats_number" value="3"/>
             <column name="doors_number" value="3"/>
             <column name="suspension" value="Пружинная"/>
+            <column name="is_active" value="true"/>
         </insert>
         <insert tableName="vehicle_model">
             <column name="brand_name" value="BMW"/>
@@ -44,6 +46,7 @@
             <column name="seats_number" value="5"/>
             <column name="doors_number" value="5"/>
             <column name="suspension" value="Пружинная"/>
+            <column name="is_active" value="true"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

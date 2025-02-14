@@ -20,7 +20,7 @@ public class VehicleModelService {
     }
 
     public List<VehicleModel> findAll() {
-        return vehicleModelRepository.findAll();
+        return vehicleModelRepository.findAllByIsActiveTrue();
     }
 
     public VehicleModel getById(Integer id) {
@@ -47,6 +47,11 @@ public class VehicleModelService {
     @Transactional
     public void delete(Integer id) {
         Assert.notNull(id, "VehicleModel id shouldn't be null");
-        vehicleModelRepository.deleteById(id);
+        vehicleModelRepository
+                .findById(id)
+                .ifPresent(vehicleModel -> {
+                    vehicleModel.setActive(false);
+                    vehicleModelRepository.save(vehicleModel);
+                });
     }
 }

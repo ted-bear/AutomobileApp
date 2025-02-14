@@ -52,6 +52,9 @@ public class Vehicle {
     @Enumerated(value = EnumType.STRING)
     private Condition condition;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @ManyToOne
     @JoinColumn(name = "vehicle_model_id",
             referencedColumnName = "id")
@@ -136,6 +139,14 @@ public class Vehicle {
 
     public void setVehicleModel(VehicleModel vehicleModel) {
         this.vehicleModel = vehicleModel;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override
