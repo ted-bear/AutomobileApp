@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vehicle_model")
@@ -217,5 +218,32 @@ public class VehicleModel {
 
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VehicleModel that = (VehicleModel) o;
+        return id == that.id &&
+                enginePower == that.enginePower &&
+                Double.compare(engineVolume, that.engineVolume) == 0 &&
+                maxSpeed == that.maxSpeed &&
+                seatsNumber == that.seatsNumber &&
+                doorsNumber == that.doorsNumber &&
+                Objects.equals(brandName, that.brandName) &&
+                Objects.equals(modelName, that.modelName) &&
+                Objects.equals(bodyType, that.bodyType) &&
+                Objects.equals(drive, that.drive) &&
+                Objects.equals(engineType, that.engineType) &&
+                Objects.equals(transmission, that.transmission) &&
+                Objects.equals(suspension, that.suspension);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, brandName, modelName, bodyType,
+                drive, engineType, enginePower, engineVolume,
+                maxSpeed, transmission, seatsNumber, doorsNumber, suspension);
     }
 }

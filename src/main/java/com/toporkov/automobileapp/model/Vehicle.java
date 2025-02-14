@@ -15,6 +15,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
@@ -134,5 +136,18 @@ public class Vehicle {
 
     public void setVehicleModel(VehicleModel vehicleModel) {
         this.vehicleModel = vehicleModel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return id == vehicle.id && year == vehicle.year && mileage == vehicle.mileage && Double.compare(price, vehicle.price) == 0 && Objects.equals(number, vehicle.number) && Objects.equals(color, vehicle.color) && condition == vehicle.condition;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, number, year, color, mileage, price, condition);
     }
 }
