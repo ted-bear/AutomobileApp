@@ -3,31 +3,31 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="20250215_1_create_enterprise_table" author="Egor Toporkov">
-        <createTable tableName="enterprise">
+    <changeSet id="20250215_2_create_driver_table" author="Egor Toporkov">
+        <createTable tableName="driver">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="name" type="varchar(255)">
+            <column name="firstname" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="country" type="varchar(255)">
+            <column name="lastname" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="city" type="varchar(255)">
+            <column name="salary" type="numeric(10, 2)">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="employees_number" type="int">
+            <column name="driving_experience" type="int">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
         <rollback>
-            <dropTable tableName="enterprise"/>
+            <dropTable tableName="driver"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

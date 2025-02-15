@@ -63,7 +63,7 @@
 
         </createTable>
         <rollback>
-            <dropTable tableName="Model"/>
+            <dropTable tableName="vehicle_model"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

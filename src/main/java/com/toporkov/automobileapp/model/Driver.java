@@ -1,37 +1,55 @@
 package com.toporkov.automobileapp.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "driver")
 public class Driver {
 
-    private Long id;
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "firstname")
     private String firstname;
+
+    @Column(name = "lastname")
     private String lastname;
+
+    @Column(name = "salary")
     private BigDecimal salary;
+
+    @Column(name = "driving_experience")
     private Integer drivingExperience;
 
 
     public Driver() {
     }
 
-    public Driver(final Long id,
-                  final String firstname,
+    public Driver(final String firstname,
                   final String lastname,
                   final BigDecimal salary,
                   final Integer drivingExperience) {
-        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.salary = salary;
         this.drivingExperience = drivingExperience;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
