@@ -41,12 +41,22 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="enterprise_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
         <addForeignKeyConstraint baseTableName="vehicle"
                                  baseColumnNames="vehicle_model_id"
                                  constraintName="fk_model"
                                  referencedTableName="vehicle_model"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="vehicle"
+                                 baseColumnNames="enterprise_id"
+                                 constraintName="fk_enterprise"
+                                 referencedTableName="enterprise"
                                  referencedColumnNames="id"/>
 
         <rollback>

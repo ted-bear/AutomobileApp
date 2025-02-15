@@ -5,8 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,6 +32,9 @@ public class Enterprise {
 
     @Column(name = "employees_number")
     private Integer employeesNumber;
+
+    @OneToMany(mappedBy = "enterprise")
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     public Enterprise() {
     }
@@ -81,6 +87,24 @@ public class Enterprise {
 
     public void setEmployeesNumber(Integer employeesNumber) {
         this.employeesNumber = employeesNumber;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        vehicle.setEnterprise(this);
+        vehicles.add(vehicle);
+    }
+
+    public void removeVehicle(Vehicle vehicle) {
+        vehicles.remove(vehicle);
+        vehicle.setEnterprise(null);
     }
 
     @Override

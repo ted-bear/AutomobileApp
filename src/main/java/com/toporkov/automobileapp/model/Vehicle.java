@@ -60,6 +60,10 @@ public class Vehicle {
             referencedColumnName = "id")
     private VehicleModel vehicleModel;
 
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id", referencedColumnName = "id")
+    private Enterprise enterprise;
+
     public Vehicle() {
     }
 
@@ -147,6 +151,14 @@ public class Vehicle {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     @Override
