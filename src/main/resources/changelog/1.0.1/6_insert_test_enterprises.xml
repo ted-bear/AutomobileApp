@@ -1,0 +1,27 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="6_insert_test_enterprises" author="Egor Toporkov">
+        <insert tableName="enterprise">
+            <column name="name" value="ООО 'РОГА КОПЫТА'"/>
+            <column name="country" value="Тридевятое царство"/>
+            <column name="city" value="Былин"/>
+            <column name="employees_number" value="100"/>
+        </insert>
+
+        <insert tableName="enterprise">
+            <column name="name" value="ООО 'БНАЛ'"/>
+            <column name="country" value="Настоева"/>
+            <column name="city" value="Кудык"/>
+            <column name="employees_number" value="10"/>
+        </insert>
+
+        <insert tableName="enterprise">
+            <column name="name" value="ОАО 'МЕГАБОЙ'"/>
+            <column name="country" value="Авана"/>
+            <column name="city" value="Рык"/>
+            <column name="employees_number" value="10000"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

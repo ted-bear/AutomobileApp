@@ -1,0 +1,30 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="8_insert_test_drivers" author="Egor Toporkov">
+        <insert tableName="driver">
+            <column name="firstname" value="Авалакх"/>
+            <column name="lastname" value="Темерский"/>
+            <column name="salary" value="1000.00"/>
+            <column name="driving_experience" value="5"/>
+            <column name="enterprise_id" value="1"/>
+        </insert>
+
+        <insert tableName="driver">
+            <column name="firstname" value="Ламер"/>
+            <column name="lastname" value="Трескучий"/>
+            <column name="salary" value="1100.00"/>
+            <column name="driving_experience" value="7"/>
+            <column name="enterprise_id" value="2"/>
+        </insert>
+
+        <insert tableName="driver">
+            <column name="firstname" value="Генольд"/>
+            <column name="lastname" value="Кетон"/>
+            <column name="salary" value="900.00"/>
+            <column name="driving_experience" value="3"/>
+            <column name="enterprise_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
