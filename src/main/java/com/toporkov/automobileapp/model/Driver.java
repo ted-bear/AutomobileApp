@@ -5,9 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,6 +36,13 @@ public class Driver {
     @Column(name = "driving_experience")
     private Integer drivingExperience;
 
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id",
+            referencedColumnName = "id")
+    private Enterprise enterprise;
+
+    @OneToMany(mappedBy = "driver")
+    private List<DriverVehicle> driverVehicles = new ArrayList<>();
 
     public Driver() {
     }
@@ -83,6 +95,27 @@ public class Driver {
 
     public void setDrivingExperience(Integer drivingExperience) {
         this.drivingExperience = drivingExperience;
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
+    }
+
+    public List<DriverVehicle> getDriverVehicles() {
+        return driverVehicles;
+    }
+
+    public void setDriverVehicles(List<DriverVehicle> driverVehicles) {
+        this.driverVehicles = driverVehicles;
+    }
+
+    public void addDriverVehicle(DriverVehicle driverVehicle) {
+        driverVehicles.add(driverVehicle);
+        driverVehicle.setDriver(this);
     }
 
     @Override

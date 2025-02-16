@@ -3,7 +3,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="20250215_2_create_driver_table" author="Egor Toporkov">
+    <changeSet id="3_create_driver_table" author="Egor Toporkov">
         <createTable tableName="driver">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -25,7 +25,18 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="enterprise_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
+
+        <addForeignKeyConstraint baseTableName="driver"
+                                 baseColumnNames="enterprise_id"
+                                 constraintName="fk_enterprise"
+                                 referencedTableName="enterprise"
+                                 referencedColumnNames="id"/>
+
         <rollback>
             <dropTable tableName="driver"/>
         </rollback>

@@ -36,6 +36,9 @@ public class Enterprise {
     @OneToMany(mappedBy = "enterprise")
     private List<Vehicle> vehicles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "enterprise")
+    private List<Driver> drivers = new ArrayList<>();
+
     public Enterprise() {
     }
 
@@ -97,6 +100,14 @@ public class Enterprise {
         this.vehicles = vehicles;
     }
 
+    public List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<Driver> drivers) {
+        this.drivers = drivers;
+    }
+
     public void addVehicle(Vehicle vehicle) {
         vehicle.setEnterprise(this);
         vehicles.add(vehicle);
@@ -105,6 +116,16 @@ public class Enterprise {
     public void removeVehicle(Vehicle vehicle) {
         vehicles.remove(vehicle);
         vehicle.setEnterprise(null);
+    }
+
+    public void addDriver(Driver driver) {
+        driver.setEnterprise(this);
+        drivers.add(driver);
+    }
+
+    public void removeDriver(Driver driver) {
+        drivers.remove(driver);
+        driver.setEnterprise(null);
     }
 
     @Override

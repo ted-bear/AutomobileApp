@@ -1,0 +1,42 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="4_create_driver_vehicle_table" author="Egor Toporkov">
+        <createTable tableName="driver_vehicle">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="driver_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="vehicle_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="is_active" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="driver_vehicle"
+                                 baseColumnNames="driver_id"
+                                 constraintName="fk_driver"
+                                 referencedTableName="driver"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="driver_vehicle"
+                                 baseColumnNames="vehicle_id"
+                                 constraintName="fk_vehicle"
+                                 referencedTableName="vehicle"
+                                 referencedColumnNames="id"/>
+
+        <rollback>
+            <dropTable tableName="driver"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
