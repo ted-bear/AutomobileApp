@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,10 +26,6 @@ public class DriverAssignmentService {
         this.driverService = driverService;
         this.vehicleService = vehicleService;
         this.driverAssignmentRepository = driverAssignmentRepository;
-    }
-
-    public List<DriverAssignment> getAll() {
-        return driverAssignmentRepository.findAll();
     }
 
     public void setActiveDriver(Integer driverId, Integer vehicleId) {

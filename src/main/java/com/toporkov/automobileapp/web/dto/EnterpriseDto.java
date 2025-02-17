@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.web.dto;
 
+import java.util.List;
+
 public class EnterpriseDto {
 
     private Integer id;
@@ -11,6 +13,12 @@ public class EnterpriseDto {
     private String city;
 
     private Integer employeesNumber;
+
+    private List<Integer> vehicles;
+
+    private List<Integer> drivers;
+
+    private List<DriverAssignmentDto> driverAssignments;
 
     public Integer getId() {
         return id;
@@ -50,5 +58,29 @@ public class EnterpriseDto {
 
     public void setEmployeesNumber(Integer employeesNumber) {
         this.employeesNumber = employeesNumber;
+    }
+
+    public List<Integer> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Integer> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public List<Integer> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<Integer> drivers) {
+        this.drivers = drivers;
+    }
+
+    public List<DriverAssignmentDto> getDriverAssignments() {
+        return driverAssignments;
+    }
+
+    public void setDriverAssignments(List<DriverAssignmentDto> driverAssignments) {
+        this.driverAssignments = driverAssignments;
     }
 }

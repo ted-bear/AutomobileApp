@@ -2,20 +2,19 @@ package com.toporkov.automobileapp.web.dto;
 
 public class DriverAssignmentDto {
 
-    private Integer id;
-
     private Integer driverId;
 
     private Integer vehicleId;
 
     private Boolean isActive;
 
-    public Integer getId() {
-        return id;
+    public DriverAssignmentDto() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public DriverAssignmentDto(Integer driverId, Integer vehicleId, Boolean isActive) {
+        this.driverId = driverId;
+        this.vehicleId = vehicleId;
+        this.isActive = isActive;
     }
 
     public Integer getDriverId() {

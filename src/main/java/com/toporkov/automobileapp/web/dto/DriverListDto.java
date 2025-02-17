@@ -6,6 +6,9 @@ public class DriverListDto {
 
     private List<DriverDto> drivers;
 
+    public DriverListDto() {
+    }
+
     public DriverListDto(List<DriverDto> drivers) {
         this.drivers = drivers;
     }

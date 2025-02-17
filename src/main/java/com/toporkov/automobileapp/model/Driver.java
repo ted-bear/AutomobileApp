@@ -105,15 +105,15 @@ public class Driver {
         this.enterprise = enterprise;
     }
 
-    public List<DriverAssignment> getDriverVehicles() {
+    public List<DriverAssignment> getDriverAssignments() {
         return driverAssignments;
     }
 
-    public void setDriverVehicles(List<DriverAssignment> driverAssignments) {
+    public void setDriverAssignments(List<DriverAssignment> driverAssignments) {
         this.driverAssignments = driverAssignments;
     }
 
-    public void addDriverVehicle(DriverAssignment driverAssignment) {
+    public void addDriverAssignment(DriverAssignment driverAssignment) {
         driverAssignments.add(driverAssignment);
         driverAssignment.setDriver(this);
     }

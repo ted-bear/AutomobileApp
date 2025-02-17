@@ -6,6 +6,7 @@ import com.toporkov.automobileapp.web.dto.EnterpriseDto;
 import com.toporkov.automobileapp.web.dto.EnterpriseListDto;
 import com.toporkov.automobileapp.web.mapper.EnterpriseMapper;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,5 +32,11 @@ public class EnterpriseRestController {
                 .map(enterpriseMapper::mapEntityToDto)
                 .toList();
         return new EnterpriseListDto(enterpriseDtoList);
+    }
+
+    @GetMapping("/{id}")
+    public EnterpriseDto getEnterprise(@PathVariable("id") Integer id) {
+        final Enterprise enterprise = enterpriseService.getById(id);
+        return enterpriseMapper.mapEntityToDto(enterprise);
     }
 }

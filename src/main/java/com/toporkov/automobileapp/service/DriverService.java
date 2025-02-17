@@ -15,7 +15,7 @@ public class DriverService {
 
     private final DriverRepository driverRepository;
 
-    public DriverService(DriverRepository driverRepository) {
+    public DriverService(final DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
     }
 
