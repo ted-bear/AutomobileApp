@@ -69,7 +69,7 @@ public class Vehicle {
     private Enterprise enterprise;
 
     @OneToMany(mappedBy = "vehicle")
-    private List<DriverVehicle> driverVehicles = new ArrayList<>();
+    private List<DriverAssignment> driverAssignments = new ArrayList<>();
 
     public Vehicle() {
     }
@@ -168,17 +168,17 @@ public class Vehicle {
         this.enterprise = enterprise;
     }
 
-    public List<DriverVehicle> getDriverVehicles() {
-        return driverVehicles;
+    public List<DriverAssignment> getDriverVehicles() {
+        return driverAssignments;
     }
 
-    public void setDriverVehicles(List<DriverVehicle> driverVehicles) {
-        this.driverVehicles = driverVehicles;
+    public void setDriverVehicles(List<DriverAssignment> driverAssignments) {
+        this.driverAssignments = driverAssignments;
     }
 
-    public void addDriverVehicle(DriverVehicle driverVehicle) {
-        driverVehicles.add(driverVehicle);
-        driverVehicle.setVehicle(this);
+    public void addDriverVehicle(DriverAssignment driverAssignment) {
+        driverAssignments.add(driverAssignment);
+        driverAssignment.setVehicle(this);
     }
 
     @Override

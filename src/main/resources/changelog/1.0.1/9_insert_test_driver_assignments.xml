@@ -2,20 +2,20 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="9_insert_test_driver_vehicles" author="Egor Toporkov">
-        <insert tableName="driver_vehicle">
+    <changeSet id="9_insert_test_driver_assignments" author="Egor Toporkov">
+        <insert tableName="driver_assignment">
             <column name="driver_id" value="1"/>
             <column name="vehicle_id" value="1"/>
             <column name="is_active" value="true"/>
         </insert>
 
-        <insert tableName="driver_vehicle">
+        <insert tableName="driver_assignment">
             <column name="driver_id" value="1"/>
             <column name="vehicle_id" value="2"/>
             <column name="is_active" value="false"/>
         </insert>
 
-        <insert tableName="driver_vehicle">
+        <insert tableName="driver_assignment">
             <column name="driver_id" value="2"/>
             <column name="vehicle_id" value="2"/>
             <column name="is_active" value="false"/>

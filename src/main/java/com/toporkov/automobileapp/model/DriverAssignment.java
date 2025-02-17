@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "driver_vehicle")
-public class DriverVehicle {
+@Table(name = "driver_assignment")
+public class DriverAssignment {
 
     @Id
     @Column(name = "id")
@@ -34,12 +34,12 @@ public class DriverVehicle {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    public DriverVehicle() {
+    public DriverAssignment() {
     }
 
-    public DriverVehicle(final Driver driver,
-                         final Vehicle vehicle,
-                         final Boolean isActive) {
+    public DriverAssignment(final Driver driver,
+                            final Vehicle vehicle,
+                            final Boolean isActive) {
         this.driver = driver;
         this.vehicle = vehicle;
         this.isActive = isActive;
@@ -81,7 +81,7 @@ public class DriverVehicle {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DriverVehicle that = (DriverVehicle) o;
+        DriverAssignment that = (DriverAssignment) o;
         return id == that.id && Objects.equals(driver, that.driver) && Objects.equals(vehicle, that.vehicle) && Objects.equals(isActive, that.isActive);
     }
 

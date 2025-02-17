@@ -1,31 +1,36 @@
 package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.Driver;
-import com.toporkov.automobileapp.model.DriverVehicle;
+import com.toporkov.automobileapp.model.DriverAssignment;
 import com.toporkov.automobileapp.model.Vehicle;
-import com.toporkov.automobileapp.repository.DriverVehicleRepository;
+import com.toporkov.automobileapp.repository.DriverAssignmentRepository;
 import com.toporkov.automobileapp.util.exception.DriverAlreadyActiveException;
 import com.toporkov.automobileapp.util.exception.VehicleAlreadyActiveException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class DriverVehicleService {
+public class DriverAssignmentService {
 
     private final DriverService driverService;
     private final VehicleService vehicleService;
-    private final DriverVehicleRepository driverVehicleRepository;
+    private final DriverAssignmentRepository driverAssignmentRepository;
 
-    public DriverVehicleService(final DriverService driverService,
-                                final VehicleService vehicleService,
-                                final DriverVehicleRepository driverVehicleRepository) {
+    public DriverAssignmentService(final DriverService driverService,
+                                   final VehicleService vehicleService,
+                                   final DriverAssignmentRepository driverAssignmentRepository) {
         this.driverService = driverService;
         this.vehicleService = vehicleService;
-        this.driverVehicleRepository = driverVehicleRepository;
+        this.driverAssignmentRepository = driverAssignmentRepository;
+    }
+
+    public List<DriverAssignment> getAll() {
+        return driverAssignmentRepository.findAll();
     }
 
     public void setActiveDriver(Integer driverId, Integer vehicleId) {
@@ -35,13 +40,13 @@ public class DriverVehicleService {
         validateDriversAssignments(driverId);
         validateVehicleAssignments(vehicleId);
 
-        final Optional<DriverVehicle> driverVehicleOptional =
-                driverVehicleRepository.findByVehicleIdAndDriverId(vehicleId, driverId);
+        final Optional<DriverAssignment> driverVehicleOptional =
+                driverAssignmentRepository.findByVehicleIdAndDriverId(vehicleId, driverId);
 
         if (driverVehicleOptional.isPresent()) {
-            final DriverVehicle driverVehicle = driverVehicleOptional.get();
-            driverVehicle.setActive(true);
-            driverVehicleRepository.save(driverVehicle);
+            final DriverAssignment driverAssignment = driverVehicleOptional.get();
+            driverAssignment.setActive(true);
+            driverAssignmentRepository.save(driverAssignment);
         } else {
             createNewDriverAssignment(driverId, vehicleId);
         }
@@ -51,11 +56,11 @@ public class DriverVehicleService {
     private void createNewDriverAssignment(Integer driverId, Integer vehicleId) {
         final Vehicle vehicle = vehicleService.getById(vehicleId);
         final Driver driver = driverService.getById(driverId);
-        driverVehicleRepository.save(new DriverVehicle(driver, vehicle, true));
+        driverAssignmentRepository.save(new DriverAssignment(driver, vehicle, true));
     }
 
     private void validateDriversAssignments(Integer driverId) {
-        final Optional<DriverVehicle> driverVehicle = driverVehicleRepository.findByDriverId(driverId);
+        final Optional<DriverAssignment> driverVehicle = driverAssignmentRepository.findByDriverId(driverId);
 
         if (driverVehicle.isPresent() && driverVehicle.get().getActive()) {
             throw new DriverAlreadyActiveException();
@@ -63,7 +68,7 @@ public class DriverVehicleService {
     }
 
     private void validateVehicleAssignments(Integer driverId) {
-        final Optional<DriverVehicle> driverVehicle = driverVehicleRepository.findByVehicleId(driverId);
+        final Optional<DriverAssignment> driverVehicle = driverAssignmentRepository.findByVehicleId(driverId);
         if (driverVehicle.isPresent() && driverVehicle.get().getActive()) {
             throw new VehicleAlreadyActiveException();
         }
