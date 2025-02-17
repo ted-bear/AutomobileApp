@@ -1,46 +1,31 @@
 package com.toporkov.automobileapp.web.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-
 public class VehicleModelDto {
 
     private Integer id;
 
-    @NotBlank(message = "Имя бренда не должно быть пустым")
     private String brandName;
 
-    @NotBlank(message = "Имя модели не должно быть пустым")
     private String modelName;
 
-    @NotBlank(message = "Тип кузова не должен быть пустым")
     private String bodyType;
 
-    @NotBlank(message = "Привод не должен быть пустым")
     private String drive;
 
-    @NotBlank(message = "Тип двигателя не должен быть пустым")
     private String engineType;
 
-    @Min(value = 10, message = "Мощность двигателя не может быть меньше 10 л.с.")
     private int enginePower;
 
-    @Min(value = 1, message = "Мощность двигателя не может быть меньше 1 л.")
     private double engineVolume;
 
-    @Min(value = 0, message = "Максимальная не может быть меньше 1 км/ч")
     private int maxSpeed;
 
-    @NotBlank(message = "Трансмиссия не должна быть пустой")
     private String transmission;
 
-    @Min(value = 1, message = "Количество сидений не может быть меньше одного")
     private int seatsNumber;
 
-    @Min(value = 1, message = "Количество дверей не может быть меньше одного")
     private int doorsNumber;
 
-    @NotBlank(message = "Подвеска не должна быть пустой")
     private String suspension;
 
     public Integer getId() {
