@@ -20,8 +20,6 @@ public class VehicleDto {
 
     private Integer vehicleModelId;
 
-    private Integer enterpriseId;
-
     public Integer getId() {
         return id;
     }
@@ -84,13 +82,5 @@ public class VehicleDto {
 
     public void setVehicleModelId(Integer vehicleModelId) {
         this.vehicleModelId = vehicleModelId;
-    }
-
-    public Integer getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
     }
 }

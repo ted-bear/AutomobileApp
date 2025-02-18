@@ -18,8 +18,6 @@ public class EnterpriseDto {
 
     private List<Integer> drivers;
 
-    private List<DriverAssignmentDto> driverAssignments;
-
     public Integer getId() {
         return id;
     }
@@ -74,13 +72,5 @@ public class EnterpriseDto {
 
     public void setDrivers(List<Integer> drivers) {
         this.drivers = drivers;
-    }
-
-    public List<DriverAssignmentDto> getDriverAssignments() {
-        return driverAssignments;
-    }
-
-    public void setDriverAssignments(List<DriverAssignmentDto> driverAssignments) {
-        this.driverAssignments = driverAssignments;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,8 +20,11 @@ public class DriverService {
         this.driverRepository = driverRepository;
     }
 
-    public List<Driver> findAll() {
-        return driverRepository.findAll();
+    public List<Driver> findAll(Integer enterpriseId) {
+        return driverRepository.findAll()
+                .stream()
+                .filter(driver -> enterpriseId == null || Objects.equals(driver.getEnterprise().getId(), enterpriseId))
+                .toList();
     }
 
     public Driver getById(Integer id) {

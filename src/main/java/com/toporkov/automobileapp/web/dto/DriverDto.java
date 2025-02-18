@@ -14,7 +14,7 @@ public class DriverDto {
 
     private Integer drivingExperience;
 
-    private Integer enterpriseId;
+    private Integer activeVehicleId;
 
     public Integer getId() {
         return id;
@@ -56,11 +56,11 @@ public class DriverDto {
         this.drivingExperience = drivingExperience;
     }
 
-    public Integer getEnterpriseId() {
-        return enterpriseId;
+    public Integer getActiveVehicleId() {
+        return activeVehicleId;
     }
 
-    public void setEnterpriseId(Integer enterpriseId) {
-        this.enterpriseId = enterpriseId;
+    public void setActiveVehicleId(Integer activeVehicleId) {
+        this.activeVehicleId = activeVehicleId;
     }
 }
