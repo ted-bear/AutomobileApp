@@ -2,12 +2,16 @@ package com.toporkov.automobileapp.config;
 
 import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.Enterprise;
+import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
+import com.toporkov.automobileapp.service.EnterpriseService;
 import com.toporkov.automobileapp.web.dto.DriverDTO;
 import com.toporkov.automobileapp.web.dto.EnterpriseDTO;
+import com.toporkov.automobileapp.web.dto.RegistrationManagerDTO;
 import com.toporkov.automobileapp.web.dto.VehicleDTO;
 import com.toporkov.automobileapp.web.mapper.converter.DriverAssignmentListToActiveVehicleIdConverter;
 import com.toporkov.automobileapp.web.mapper.converter.DriverListToIdListConverter;
+import com.toporkov.automobileapp.web.mapper.converter.EnterpriseIdListToEnterpriseSetConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleListToIdListConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleModelToVehicleModelIdConverter;
 import org.modelmapper.ModelMapper;
@@ -18,6 +22,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MapperConfig {
+
+    private final EnterpriseService enterpriseService;
+
+    public MapperConfig(EnterpriseService enterpriseService) {
+        this.enterpriseService = enterpriseService;
+    }
 
     @Bean
     public ModelMapper modelMapper() {
@@ -54,6 +64,15 @@ public class MapperConfig {
                     protected void configure() {
                         using(new DriverAssignmentListToActiveVehicleIdConverter())
                                 .map(source.getDriverAssignments(), destination.getActiveVehicleId());
+                    }
+                });
+
+        modelMapper.typeMap(RegistrationManagerDTO.class, Manager.class)
+                .addMappings(new PropertyMap<>() {
+                    @Override
+                    protected void configure() {
+                        using(new EnterpriseIdListToEnterpriseSetConverter(enterpriseService))
+                                .map(source.getEnterprises(), destination.getEnterprises());
                     }
                 });
 

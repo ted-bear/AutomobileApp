@@ -45,8 +45,8 @@ public class Enterprise {
 
     @ManyToMany
     @JoinTable(name = "manager_enterprise",
-            joinColumns = @JoinColumn(referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "enterprise_id"),
+            inverseJoinColumns = @JoinColumn(name = "manager_id")
     )
     private Set<Manager> managers;
 
@@ -147,11 +147,6 @@ public class Enterprise {
         this.managers = managers;
     }
 
-    public void addManager(Manager manager) {
-        managers.add(manager);
-        manager.getEnterprises().add(this);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -163,5 +158,10 @@ public class Enterprise {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, country, city, employeesNumber);
+    }
+
+    public void addManager(Manager manager) {
+        managers.add(manager);
+        manager.getEnterprises().add(this);
     }
 }

@@ -125,6 +125,11 @@ public class Manager implements UserDetails {
         this.enterprises = enterprises;
     }
 
+    public void addEnterprise(Enterprise enterprise) {
+        enterprise.getManagers().add(this);
+        enterprises.add(enterprise);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.web.dto;
 
+import java.util.List;
+
 public class RegistrationManagerDTO {
 
     private String firstname;
@@ -11,6 +13,8 @@ public class RegistrationManagerDTO {
     private String password;
 
     private String passwordConfirmation;
+
+    private List<Integer> enterprises;
 
     public String getLastname() {
         return lastname;
@@ -50,5 +54,13 @@ public class RegistrationManagerDTO {
 
     public void setPasswordConfirmation(String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
+    }
+
+    public List<Integer> getEnterprises() {
+        return enterprises;
+    }
+
+    public void setEnterprises(List<Integer> enterprises) {
+        this.enterprises = enterprises;
     }
 }

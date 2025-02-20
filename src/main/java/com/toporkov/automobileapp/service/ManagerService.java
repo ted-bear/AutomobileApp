@@ -19,13 +19,16 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final ManagerMapper managerMapper;
     private final PasswordEncoder passwordEncoder;
+    private final EnterpriseService enterpriseService;
 
     public ManagerService(final ManagerRepository managerRepository,
                           final ManagerMapper managerMapper,
-                          final PasswordEncoder passwordEncoder) {
+                          final PasswordEncoder passwordEncoder,
+                          final EnterpriseService enterpriseService) {
         this.managerRepository = managerRepository;
         this.managerMapper = managerMapper;
         this.passwordEncoder = passwordEncoder;
+        this.enterpriseService = enterpriseService;
     }
 
     public List<Manager> findAll() {
@@ -52,6 +55,7 @@ public class ManagerService {
             throw new IllegalStateException("Password and password confirmation do not match");
         }
 
+        manager.getEnterprises().forEach(enterprise -> enterprise.addManager(manager));
         manager.setPassword(passwordEncoder.encode(manager.getPassword()));
         manager.setRole(Role.ROLE_MANAGER);
 

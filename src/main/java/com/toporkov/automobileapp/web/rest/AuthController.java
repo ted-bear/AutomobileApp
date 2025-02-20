@@ -5,7 +5,6 @@ import com.toporkov.automobileapp.service.ManagerService;
 import com.toporkov.automobileapp.web.dto.RegistrationManagerDTO;
 import com.toporkov.automobileapp.web.dto.security.JwtRequest;
 import com.toporkov.automobileapp.web.dto.security.JwtResponse;
-import com.toporkov.automobileapp.web.mapper.ManagerMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +18,11 @@ public class AuthController {
 
     private final AuthService authService;
     private final ManagerService managerService;
-    private final ManagerMapper managerMapper;
 
     public AuthController(final AuthService authService,
-                          final ManagerService managerService,
-                          final ManagerMapper managerMapper) {
+                          final ManagerService managerService) {
         this.authService = authService;
         this.managerService = managerService;
-        this.managerMapper = managerMapper;
     }
 
     @PostMapping("/login")
@@ -35,7 +31,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<HttpStatus> register(@RequestBody RegistrationManagerDTO registrationManagerDTO) {
+    public ResponseEntity<HttpStatus> register(
+            @RequestBody RegistrationManagerDTO registrationManagerDTO
+    ) {
         managerService.create(registrationManagerDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -43,6 +41,5 @@ public class AuthController {
     @PostMapping("/refresh")
     public JwtResponse refresh(@RequestBody String refreshToken) {
         return authService.refresh(refreshToken);
-
     }
 }
