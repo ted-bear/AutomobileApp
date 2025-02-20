@@ -1,6 +1,6 @@
 package com.toporkov.automobileapp.web.dto;
 
-public class VehicleModelDto {
+public class VehicleModelDTO {
 
     private Integer id;
 

@@ -21,7 +21,7 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public List<Vehicle> findAllActive() {
+    public List<Vehicle> findAll() {
         return vehicleRepository.findAllByIsActiveTrue();
     }
 

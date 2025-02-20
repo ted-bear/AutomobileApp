@@ -38,7 +38,7 @@ public class VehicleController {
 
     @GetMapping
     public String getAll(final Model model) {
-        final List<Vehicle> vehicles = vehicleService.findAllActive();
+        final List<Vehicle> vehicles = vehicleService.findAll();
         model.addAttribute("vehicles", vehicles);
 
         return "vehicles/listAll";

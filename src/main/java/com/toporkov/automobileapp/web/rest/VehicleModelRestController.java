@@ -2,8 +2,8 @@ package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.service.VehicleModelService;
-import com.toporkov.automobileapp.web.dto.VehicleModelDto;
-import com.toporkov.automobileapp.web.dto.VehicleModelListDto;
+import com.toporkov.automobileapp.web.dto.VehicleModelDTO;
+import com.toporkov.automobileapp.web.dto.VehicleModelListDTO;
 import com.toporkov.automobileapp.web.mapper.VehicleModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +26,9 @@ public class VehicleModelRestController {
     }
 
     @GetMapping
-    public VehicleModelListDto getAllModels() {
+    public VehicleModelListDTO getAllModels() {
         List<VehicleModel> vehicleModels = vehicleModelService.findAll();
-        return new VehicleModelListDto(
+        return new VehicleModelListDTO(
                 vehicleModels.stream()
                         .map(vehicleModelMapper::mapEntityToDto)
                         .toList()
@@ -36,7 +36,7 @@ public class VehicleModelRestController {
     }
 
     @GetMapping("/{id}")
-    public VehicleModelDto showVehicle(@PathVariable("id") int id) {
+    public VehicleModelDTO showVehicle(@PathVariable("id") int id) {
         final VehicleModel vehicleToShow = vehicleModelService.getById(id);
         return vehicleModelMapper.mapEntityToDto(vehicleToShow);
     }

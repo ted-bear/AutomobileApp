@@ -2,7 +2,7 @@ package com.toporkov.automobileapp.web.dto;
 
 import com.toporkov.automobileapp.model.Condition;
 
-public class VehicleDto {
+public class VehicleDTO {
 
     private Integer id;
 

@@ -50,6 +50,23 @@ public class Manager implements UserDetails {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    public Manager() {
+    }
+
+    public Manager(int id,
+                   String username,
+                   String firstname,
+                   String lastname,
+                   String password,
+                   Role role) {
+        this.id = id;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.password = password;
+        this.role = role;
+    }
+
     @Override
     public String getPassword() {
         return password;

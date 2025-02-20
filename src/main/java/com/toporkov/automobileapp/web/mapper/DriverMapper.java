@@ -1,7 +1,7 @@
 package com.toporkov.automobileapp.web.mapper;
 
 import com.toporkov.automobileapp.model.Driver;
-import com.toporkov.automobileapp.web.dto.DriverDto;
+import com.toporkov.automobileapp.web.dto.DriverDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,11 @@ public class DriverMapper {
         this.modelMapper = modelMapper;
     }
 
-    public Driver mapDtoToEntity(DriverDto dto) {
+    public Driver mapDtoToEntity(DriverDTO dto) {
         return modelMapper.map(dto, Driver.class);
     }
 
-    public DriverDto mapEntityToDto(Driver entity) {
-        return modelMapper.map(entity, DriverDto.class);
+    public DriverDTO mapEntityToDto(Driver entity) {
+        return modelMapper.map(entity, DriverDTO.class);
     }
 }

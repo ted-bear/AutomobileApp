@@ -2,7 +2,7 @@ package com.toporkov.automobileapp.web.dto;
 
 import java.math.BigDecimal;
 
-public class DriverDto {
+public class DriverDTO {
 
     private Integer id;
 

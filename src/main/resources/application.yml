@@ -15,3 +15,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    access: 1
+    refresh: 30

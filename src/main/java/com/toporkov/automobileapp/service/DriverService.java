@@ -20,7 +20,7 @@ public class DriverService {
         this.driverRepository = driverRepository;
     }
 
-    public List<Driver> findAll(Integer enterpriseId) {
+    public List<Driver> findAllByEnterprise(Integer enterpriseId) {
         return driverRepository.findAll()
                 .stream()
                 .filter(driver -> enterpriseId == null || Objects.equals(driver.getEnterprise().getId(), enterpriseId))

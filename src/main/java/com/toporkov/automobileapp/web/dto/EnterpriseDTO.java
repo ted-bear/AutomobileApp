@@ -2,7 +2,7 @@ package com.toporkov.automobileapp.web.dto;
 
 import java.util.List;
 
-public class EnterpriseDto {
+public class EnterpriseDTO {
 
     private Integer id;
 

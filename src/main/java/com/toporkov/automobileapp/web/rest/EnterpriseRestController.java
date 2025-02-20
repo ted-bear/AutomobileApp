@@ -2,8 +2,8 @@ package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.service.EnterpriseService;
-import com.toporkov.automobileapp.web.dto.EnterpriseDto;
-import com.toporkov.automobileapp.web.dto.EnterpriseListDto;
+import com.toporkov.automobileapp.web.dto.EnterpriseDTO;
+import com.toporkov.automobileapp.web.dto.EnterpriseListDTO;
 import com.toporkov.automobileapp.web.mapper.EnterpriseMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,16 +26,16 @@ public class EnterpriseRestController {
     }
 
     @GetMapping
-    public EnterpriseListDto getAllDrivers() {
+    public EnterpriseListDTO getAllDrivers() {
         final List<Enterprise> allDrivers = enterpriseService.findAll();
-        final List<EnterpriseDto> enterpriseDtoList = allDrivers.stream()
+        final List<EnterpriseDTO> enterpriseDTOList = allDrivers.stream()
                 .map(enterpriseMapper::mapEntityToDto)
                 .toList();
-        return new EnterpriseListDto(enterpriseDtoList);
+        return new EnterpriseListDTO(enterpriseDTOList);
     }
 
     @GetMapping("/{id}")
-    public EnterpriseDto getEnterprise(@PathVariable("id") Integer id) {
+    public EnterpriseDTO getEnterprise(@PathVariable("id") Integer id) {
         final Enterprise enterprise = enterpriseService.getById(id);
         return enterpriseMapper.mapEntityToDto(enterprise);
     }
