@@ -1,0 +1,54 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="00_create_manager_table" author="Egor Toporkov">
+        <createTable tableName="manager">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="username" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="firstname" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="lastname" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <createTable tableName="manager_enterprise">
+            <column name="manager_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="enterprise_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addPrimaryKey tableName="manager_enterprise"
+                       columnNames="manager_id, enterprise_id"
+                       constraintName="pk_manager_enterprise"/>
+
+        <rollback>
+            <dropTable tableName="manager"/>
+            <dropTable tableName="manager_enterprise"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

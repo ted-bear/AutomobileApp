@@ -5,12 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "enterprise")
@@ -38,6 +42,13 @@ public class Enterprise {
 
     @OneToMany(mappedBy = "enterprise")
     private List<Driver> drivers = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "manager_enterprise",
+            joinColumns = @JoinColumn(referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(referencedColumnName = "id")
+    )
+    private Set<Manager> managers;
 
     public Enterprise() {
     }
@@ -126,6 +137,19 @@ public class Enterprise {
     public void removeDriver(Driver driver) {
         drivers.remove(driver);
         driver.setEnterprise(null);
+    }
+
+    public Set<Manager> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(Set<Manager> managers) {
+        this.managers = managers;
+    }
+
+    public void addManager(Manager manager) {
+        managers.add(manager);
+        manager.getEnterprises().add(this);
     }
 
     @Override
