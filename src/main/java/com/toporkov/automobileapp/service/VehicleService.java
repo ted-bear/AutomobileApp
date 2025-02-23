@@ -1,5 +1,6 @@
 package com.toporkov.automobileapp.service;
 
+import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -16,9 +18,27 @@ import java.util.Optional;
 public class VehicleService {
 
     private final VehicleRepository vehicleRepository;
+    private final ManagerService managerService;
 
-    public VehicleService(final VehicleRepository vehicleRepository) {
+    public VehicleService(final VehicleRepository vehicleRepository,
+                          final ManagerService managerService) {
         this.vehicleRepository = vehicleRepository;
+        this.managerService = managerService;
+    }
+
+    public List<Vehicle> findAllByManager(Manager manager) {
+        final Manager ctxManager = managerService.getById(manager.getId());
+        return ctxManager.getEnterprises()
+                .stream()
+                .flatMap(enterprise -> findAllByEnterprise(enterprise.getId()).stream())
+                .toList();
+    }
+
+    public List<Vehicle> findAllByEnterprise(Integer enterpriseId) {
+        return vehicleRepository.findAll()
+                .stream()
+                .filter(vehicle -> enterpriseId == null || Objects.equals(vehicle.getEnterprise().getId(), enterpriseId))
+                .toList();
     }
 
     public List<Vehicle> findAll() {

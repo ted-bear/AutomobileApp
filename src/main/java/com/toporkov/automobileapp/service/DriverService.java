@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.Driver;
+import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.repository.DriverRepository;
 import com.toporkov.automobileapp.util.exception.DriverNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,20 @@ import java.util.Objects;
 public class DriverService {
 
     private final DriverRepository driverRepository;
+    private final ManagerService managerService;
 
-    public DriverService(final DriverRepository driverRepository) {
+    public DriverService(final DriverRepository driverRepository,
+                         final ManagerService managerService) {
         this.driverRepository = driverRepository;
+        this.managerService = managerService;
+    }
+
+    public List<Driver> findAllByManager(Manager manager) {
+        final Manager ctxManager = managerService.getById(manager.getId());
+        return ctxManager.getEnterprises()
+                .stream()
+                .flatMap(enterprise -> findAllByEnterprise(enterprise.getId()).stream())
+                .toList();
     }
 
     public List<Driver> findAllByEnterprise(Integer enterpriseId) {

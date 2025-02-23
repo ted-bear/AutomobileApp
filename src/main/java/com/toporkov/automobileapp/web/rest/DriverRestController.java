@@ -1,13 +1,13 @@
 package com.toporkov.automobileapp.web.rest;
 
-import com.toporkov.automobileapp.model.Driver;
+import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.service.DriverService;
 import com.toporkov.automobileapp.web.dto.DriverDTO;
 import com.toporkov.automobileapp.web.dto.DriverListDTO;
 import com.toporkov.automobileapp.web.mapper.DriverMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,9 +26,10 @@ public class DriverRestController {
     }
 
     @GetMapping
-    public DriverListDTO getAllDrivers(@RequestParam(value = "enterpriseId", required = false) Integer enterpriseId) {
-        final List<Driver> allDrivers = driverService.findAllByEnterprise(enterpriseId);
-        final List<DriverDTO> driverDTOList = allDrivers.stream()
+    public DriverListDTO getAllDrivers() {
+        final Manager manager = (Manager) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final List<DriverDTO> driverDTOList = driverService.findAllByManager(manager)
+                .stream()
                 .map(driverMapper::mapEntityToDto)
                 .toList();
         return new DriverListDTO(driverDTOList);
