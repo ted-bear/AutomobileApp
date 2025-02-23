@@ -1,8 +1,8 @@
 package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.util.exception.VehicleModelNotFoundException;
-import com.toporkov.automobileapp.util.exception.VehicleNotCreatedException;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
+import com.toporkov.automobileapp.util.exception.VehicleNotSavedException;
 import com.toporkov.automobileapp.web.dto.error.VehicleErrorResponse;
 import com.toporkov.automobileapp.web.dto.error.VehicleModelErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(VehicleNotCreatedException.class)
-    public ResponseEntity<VehicleModelErrorResponse> handleVehicleNotCreatedException(VehicleNotCreatedException e) {
+    @ExceptionHandler(VehicleNotSavedException.class)
+    public ResponseEntity<VehicleModelErrorResponse> handleVehicleNotCreatedException(VehicleNotSavedException e) {
         return new ResponseEntity<>(
                 new VehicleModelErrorResponse(e.getMessage(), LocalDateTime.now()),
                 HttpStatus.BAD_REQUEST

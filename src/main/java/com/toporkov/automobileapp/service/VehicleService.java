@@ -73,6 +73,7 @@ public class VehicleService {
     public void save(Vehicle vehicle) {
         Assert.notNull(vehicle, "Vehicle to save shouldn't be null");
 
+        vehicle.setActive(true);
         vehicle.getVehicleModel().addVehicle(vehicle);
         vehicleRepository.save(vehicle);
     }

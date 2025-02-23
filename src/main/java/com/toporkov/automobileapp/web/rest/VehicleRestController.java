@@ -4,7 +4,7 @@ import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.service.VehicleService;
 import com.toporkov.automobileapp.util.SecurityUtil;
-import com.toporkov.automobileapp.util.exception.VehicleNotCreatedException;
+import com.toporkov.automobileapp.util.exception.VehicleNotSavedException;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleListDTO;
@@ -94,7 +94,7 @@ public class VehicleRestController {
                     .append(";\n")
             );
 
-            throw new VehicleNotCreatedException(errBuilder.toString());
+            throw new VehicleNotSavedException(errBuilder.toString());
         }
         return vehicle;
     }
