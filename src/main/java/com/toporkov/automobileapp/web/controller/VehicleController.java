@@ -6,6 +6,7 @@ import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.service.VehicleModelService;
 import com.toporkov.automobileapp.service.VehicleService;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
+import com.toporkov.automobileapp.web.dto.VehicleDTO;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class VehicleController {
 
     @GetMapping
     public String getAll(final Model model) {
-        final List<Vehicle> vehicles = vehicleService.findAll();
+        final List<VehicleDTO> vehicles = vehicleService.findAll();
         model.addAttribute("vehicles", vehicles);
 
         return "vehicles/listAll";
@@ -46,7 +47,7 @@ public class VehicleController {
 
     @GetMapping("/{id}")
     public String showVehiclePage(@PathVariable("id") int id, Model model) {
-        final Vehicle vehicle = vehicleService.getById(id);
+        final VehicleDTO vehicle = vehicleService.getById(id);
         model.addAttribute("vehicle", vehicle);
         return "vehicles/vehiclePage";
     }
@@ -55,7 +56,7 @@ public class VehicleController {
     public String getVehicleEditPage(@PathVariable("id") int id,
                                      @ModelAttribute("vehicleModel") VehicleModel vehicleModel,
                                      Model model) {
-        final Vehicle vehicle = vehicleService.getById(id);
+        final VehicleDTO vehicle = vehicleService.getById(id);
         final List<VehicleModel> vehicleModels = vehicleModelService.findAll();
         final List<Condition> conditions = Condition.getAsList();
 

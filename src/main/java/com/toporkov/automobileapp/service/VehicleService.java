@@ -5,6 +5,8 @@ import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
+import com.toporkov.automobileapp.web.dto.VehicleDTO;
+import com.toporkov.automobileapp.web.mapper.VehicleMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -19,14 +21,18 @@ public class VehicleService {
 
     private final VehicleRepository vehicleRepository;
     private final ManagerService managerService;
+    private final VehicleMapper vehicleMapper;
+
 
     public VehicleService(final VehicleRepository vehicleRepository,
-                          final ManagerService managerService) {
+                          final ManagerService managerService,
+                          final VehicleMapper vehicleMapper) {
         this.vehicleRepository = vehicleRepository;
         this.managerService = managerService;
+        this.vehicleMapper = vehicleMapper;
     }
 
-    public List<Vehicle> findAllByManager(Manager manager) {
+    public List<VehicleDTO> findAllByManager(Manager manager) {
         final Manager ctxManager = managerService.getById(manager.getId());
         return ctxManager.getEnterprises()
                 .stream()
@@ -34,21 +40,28 @@ public class VehicleService {
                 .toList();
     }
 
-    public List<Vehicle> findAllByEnterprise(Integer enterpriseId) {
+    public List<VehicleDTO> findAllByEnterprise(Integer enterpriseId) {
         return vehicleRepository.findAll()
                 .stream()
                 .filter(vehicle -> enterpriseId == null || Objects.equals(vehicle.getEnterprise().getId(), enterpriseId))
+                .map(vehicleMapper::mapEntityToDto)
                 .toList();
     }
 
-    public List<Vehicle> findAll() {
-        return vehicleRepository.findAllByIsActiveTrue();
+    public List<VehicleDTO> findAll() {
+        return vehicleRepository
+                .findAllByIsActiveTrue().stream()
+                .map(vehicleMapper::mapEntityToDto)
+                .toList();
     }
 
-    public Vehicle getById(Integer id) {
+    public VehicleDTO getById(Integer id) {
         Assert.notNull(id, "Vehicle id shouldn't be null");
 
-        return vehicleRepository.findById(id).orElseThrow(VehicleNotFoundException::new);
+        return vehicleRepository
+                .findById(id)
+                .map(vehicleMapper::mapEntityToDto)
+                .orElseThrow(VehicleNotFoundException::new);
     }
 
     public Optional<Vehicle> getByNumber(String number) {
@@ -75,6 +88,17 @@ public class VehicleService {
         vehicleRepository.save(vehicle);
     }
 
+    @Transactional
+    public void delete(Integer id) {
+        Assert.notNull(id, "Vehicle to delete id shouldn't be null");
+        vehicleRepository
+                .findById(id)
+                .ifPresent(vehicle -> {
+                    vehicle.setActive(false);
+                    vehicleRepository.save(vehicle);
+                });
+    }
+
     private void updateRelations(Integer id, Vehicle vehicle) {
         final Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
 
@@ -88,16 +112,5 @@ public class VehicleService {
                 newVehicleModel.addVehicle(vehicleToUpdate);
             }
         }
-    }
-
-    @Transactional
-    public void delete(Integer id) {
-        Assert.notNull(id, "Vehicle to delete id shouldn't be null");
-        vehicleRepository
-                .findById(id)
-                .ifPresent(vehicle -> {
-                    vehicle.setActive(false);
-                    vehicleRepository.save(vehicle);
-                });
     }
 }

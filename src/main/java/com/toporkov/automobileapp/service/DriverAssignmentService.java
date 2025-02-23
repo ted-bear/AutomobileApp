@@ -4,6 +4,8 @@ import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.DriverAssignment;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.repository.DriverAssignmentRepository;
+import com.toporkov.automobileapp.repository.DriverRepository;
+import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.util.exception.DriverAlreadyActiveException;
 import com.toporkov.automobileapp.util.exception.VehicleAlreadyActiveException;
 import org.springframework.stereotype.Service;
@@ -16,15 +18,15 @@ import java.util.Optional;
 @Transactional
 public class DriverAssignmentService {
 
-    private final DriverService driverService;
-    private final VehicleService vehicleService;
+    private final DriverRepository driverRepository;
+    private final VehicleRepository vehicleRepository;
     private final DriverAssignmentRepository driverAssignmentRepository;
 
-    public DriverAssignmentService(final DriverService driverService,
-                                   final VehicleService vehicleService,
+    public DriverAssignmentService(final DriverRepository driverRepository,
+                                   final VehicleRepository vehicleRepository,
                                    final DriverAssignmentRepository driverAssignmentRepository) {
-        this.driverService = driverService;
-        this.vehicleService = vehicleService;
+        this.driverRepository = driverRepository;
+        this.vehicleRepository = vehicleRepository;
         this.driverAssignmentRepository = driverAssignmentRepository;
     }
 
@@ -49,8 +51,8 @@ public class DriverAssignmentService {
     }
 
     private void createNewDriverAssignment(Integer driverId, Integer vehicleId) {
-        final Vehicle vehicle = vehicleService.getById(vehicleId);
-        final Driver driver = driverService.getById(driverId);
+        final Vehicle vehicle = vehicleRepository.findById(vehicleId).orElse(null);
+        final Driver driver = driverRepository.findById(driverId).orElse(null);
         driverAssignmentRepository.save(new DriverAssignment(driver, vehicle, true));
     }
 
