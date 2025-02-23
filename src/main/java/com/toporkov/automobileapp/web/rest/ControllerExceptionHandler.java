@@ -29,4 +29,12 @@ public class ControllerExceptionHandler {
                 HttpStatus.NOT_FOUND
         );
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleOtherException(Exception e) {
+        return new ResponseEntity<>(
+                e.getMessage(),
+                HttpStatus.NOT_FOUND
+        );
+    }
 }

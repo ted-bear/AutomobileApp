@@ -6,7 +6,7 @@ import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.service.VehicleModelService;
 import com.toporkov.automobileapp.service.VehicleService;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
-import com.toporkov.automobileapp.web.dto.VehicleDTO;
+import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

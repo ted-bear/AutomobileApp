@@ -5,7 +5,7 @@ import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
-import com.toporkov.automobileapp.web.dto.VehicleDTO;
+import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.mapper.VehicleMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

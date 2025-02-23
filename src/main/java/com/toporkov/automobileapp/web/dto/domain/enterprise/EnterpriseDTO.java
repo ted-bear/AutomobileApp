@@ -35,9 +35,9 @@ public class EnterpriseDTO {
             groups = {OnCreate.class, OnUpdate.class})
     private String city;
 
-    @NotNull(message = "city must not be null")
+    @NotNull(message = "employeesNumber must not be null")
     @Size(min = 1,
-            message = "city length must be smaller than 255 symbols",
+            message = "employeesNumber length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
     private Integer employeesNumber;
 
