@@ -29,4 +29,21 @@ public class EnterpriseService {
         return enterpriseRepository.findById(enterpriseId)
                 .orElseThrow(EnterpriseNotFoundException::new);
     }
+
+    @Transactional
+    public void save(Enterprise enterprise) {
+        enterprise.setActive(true);
+        enterpriseRepository.save(enterprise);
+    }
+
+    @Transactional
+    public void update(Integer id, Enterprise enterprise) {
+        enterprise.setId(id);
+        enterpriseRepository.save(enterprise);
+    }
+
+    @Transactional
+    public void delete(Integer id) {
+        enterpriseRepository.findById(id).ifPresent(enterprise -> enterprise.setActive(false));
+    }
 }

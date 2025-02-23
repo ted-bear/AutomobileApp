@@ -37,6 +37,9 @@ public class Enterprise {
     @Column(name = "employees_number")
     private Integer employeesNumber;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @OneToMany(mappedBy = "enterprise")
     private List<Vehicle> vehicles = new ArrayList<>();
 
@@ -61,6 +64,14 @@ public class Enterprise {
         this.country = country;
         this.city = city;
         this.employeesNumber = employeesNumber;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public Integer getId() {

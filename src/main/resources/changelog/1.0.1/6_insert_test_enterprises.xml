@@ -8,6 +8,7 @@
             <column name="country" value="Тридевятое царство"/>
             <column name="city" value="Былин"/>
             <column name="employees_number" value="100"/>
+            <column name="is_active" value="true"/>
         </insert>
 
         <insert tableName="enterprise">
@@ -15,6 +16,7 @@
             <column name="country" value="Настоева"/>
             <column name="city" value="Кудык"/>
             <column name="employees_number" value="10"/>
+            <column name="is_active" value="true"/>
         </insert>
 
         <insert tableName="enterprise">
@@ -22,6 +24,7 @@
             <column name="country" value="Авана"/>
             <column name="city" value="Рык"/>
             <column name="employees_number" value="10000"/>
+            <column name="is_active" value="true"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
