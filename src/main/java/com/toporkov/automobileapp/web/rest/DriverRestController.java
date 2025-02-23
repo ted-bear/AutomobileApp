@@ -17,21 +17,16 @@ import java.util.List;
 public class DriverRestController {
 
     private final DriverService driverService;
-    private final DriverMapper driverMapper;
 
     public DriverRestController(final DriverService driverService,
                                 final DriverMapper driverMapper) {
         this.driverService = driverService;
-        this.driverMapper = driverMapper;
     }
 
     @GetMapping
     public DriverListDTO getAllDrivers() {
         final Manager manager = SecurityUtil.getCurrentManager();
-        final List<DriverDTO> driverDTOList = driverService.findAllByManager(manager)
-                .stream()
-                .map(driverMapper::mapEntityToDto)
-                .toList();
+        final List<DriverDTO> driverDTOList = driverService.findAllByManager(manager);
         return new DriverListDTO(driverDTOList);
     }
 }
