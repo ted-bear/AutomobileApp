@@ -57,6 +57,12 @@ public class VehicleDTO {
             groups = {OnCreate.class, OnUpdate.class})
     private Integer vehicleModelId;
 
+    @NotNull(message = "enterpriseId must not be null")
+    @Min(value = 0,
+            message = "enterpriseId length must be a positive number",
+            groups = {OnCreate.class, OnUpdate.class})
+    private Integer enterpriseId;
+
     public Integer getId() {
         return id;
     }
@@ -119,5 +125,21 @@ public class VehicleDTO {
 
     public void setVehicleModelId(Integer vehicleModelId) {
         this.vehicleModelId = vehicleModelId;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public void setMileage(Integer mileage) {
+        this.mileage = mileage;
+    }
+
+    public Integer getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(Integer enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 }

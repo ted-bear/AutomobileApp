@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.util.exception.VehicleModelNotFoundException;
+import com.toporkov.automobileapp.util.exception.VehicleNotCreatedException;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
 import com.toporkov.automobileapp.web.dto.error.VehicleErrorResponse;
 import com.toporkov.automobileapp.web.dto.error.VehicleModelErrorResponse;
@@ -13,6 +14,14 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
+
+    @ExceptionHandler(VehicleNotCreatedException.class)
+    public ResponseEntity<VehicleModelErrorResponse> handleVehicleNotCreatedException(VehicleNotCreatedException e) {
+        return new ResponseEntity<>(
+                new VehicleModelErrorResponse(e.getMessage(), LocalDateTime.now()),
+                HttpStatus.BAD_REQUEST
+        );
+    }
 
     @ExceptionHandler(VehicleModelNotFoundException.class)
     public ResponseEntity<VehicleModelErrorResponse> handleVehicleNotFoundException(VehicleModelNotFoundException e) {

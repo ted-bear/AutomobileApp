@@ -2,6 +2,7 @@ package com.toporkov.automobileapp.util.validator;
 
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.service.VehicleService;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -18,12 +19,12 @@ public class VehicleValidator implements Validator {
     }
 
     @Override
-    public boolean supports(Class<?> clazz) {
+    public boolean supports(@NonNull Class<?> clazz) {
         return Vehicle.class.equals(clazz);
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(@NonNull Object target, @NonNull Errors errors) {
         final Vehicle vehicleToValidate = (Vehicle) target;
         final Optional<Vehicle> vehicleByNumber = vehicleService.getByNumber(vehicleToValidate.getNumber());
 
