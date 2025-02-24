@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/enterprises")
+@RequestMapping("/api/v1/enterprises")
 public class EnterpriseRestController {
 
     private final EnterpriseService enterpriseService;
