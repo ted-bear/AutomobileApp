@@ -39,6 +39,7 @@ public class EnterpriseService {
     @Transactional
     public void update(Integer id, Enterprise enterprise) {
         enterprise.setId(id);
+        enterprise.setActive(true);
         enterpriseRepository.save(enterprise);
     }
 

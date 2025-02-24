@@ -3,8 +3,8 @@ package com.toporkov.automobileapp.web.dto.domain.enterprise;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
 import com.toporkov.automobileapp.web.dto.validation.OnUpdate;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class EnterpriseDTO {
     private String city;
 
     @NotNull(message = "employeesNumber must not be null")
-    @Size(min = 1,
+    @Min(value = 1,
             message = "employeesNumber length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
     private Integer employeesNumber;

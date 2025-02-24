@@ -52,22 +52,6 @@ public class EnterpriseRestController {
         return enterpriseMapper.mapEntityToDto(enterprise);
     }
 
-    private static void validateEnterpriseDTO(BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            StringBuilder errBuilder = new StringBuilder();
-            final List<FieldError> errs = bindingResult.getFieldErrors();
-
-            errs.forEach(err -> errBuilder
-                    .append(err.getField())
-                    .append(" - ")
-                    .append(err.getDefaultMessage())
-                    .append(";\n")
-            );
-
-            throw new EnterpriseNotSaveException(errBuilder.toString());
-        }
-    }
-
     @PostMapping
     public ResponseEntity<HttpStatus> createEnterprise(@Validated(OnCreate.class)
                                                        @RequestBody EnterpriseDTO enterpriseDTO,
@@ -93,5 +77,21 @@ public class EnterpriseRestController {
     public ResponseEntity<HttpStatus> deleteEnterprise(@PathVariable("id") Integer id) {
         enterpriseService.delete(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    private static void validateEnterpriseDTO(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder errBuilder = new StringBuilder();
+            final List<FieldError> errs = bindingResult.getFieldErrors();
+
+            errs.forEach(err -> errBuilder
+                    .append(err.getField())
+                    .append(" - ")
+                    .append(err.getDefaultMessage())
+                    .append(";\n")
+            );
+
+            throw new EnterpriseNotSaveException(errBuilder.toString());
+        }
     }
 }
