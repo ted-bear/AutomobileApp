@@ -1,9 +1,11 @@
 package com.toporkov.automobileapp.service;
 
+import com.toporkov.automobileapp.model.DriverAssignment;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
+import com.toporkov.automobileapp.util.exception.VehicleNotDeletedException;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.mapper.VehicleMapper;
@@ -65,7 +67,6 @@ public class VehicleService {
     }
 
     public Optional<Vehicle> getByNumber(String number) {
-        Assert.notNull(number, "Number shouldn't be null");
         return vehicleRepository.findByNumber(number);
     }
 
@@ -80,9 +81,6 @@ public class VehicleService {
 
     @Transactional
     public void update(Integer id, Vehicle vehicle) {
-        Assert.notNull(id, "Vehicle to update id shouldn't be null");
-        Assert.notNull(vehicle, "Vehicle to update shouldn't be null");
-
         updateRelations(id, vehicle);
 
         vehicle.setId(id);
@@ -91,10 +89,18 @@ public class VehicleService {
 
     @Transactional
     public void delete(Integer id) {
-        Assert.notNull(id, "Vehicle to delete id shouldn't be null");
         vehicleRepository
                 .findById(id)
                 .ifPresent(vehicle -> {
+                    final Optional<DriverAssignment> activeDriver = vehicle.getDriverVehicles()
+                            .stream()
+                            .filter(DriverAssignment::getActive)
+                            .findFirst();
+
+                    if (activeDriver.isPresent()) {
+                        throw new VehicleNotDeletedException("Транспорт имеет активного водителя");
+                    }
+
                     vehicle.setActive(false);
                     vehicleRepository.save(vehicle);
                 });

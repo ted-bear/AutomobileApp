@@ -1,10 +1,8 @@
 package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.model.Manager;
-import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.service.VehicleService;
 import com.toporkov.automobileapp.util.SecurityUtil;
-import com.toporkov.automobileapp.util.exception.VehicleNotSavedException;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleListDTO;
@@ -14,7 +12,6 @@ import com.toporkov.automobileapp.web.mapper.VehicleMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,10 +53,12 @@ public class VehicleRestController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createVehicle(@Validated(OnCreate.class) @RequestBody VehicleDTO vehicleDTO,
+    public ResponseEntity<HttpStatus> createVehicle(@Validated(OnCreate.class)
+                                                    @RequestBody VehicleDTO vehicleDTO,
                                                     BindingResult bindingResult) {
-        final Vehicle vehicle = validateVehicleDTO(vehicleDTO, bindingResult);
-        vehicleService.save(vehicle);
+        vehicleValidator.validate(vehicleDTO, bindingResult);
+        vehicleService.save(vehicleMapper.mapDtoToEntity(vehicleDTO));
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -68,34 +67,15 @@ public class VehicleRestController {
                                                     @Validated(OnUpdate.class)
                                                     @RequestBody VehicleDTO vehicleDTO,
                                                     BindingResult bindingResult) {
-        final Vehicle vehicle = validateVehicleDTO(vehicleDTO, bindingResult);
-        vehicleService.update(id, vehicle);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        vehicleValidator.validate(vehicleDTO, bindingResult);
+        vehicleService.update(id, vehicleMapper.mapDtoToEntity(vehicleDTO));
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteVehicle(@PathVariable("id") int id) {
         vehicleService.delete(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-    private Vehicle validateVehicleDTO(VehicleDTO vehicleDTO, BindingResult bindingResult) {
-        final Vehicle vehicle = vehicleMapper.mapDtoToEntity(vehicleDTO);
-        vehicleValidator.validate(vehicle, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            StringBuilder errBuilder = new StringBuilder();
-            final List<FieldError> errs = bindingResult.getFieldErrors();
-
-            errs.forEach(err -> errBuilder
-                    .append(err.getField())
-                    .append(" - ")
-                    .append(err.getDefaultMessage())
-                    .append(";\n")
-            );
-
-            throw new VehicleNotSavedException(errBuilder.toString());
-        }
-        return vehicle;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -14,50 +14,57 @@ public class VehicleDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
-    @NotNull(message = "name must not be null")
+    @NotNull(message = "number must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
             max = 255,
-            message = "country length must be smaller than 255 symbols",
+            message = "number length must be smaller than 255 symbols",
             groups = {OnCreate.class, OnUpdate.class})
     @Pattern(regexp = "[А-Я][0-9]{3}[А-Я]{2}")
     private String number;
 
-    @NotNull(message = "year must not be null")
+    @NotNull(message = "year must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 1900,
             message = "year length must be more then 1900",
             groups = {OnCreate.class, OnUpdate.class})
     private Integer year;
 
-    @NotNull(message = "color must not be null")
+    @NotNull(message = "color must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
             max = 255,
             message = "color length must be smaller than 255 symbols",
             groups = {OnCreate.class, OnUpdate.class})
     private String color;
 
-    @NotNull(message = "mileage must not be null")
+    @NotNull(message = "mileage must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
             message = "mileage length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
     private Integer mileage;
 
-    @NotNull(message = "price must not be null")
+    @NotNull(message = "price must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
             message = "price length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
-    private double price;
+    private Double price;
 
     @NotNull(message = "condition must not be null",
             groups = {OnCreate.class, OnUpdate.class})
     private Condition condition;
 
-    @NotNull(message = "vehicleModelId must not be null")
+    @NotNull(message = "vehicleModelId must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
             message = "vehicleModelId length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
     private Integer vehicleModelId;
 
-    @NotNull(message = "enterpriseId must not be null")
+    @NotNull(message = "enterpriseId must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
             message = "enterpriseId length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
@@ -79,11 +86,11 @@ public class VehicleDTO {
         this.number = number;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -95,19 +102,19 @@ public class VehicleDTO {
         this.color = color;
     }
 
-    public int getMileage() {
+    public Integer getMileage() {
         return mileage;
     }
 
-    public void setMileage(int mileage) {
+    public void setMileage(Integer mileage) {
         this.mileage = mileage;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -125,14 +132,6 @@ public class VehicleDTO {
 
     public void setVehicleModelId(Integer vehicleModelId) {
         this.vehicleModelId = vehicleModelId;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public void setMileage(Integer mileage) {
-        this.mileage = mileage;
     }
 
     public Integer getEnterpriseId() {

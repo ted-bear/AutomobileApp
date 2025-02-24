@@ -2,6 +2,7 @@ package com.toporkov.automobileapp.util.validator;
 
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.service.VehicleService;
+import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -25,7 +26,7 @@ public class VehicleValidator implements Validator {
 
     @Override
     public void validate(@NonNull Object target, @NonNull Errors errors) {
-        final Vehicle vehicleToValidate = (Vehicle) target;
+        final VehicleDTO vehicleToValidate = (VehicleDTO) target;
         final Optional<Vehicle> vehicleByNumber = vehicleService.getByNumber(vehicleToValidate.getNumber());
 
         boolean vehicleExists = vehicleByNumber.isPresent() &&

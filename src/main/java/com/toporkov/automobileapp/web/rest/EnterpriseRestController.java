@@ -2,7 +2,6 @@ package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.service.EnterpriseService;
-import com.toporkov.automobileapp.util.exception.EnterpriseNotSaveException;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseDTO;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseListDTO;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
@@ -10,8 +9,6 @@ import com.toporkov.automobileapp.web.dto.validation.OnUpdate;
 import com.toporkov.automobileapp.web.mapper.EnterpriseMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,10 +51,7 @@ public class EnterpriseRestController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> createEnterprise(@Validated(OnCreate.class)
-                                                       @RequestBody EnterpriseDTO enterpriseDTO,
-                                                       BindingResult bindingResult) {
-        validateEnterpriseDTO(bindingResult);
-
+                                                           @RequestBody EnterpriseDTO enterpriseDTO) {
         enterpriseService.save(enterpriseMapper.mapDtoToEntity(enterpriseDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -65,9 +59,7 @@ public class EnterpriseRestController {
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateEnterprise(@PathVariable("id") Integer id,
                                                        @Validated(OnUpdate.class)
-                                                       @RequestBody EnterpriseDTO enterpriseDTO,
-                                                       BindingResult bindingResult) {
-        validateEnterpriseDTO(bindingResult);
+                                                       @RequestBody EnterpriseDTO enterpriseDTO) {
 
         enterpriseService.update(id, enterpriseMapper.mapDtoToEntity(enterpriseDTO));
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -77,21 +69,5 @@ public class EnterpriseRestController {
     public ResponseEntity<HttpStatus> deleteEnterprise(@PathVariable("id") Integer id) {
         enterpriseService.delete(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-    private static void validateEnterpriseDTO(BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            StringBuilder errBuilder = new StringBuilder();
-            final List<FieldError> errs = bindingResult.getFieldErrors();
-
-            errs.forEach(err -> errBuilder
-                    .append(err.getField())
-                    .append(" - ")
-                    .append(err.getDefaultMessage())
-                    .append(";\n")
-            );
-
-            throw new EnterpriseNotSaveException(errBuilder.toString());
-        }
     }
 }

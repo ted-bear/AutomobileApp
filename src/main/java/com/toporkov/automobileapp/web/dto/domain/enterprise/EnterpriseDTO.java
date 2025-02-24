@@ -14,28 +14,32 @@ public class EnterpriseDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer id;
 
-    @NotNull(message = "name must not be null")
+    @NotNull(message = "name must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
             max = 255,
             message = "country length must be smaller than 255 symbols",
             groups = {OnCreate.class, OnUpdate.class})
     private String name;
 
-    @NotNull(message = "country must not be null")
+    @NotNull(message = "country must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
             max = 255,
             message = "country length must be smaller than 255 symbols",
             groups = {OnCreate.class, OnUpdate.class})
     private String country;
 
-    @NotNull(message = "city must not be null")
+    @NotNull(message = "city must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
             max = 255,
             message = "city length must be smaller than 255 symbols",
             groups = {OnCreate.class, OnUpdate.class})
     private String city;
 
-    @NotNull(message = "employeesNumber must not be null")
+    @NotNull(message = "employeesNumber must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 1,
             message = "employeesNumber length must be a positive number",
             groups = {OnCreate.class, OnUpdate.class})
