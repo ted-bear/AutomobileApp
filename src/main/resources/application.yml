@@ -1,4 +1,7 @@
 spring:
+  shell:
+    interactive:
+      enabled: true
   thymeleaf:
     cache: false
   application:
