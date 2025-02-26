@@ -2,7 +2,7 @@ package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.service.AuthService;
 import com.toporkov.automobileapp.service.ManagerService;
-import com.toporkov.automobileapp.web.dto.RegistrationManagerDTO;
+import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
 import com.toporkov.automobileapp.web.dto.security.JwtRequest;
 import com.toporkov.automobileapp.web.dto.security.JwtResponse;
 import org.springframework.http.HttpStatus;

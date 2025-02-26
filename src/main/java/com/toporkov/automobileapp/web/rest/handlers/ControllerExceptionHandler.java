@@ -1,5 +1,6 @@
 package com.toporkov.automobileapp.web.rest.handlers;
 
+import com.toporkov.automobileapp.util.exception.ManagerDoNotHaveAccessException;
 import com.toporkov.automobileapp.util.exception.UserNotFoundException;
 import com.toporkov.automobileapp.util.exception.VehicleModelNotFoundException;
 import com.toporkov.automobileapp.util.exception.VehicleNotDeletedException;
@@ -46,5 +47,11 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionBody handleVehicleNotFoundException(VehicleNotFoundException e) {
         return new ExceptionBody("Vehicle not found", LocalDateTime.now());
+    }
+
+    @ExceptionHandler(ManagerDoNotHaveAccessException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ExceptionBody handleManagerDoNotHaveAccessException(ManagerDoNotHaveAccessException e) {
+        return new ExceptionBody("Manager do not have access", LocalDateTime.now());
     }
 }

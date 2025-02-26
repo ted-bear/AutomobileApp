@@ -1,4 +1,4 @@
-package com.toporkov.automobileapp.web.dto;
+package com.toporkov.automobileapp.web.dto.domain;
 
 import java.util.List;
 

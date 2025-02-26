@@ -1,7 +1,7 @@
 package com.toporkov.automobileapp.web.mapper;
 
 import com.toporkov.automobileapp.model.Manager;
-import com.toporkov.automobileapp.web.dto.RegistrationManagerDTO;
+import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 

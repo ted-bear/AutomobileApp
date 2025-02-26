@@ -5,13 +5,14 @@ import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
+import com.toporkov.automobileapp.util.SecurityUtil;
+import com.toporkov.automobileapp.util.exception.ManagerDoNotHaveAccessException;
 import com.toporkov.automobileapp.util.exception.VehicleNotDeletedException;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.mapper.VehicleMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Objects;
@@ -57,8 +58,31 @@ public class VehicleService {
                 .toList();
     }
 
+    private static void checkManagerAccess(Integer id, Manager currentManager) {
+        final List<Integer> availableIds = currentManager.getEnterprises().stream()
+                .flatMap(enterprise -> enterprise.getVehicles().stream())
+                .map(Vehicle::getId)
+                .toList();
+        if (!availableIds.contains(id)) {
+            throw new ManagerDoNotHaveAccessException();
+        }
+    }
+
+    public Optional<Vehicle> getByNumber(String number) {
+        return vehicleRepository.findByNumber(number);
+    }
+
+    private static void checkManagerAccessToEnterprise(Vehicle vehicle, Manager manager) {
+        if (!manager.getEnterprises().contains(vehicle.getEnterprise())) {
+            throw new ManagerDoNotHaveAccessException();
+        }
+    }
+
     public VehicleDTO getById(Integer id) {
-        Assert.notNull(id, "Vehicle id shouldn't be null");
+        checkIdValidity(id);
+
+        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+        checkManagerAccess(id, manager);
 
         return vehicleRepository
                 .findById(id)
@@ -66,13 +90,10 @@ public class VehicleService {
                 .orElseThrow(VehicleNotFoundException::new);
     }
 
-    public Optional<Vehicle> getByNumber(String number) {
-        return vehicleRepository.findByNumber(number);
-    }
-
     @Transactional
     public void save(Vehicle vehicle) {
-        Assert.notNull(vehicle, "Vehicle to save shouldn't be null");
+        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+        checkManagerAccessToEnterprise(vehicle, manager);
 
         vehicle.setActive(true);
         vehicle.getVehicleModel().addVehicle(vehicle);
@@ -81,6 +102,10 @@ public class VehicleService {
 
     @Transactional
     public void update(Integer id, Vehicle vehicle) {
+        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+
+        checkIdValidity(id);
+        checkManagerAccess(id, manager);
         updateRelations(id, vehicle);
 
         vehicle.setId(id);
@@ -89,6 +114,10 @@ public class VehicleService {
 
     @Transactional
     public void delete(Integer id) {
+        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+        checkIdValidity(id);
+        checkManagerAccess(id, manager);
+
         vehicleRepository
                 .findById(id)
                 .ifPresent(vehicle -> {
@@ -104,6 +133,14 @@ public class VehicleService {
                     vehicle.setActive(false);
                     vehicleRepository.save(vehicle);
                 });
+    }
+
+    private void checkIdValidity(Integer id) {
+        final List<Integer> idList = vehicleRepository.findAll().stream().map(Vehicle::getId).toList();
+
+        if (!idList.contains(id)) {
+            throw new VehicleNotFoundException();
+        }
     }
 
     private void updateRelations(Integer id, Vehicle vehicle) {

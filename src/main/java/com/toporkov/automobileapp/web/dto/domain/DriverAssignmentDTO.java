@@ -1,4 +1,4 @@
-package com.toporkov.automobileapp.web.dto;
+package com.toporkov.automobileapp.web.dto.domain;
 
 public class DriverAssignmentDTO {
 

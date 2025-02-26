@@ -4,7 +4,7 @@ import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Role;
 import com.toporkov.automobileapp.repository.ManagerRepository;
 import com.toporkov.automobileapp.util.exception.UserNotFoundException;
-import com.toporkov.automobileapp.web.dto.RegistrationManagerDTO;
+import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
 import com.toporkov.automobileapp.web.mapper.ManagerMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

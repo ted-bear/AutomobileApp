@@ -30,7 +30,7 @@ public class Vehicle {
     private int id;
 
     @NotBlank(message = "Номер автомобиля не должен быть пустым")
-    @Pattern(regexp = "[а-я][0-9]{3}[а-я]{2}", message = "Номер автомобиля должен быть в формате x999xx")
+    @Pattern(regexp = "[А-Я][0-9]{3}[А-Я]{2}", message = "Номер автомобиля должен быть в формате А999АА")
     @Column(name = "number", nullable = false)
     private String number;
 

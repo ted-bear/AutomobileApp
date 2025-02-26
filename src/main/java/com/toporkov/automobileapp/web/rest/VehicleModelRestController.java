@@ -2,8 +2,8 @@ package com.toporkov.automobileapp.web.rest;
 
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.service.VehicleModelService;
-import com.toporkov.automobileapp.web.dto.VehicleModelDTO;
-import com.toporkov.automobileapp.web.dto.VehicleModelListDTO;
+import com.toporkov.automobileapp.web.dto.domain.vehicleModel.VehicleModelDTO;
+import com.toporkov.automobileapp.web.dto.domain.vehicleModel.VehicleModelListDTO;
 import com.toporkov.automobileapp.web.mapper.VehicleModelMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

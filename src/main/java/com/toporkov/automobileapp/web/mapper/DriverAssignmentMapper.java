@@ -1,7 +1,7 @@
 package com.toporkov.automobileapp.web.mapper;
 
 import com.toporkov.automobileapp.model.DriverAssignment;
-import com.toporkov.automobileapp.web.dto.DriverAssignmentDTO;
+import com.toporkov.automobileapp.web.dto.domain.DriverAssignmentDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
