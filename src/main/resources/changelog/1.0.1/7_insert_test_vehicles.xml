@@ -4,7 +4,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="7_insert_test_vehicles" author="Egor Toporkov">
         <insert tableName="vehicle">
-            <column name="number" value="а999аа"/>
+            <column name="number" value="А999АА"/>
             <column name="year" value="2020"/>
             <column name="color" value="Синий"/>
             <column name="mileage" value="30000"/>
@@ -15,7 +15,7 @@
             <column name="enterprise_id" value="1"/>
         </insert>
         <insert tableName="vehicle">
-            <column name="number" value="х000хх"/>
+            <column name="number" value="Х000ХХ"/>
             <column name="year" value="2018"/>
             <column name="color" value="Красный"/>
             <column name="mileage" value="50000"/>
@@ -26,7 +26,7 @@
             <column name="enterprise_id" value="1"/>
         </insert>
         <insert tableName="vehicle">
-            <column name="number" value="в111вв"/>
+            <column name="number" value="В111ВВ"/>
             <column name="year" value="2022"/>
             <column name="color" value="Черный"/>
             <column name="mileage" value="10000"/>
