@@ -5,10 +5,13 @@ import com.toporkov.automobileapp.service.VehicleService;
 import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
-import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleListDTO;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
 import com.toporkov.automobileapp.web.dto.validation.OnUpdate;
 import com.toporkov.automobileapp.web.mapper.VehicleMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -20,9 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/vehicles")
@@ -41,10 +43,17 @@ public class VehicleRestController {
     }
 
     @GetMapping
-    public VehicleListDTO findAll() {
+    public Page<VehicleDTO> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "true") boolean ascending
+    ) {
         final Manager manager = SecurityUtil.getCurrentManager();
-        final List<VehicleDTO> vehicleDTOs = vehicleService.findAllByManager(manager);
-        return new VehicleListDTO(vehicleDTOs);
+        final Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        final Pageable pageable = PageRequest.of(page, size, sort);
+
+        return vehicleService.findAllByManager(manager, pageable);
     }
 
     @GetMapping("/{id}")

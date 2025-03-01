@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.DriverAssignment;
+import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
@@ -11,11 +12,12 @@ import com.toporkov.automobileapp.util.exception.VehicleNotDeletedException;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.mapper.VehicleMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,20 +37,16 @@ public class VehicleService {
         this.vehicleMapper = vehicleMapper;
     }
 
-    public List<VehicleDTO> findAllByManager(Manager manager) {
+    public Page<VehicleDTO> findAllByManager(Manager manager, Pageable pageable) {
         final Manager ctxManager = managerService.getById(manager.getId());
-        return ctxManager.getEnterprises()
+        final List<Integer> enterpriseIds = ctxManager.getEnterprises()
                 .stream()
-                .flatMap(enterprise -> findAllByEnterprise(enterprise.getId()).stream())
+                .map(Enterprise::getId)
                 .toList();
-    }
 
-    public List<VehicleDTO> findAllByEnterprise(Integer enterpriseId) {
-        return vehicleRepository.findAll()
-                .stream()
-                .filter(vehicle -> enterpriseId == null || Objects.equals(vehicle.getEnterprise().getId(), enterpriseId))
-                .map(vehicleMapper::mapEntityToDto)
-                .toList();
+        return vehicleRepository
+                .findByEnterpriseIdIn(enterpriseIds, pageable)
+                .map(vehicleMapper::mapEntityToDto);
     }
 
     public List<VehicleDTO> findAll() {
