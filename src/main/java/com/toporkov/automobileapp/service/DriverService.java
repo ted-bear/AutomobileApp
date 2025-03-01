@@ -1,17 +1,20 @@
 package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.Driver;
+import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.repository.DriverRepository;
+import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.exception.DriverNotFoundException;
 import com.toporkov.automobileapp.web.dto.domain.driver.DriverDTO;
 import com.toporkov.automobileapp.web.mapper.DriverMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional(readOnly = true)
@@ -29,21 +32,20 @@ public class DriverService {
         this.driverMapper = driverMapper;
     }
 
-    public List<DriverDTO> findAllByManager(Manager manager) {
+    public Page<DriverDTO> findAll(Pageable pageable) {
+        final Manager manager = SecurityUtil.getCurrentManager();
         final Manager ctxManager = managerService.getById(manager.getId());
-        return ctxManager.getEnterprises()
+
+        final List<Integer> enterpriseIds = ctxManager.getEnterprises()
                 .stream()
-                .flatMap(enterprise -> findAllByEnterprise(enterprise.getId()).stream())
-                .map(driverMapper::mapEntityToDto)
+                .map(Enterprise::getId)
                 .toList();
+
+        return driverRepository
+                .findByEnterpriseIdIn(enterpriseIds, pageable)
+                .map(driverMapper::mapEntityToDto);
     }
 
-    public List<Driver> findAllByEnterprise(Integer enterpriseId) {
-        return driverRepository.findAll()
-                .stream()
-                .filter(driver -> enterpriseId == null || Objects.equals(driver.getEnterprise().getId(), enterpriseId))
-                .toList();
-    }
 
     public Driver getById(Integer id) {
         Assert.notNull(id, "Driver id shouldn't be null");
