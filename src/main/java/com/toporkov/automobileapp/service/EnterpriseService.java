@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.Enterprise;
+import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.repository.EnterpriseRepository;
 import com.toporkov.automobileapp.util.exception.EnterpriseNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,17 @@ import java.util.List;
 public class EnterpriseService {
 
     private final EnterpriseRepository enterpriseRepository;
+    private final ManagerService managerService;
 
-    public EnterpriseService(EnterpriseRepository enterpriseRepository) {
+    public EnterpriseService(final EnterpriseRepository enterpriseRepository,
+                             final ManagerService managerService) {
         this.enterpriseRepository = enterpriseRepository;
+        this.managerService = managerService;
     }
 
     public List<Enterprise> findAll() {
-        return enterpriseRepository.findAll();
+        final Manager currentManager = managerService.getCurrentManager();
+        return enterpriseRepository.findAllByManagersContains(currentManager);
     }
 
     public Enterprise getById(Integer enterpriseId) {

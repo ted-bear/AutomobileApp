@@ -18,7 +18,4 @@ public class ManagerMapper {
         return modelMapper.map(dto, Manager.class);
     }
 
-    public RegistrationManagerDTO mapEntityToDto(Manager entity) {
-        return modelMapper.map(entity, RegistrationManagerDTO.class);
-    }
 }

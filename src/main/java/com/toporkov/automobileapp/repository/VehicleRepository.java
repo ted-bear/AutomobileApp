@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 
-    Page<Vehicle> findByEnterpriseIdIn(List<Integer> enterpriseIds, Pageable pageable);
+    Page<Vehicle> findByIsActiveTrueAndEnterpriseIdIn(List<Integer> enterpriseIds, Pageable pageable);
 
     Optional<Vehicle> findByNumber(String number);
 

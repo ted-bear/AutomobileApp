@@ -4,8 +4,6 @@ import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
-import com.toporkov.automobileapp.service.EnterpriseService;
-import com.toporkov.automobileapp.service.VehicleModelService;
 import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
 import com.toporkov.automobileapp.web.dto.domain.driver.DriverDTO;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseDTO;
@@ -14,6 +12,7 @@ import com.toporkov.automobileapp.web.mapper.converter.DriverAssignmentListToAct
 import com.toporkov.automobileapp.web.mapper.converter.DriverListToIdListConverter;
 import com.toporkov.automobileapp.web.mapper.converter.EnterpriseIdListToEnterpriseSetConverter;
 import com.toporkov.automobileapp.web.mapper.converter.EnterpriseIdToEnterpriseConverter;
+import com.toporkov.automobileapp.web.mapper.converter.EnterpriseToEnterpriseIdConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleListToIdListConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleModelIdToVehicleModelConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleModelToVehicleModelIdConverter;
@@ -26,13 +25,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MapperConfig {
 
-    private final EnterpriseService enterpriseService;
-    private final VehicleModelService vehicleModelService;
+    private final VehicleModelIdToVehicleModelConverter vehicleModelIdToVehicleModelConverter;
+    private final EnterpriseIdToEnterpriseConverter enterpriseIdToEnterpriseConverter;
+    private final EnterpriseIdListToEnterpriseSetConverter enterpriseIdListToEnterpriseSetConverter;
 
-    public MapperConfig(EnterpriseService enterpriseService,
-                        VehicleModelService vehicleModelService) {
-        this.enterpriseService = enterpriseService;
-        this.vehicleModelService = vehicleModelService;
+    public MapperConfig(final VehicleModelIdToVehicleModelConverter vehicleModelIdToVehicleModelConverter,
+                        final EnterpriseIdToEnterpriseConverter enterpriseIdToEnterpriseConverter,
+                        final EnterpriseIdListToEnterpriseSetConverter enterpriseIdListToEnterpriseSetConverter) {
+        this.vehicleModelIdToVehicleModelConverter = vehicleModelIdToVehicleModelConverter;
+        this.enterpriseIdToEnterpriseConverter = enterpriseIdToEnterpriseConverter;
+        this.enterpriseIdListToEnterpriseSetConverter = enterpriseIdListToEnterpriseSetConverter;
     }
 
     @Bean
@@ -64,11 +66,20 @@ public class MapperConfig {
                     }
                 });
 
+        modelMapper.typeMap(Vehicle.class, VehicleDTO.class)
+                .addMappings(new PropertyMap<>() {
+                    @Override
+                    protected void configure() {
+                        using(new EnterpriseToEnterpriseIdConverter())
+                                .map(source.getEnterprise(), destination.getEnterpriseId());
+                    }
+                });
+
         modelMapper.typeMap(VehicleDTO.class, Vehicle.class)
                 .addMappings(new PropertyMap<>() {
                     @Override
                     protected void configure() {
-                        using(new VehicleModelIdToVehicleModelConverter(vehicleModelService))
+                        using(vehicleModelIdToVehicleModelConverter)
                                 .map(source.getVehicleModelId(), destination.getVehicleModel());
                     }
                 });
@@ -77,7 +88,7 @@ public class MapperConfig {
                 .addMappings(new PropertyMap<>() {
                     @Override
                     protected void configure() {
-                        using(new EnterpriseIdToEnterpriseConverter(enterpriseService))
+                        using(enterpriseIdToEnterpriseConverter)
                                 .map(source.getEnterpriseId(), destination.getEnterprise());
                     }
                 });
@@ -95,7 +106,7 @@ public class MapperConfig {
                 .addMappings(new PropertyMap<>() {
                     @Override
                     protected void configure() {
-                        using(new EnterpriseIdListToEnterpriseSetConverter(enterpriseService))
+                        using(enterpriseIdListToEnterpriseSetConverter)
                                 .map(source.getEnterprises(), destination.getEnterprises());
                     }
                 });

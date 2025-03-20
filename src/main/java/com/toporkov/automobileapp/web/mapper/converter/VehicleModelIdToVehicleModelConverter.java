@@ -3,7 +3,9 @@ package com.toporkov.automobileapp.web.mapper.converter;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.service.VehicleModelService;
 import org.modelmapper.AbstractConverter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VehicleModelIdToVehicleModelConverter extends AbstractConverter<Integer, VehicleModel> {
 
     private final VehicleModelService vehicleModelService;

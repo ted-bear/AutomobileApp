@@ -28,7 +28,6 @@ public class VehicleService {
     private final ManagerService managerService;
     private final VehicleMapper vehicleMapper;
 
-
     public VehicleService(final VehicleRepository vehicleRepository,
                           final ManagerService managerService,
                           final VehicleMapper vehicleMapper) {
@@ -37,15 +36,15 @@ public class VehicleService {
         this.vehicleMapper = vehicleMapper;
     }
 
-    public Page<VehicleDTO> findAllByManager(Manager manager, Pageable pageable) {
-        final Manager ctxManager = managerService.getById(manager.getId());
-        final List<Integer> enterpriseIds = ctxManager.getEnterprises()
+    public Page<VehicleDTO> findAll(Pageable pageable) {
+        final List<Integer> enterpriseIds = managerService.getCurrentManager()
+                .getEnterprises()
                 .stream()
                 .map(Enterprise::getId)
                 .toList();
 
         return vehicleRepository
-                .findByEnterpriseIdIn(enterpriseIds, pageable)
+                .findByIsActiveTrueAndEnterpriseIdIn(enterpriseIds, pageable)
                 .map(vehicleMapper::mapEntityToDto);
     }
 
@@ -90,7 +89,7 @@ public class VehicleService {
 
     @Transactional
     public void save(Vehicle vehicle) {
-        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+        final Manager manager = managerService.getCurrentManager();
         checkManagerAccessToEnterprise(vehicle, manager);
 
         vehicle.setActive(true);
@@ -100,19 +99,20 @@ public class VehicleService {
 
     @Transactional
     public void update(Integer id, Vehicle vehicle) {
-        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+        final Manager manager = managerService.getCurrentManager();
 
         checkIdValidity(id);
         checkManagerAccess(id, manager);
         updateRelations(id, vehicle);
 
         vehicle.setId(id);
+        vehicle.setActive(true);
         vehicleRepository.save(vehicle);
     }
 
     @Transactional
     public void delete(Integer id) {
-        final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
+        final Manager manager = managerService.getCurrentManager();
         checkIdValidity(id);
         checkManagerAccess(id, manager);
 

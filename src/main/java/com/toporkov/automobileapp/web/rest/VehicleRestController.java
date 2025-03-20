@@ -1,8 +1,6 @@
 package com.toporkov.automobileapp.web.rest;
 
-import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.service.VehicleService;
-import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
@@ -45,15 +43,14 @@ public class VehicleRestController {
     @GetMapping
     public Page<VehicleDTO> findAll(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy,
             @RequestParam(defaultValue = "true") boolean ascending
     ) {
-        final Manager manager = SecurityUtil.getCurrentManager();
         final Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         final Pageable pageable = PageRequest.of(page, size, sort);
 
-        return vehicleService.findAllByManager(manager, pageable);
+        return vehicleService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -76,6 +73,7 @@ public class VehicleRestController {
                                                     @Validated(OnUpdate.class)
                                                     @RequestBody VehicleDTO vehicleDTO,
                                                     BindingResult bindingResult) {
+        vehicleDTO.setId(id);
         vehicleValidator.validate(vehicleDTO, bindingResult);
         vehicleService.update(id, vehicleMapper.mapDtoToEntity(vehicleDTO));
 

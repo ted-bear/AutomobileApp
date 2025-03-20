@@ -7,6 +7,7 @@ import com.toporkov.automobileapp.util.exception.VehicleNotDeletedException;
 import com.toporkov.automobileapp.util.exception.VehicleNotFoundException;
 import com.toporkov.automobileapp.util.exception.VehicleNotSavedException;
 import com.toporkov.automobileapp.web.dto.error.ExceptionBody;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -53,5 +54,11 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ExceptionBody handleManagerDoNotHaveAccessException(ManagerDoNotHaveAccessException e) {
         return new ExceptionBody("Manager do not have access", LocalDateTime.now());
+    }
+
+    @ExceptionHandler(PropertyReferenceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionBody handlePropertyReferenceException(PropertyReferenceException e) {
+        return new ExceptionBody(e.getMessage(), LocalDateTime.now());
     }
 }

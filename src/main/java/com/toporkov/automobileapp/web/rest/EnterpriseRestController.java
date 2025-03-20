@@ -35,9 +35,10 @@ public class EnterpriseRestController {
     }
 
     @GetMapping
-    public EnterpriseListDTO getAllDrivers() {
-        final List<Enterprise> allDrivers = enterpriseService.findAll();
-        final List<EnterpriseDTO> enterpriseDTOList = allDrivers.stream()
+    public EnterpriseListDTO getEnterprises() {
+        // TODO: Перенести маппинг в слой контроллера
+        final List<Enterprise> enterprises = enterpriseService.findAll();
+        final List<EnterpriseDTO> enterpriseDTOList = enterprises.stream()
                 .map(enterpriseMapper::mapEntityToDto)
                 .toList();
         return new EnterpriseListDTO(enterpriseDTOList);
@@ -45,6 +46,7 @@ public class EnterpriseRestController {
 
     @GetMapping("/{id}")
     public EnterpriseDTO getEnterprise(@PathVariable("id") Integer id) {
+        // TODO: Перенести маппинг в слой контроллера
         final Enterprise enterprise = enterpriseService.getById(id);
         return enterpriseMapper.mapEntityToDto(enterprise);
     }
@@ -52,6 +54,7 @@ public class EnterpriseRestController {
     @PostMapping
     public ResponseEntity<HttpStatus> createEnterprise(@Validated(OnCreate.class)
                                                            @RequestBody EnterpriseDTO enterpriseDTO) {
+        // TODO: Перенести маппинг в слой контроллера
         enterpriseService.save(enterpriseMapper.mapDtoToEntity(enterpriseDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -60,7 +63,7 @@ public class EnterpriseRestController {
     public ResponseEntity<HttpStatus> updateEnterprise(@PathVariable("id") Integer id,
                                                        @Validated(OnUpdate.class)
                                                        @RequestBody EnterpriseDTO enterpriseDTO) {
-
+        // TODO: Перенести маппинг в слой контроллера
         enterpriseService.update(id, enterpriseMapper.mapDtoToEntity(enterpriseDTO));
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

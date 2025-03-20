@@ -3,7 +3,9 @@ package com.toporkov.automobileapp.web.mapper.converter;
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.service.EnterpriseService;
 import org.modelmapper.AbstractConverter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<Integer, Enterprise> {
 
     private final EnterpriseService enterpriseService;

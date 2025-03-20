@@ -3,9 +3,8 @@ package com.toporkov.automobileapp.service;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Role;
 import com.toporkov.automobileapp.repository.ManagerRepository;
+import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.exception.UserNotFoundException;
-import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
-import com.toporkov.automobileapp.web.mapper.ManagerMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,18 +16,12 @@ import java.util.List;
 public class ManagerService {
 
     private final ManagerRepository managerRepository;
-    private final ManagerMapper managerMapper;
     private final PasswordEncoder passwordEncoder;
-    private final EnterpriseService enterpriseService;
 
     public ManagerService(final ManagerRepository managerRepository,
-                          final ManagerMapper managerMapper,
-                          final PasswordEncoder passwordEncoder,
-                          final EnterpriseService enterpriseService) {
+                          final PasswordEncoder passwordEncoder) {
         this.managerRepository = managerRepository;
-        this.managerMapper = managerMapper;
         this.passwordEncoder = passwordEncoder;
-        this.enterpriseService = enterpriseService;
     }
 
     public List<Manager> findAll() {
@@ -43,16 +36,16 @@ public class ManagerService {
         return managerRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
     }
 
+    public Manager getCurrentManager() {
+        final Manager manager = SecurityUtil.getCurrentManager();
+        return managerRepository.findById(manager.getId()).orElseThrow(UserNotFoundException::new);
+    }
+
     @Transactional
-    public void create(RegistrationManagerDTO registrationManagerDTO) {
-        final Manager manager = managerMapper.mapDtoToEntity(registrationManagerDTO);
+    public void create(Manager manager) {
 
         if (managerRepository.findByUsername(manager.getUsername()).isPresent()) {
             throw new IllegalStateException("Manager already exists");
-        }
-
-        if (!registrationManagerDTO.getPassword().equals(registrationManagerDTO.getPasswordConfirmation())) {
-            throw new IllegalStateException("Password and password confirmation do not match");
         }
 
         manager.getEnterprises().forEach(enterprise -> enterprise.addManager(manager));

@@ -2,9 +2,7 @@ package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.Enterprise;
-import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.repository.DriverRepository;
-import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.exception.DriverNotFoundException;
 import com.toporkov.automobileapp.web.dto.domain.driver.DriverDTO;
 import com.toporkov.automobileapp.web.mapper.DriverMapper;
@@ -33,10 +31,8 @@ public class DriverService {
     }
 
     public Page<DriverDTO> findAll(Pageable pageable) {
-        final Manager manager = SecurityUtil.getCurrentManager();
-        final Manager ctxManager = managerService.getById(manager.getId());
-
-        final List<Integer> enterpriseIds = ctxManager.getEnterprises()
+        final List<Integer> enterpriseIds = managerService.getCurrentManager()
+                .getEnterprises()
                 .stream()
                 .map(Enterprise::getId)
                 .toList();
