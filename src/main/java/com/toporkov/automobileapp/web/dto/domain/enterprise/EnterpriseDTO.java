@@ -45,6 +45,9 @@ public class EnterpriseDTO {
             groups = {OnCreate.class, OnUpdate.class})
     private Integer employeesNumber;
 
+    @NotNull(message = "timezone must not be null")
+    private String timezone;
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Integer> vehicles;
 
@@ -89,6 +92,14 @@ public class EnterpriseDTO {
 
     public void setEmployeesNumber(Integer employeesNumber) {
         this.employeesNumber = employeesNumber;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 
     public List<Integer> getVehicles() {

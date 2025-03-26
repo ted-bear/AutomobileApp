@@ -5,6 +5,8 @@ import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import static com.toporkov.automobileapp.util.DateTimeUtil.toEnterpriseTime;
+
 @Component
 public class VehicleMapper {
 
@@ -19,6 +21,13 @@ public class VehicleMapper {
     }
 
     public VehicleDTO mapEntityToDto(Vehicle vehicle) {
-        return modelMapper.map(vehicle, VehicleDTO.class);
+        final VehicleDTO dto = modelMapper.map(vehicle, VehicleDTO.class);
+        dto.setPurchaseDate(
+                toEnterpriseTime(
+                        vehicle.getPurchaseDate(),
+                        vehicle.getEnterprise().getTimezone()
+                )
+        );
+        return dto;
     }
 }

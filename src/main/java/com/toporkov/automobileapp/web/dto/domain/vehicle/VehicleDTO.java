@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
+import java.time.ZonedDateTime;
+
 public class VehicleDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -55,6 +57,10 @@ public class VehicleDTO {
     @NotNull(message = "condition must not be null",
             groups = {OnCreate.class, OnUpdate.class})
     private Condition condition;
+
+    @NotNull(message = "purchaseDate must not be null",
+            groups = {OnCreate.class, OnUpdate.class})
+    private ZonedDateTime purchaseDate;
 
     @NotNull(message = "vehicleModelId must not be null",
             groups = {OnCreate.class, OnUpdate.class})
@@ -124,6 +130,14 @@ public class VehicleDTO {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    public ZonedDateTime getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(ZonedDateTime purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public Integer getVehicleModelId() {

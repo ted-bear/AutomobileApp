@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,6 +64,9 @@ public class Vehicle {
             referencedColumnName = "id")
     private VehicleModel vehicleModel;
 
+    @Column(name = "purchase_date")
+    private Instant purchaseDate;
+
     @ManyToOne
     @JoinColumn(name = "enterprise_id",
             referencedColumnName = "id")
@@ -79,13 +83,15 @@ public class Vehicle {
                    final String color,
                    final int mileage,
                    final double price,
-                   final Condition condition) {
+                   final Condition condition,
+                   final Instant purchaseDate) {
         this.number = number;
         this.year = year;
         this.color = color;
         this.mileage = mileage;
         this.price = price;
         this.condition = condition;
+        this.purchaseDate = purchaseDate;
     }
 
     public void setId(int id) {
@@ -174,6 +180,14 @@ public class Vehicle {
 
     public void setDriverVehicles(List<DriverAssignment> driverAssignments) {
         this.driverAssignments = driverAssignments;
+    }
+
+    public Instant getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(Instant purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public void addDriverVehicle(DriverAssignment driverAssignment) {

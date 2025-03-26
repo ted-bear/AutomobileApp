@@ -4,6 +4,7 @@ import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.service.EnterpriseService;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseDTO;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseListDTO;
+import com.toporkov.automobileapp.web.dto.domain.enterprise.TimezoneDTO;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
 import com.toporkov.automobileapp.web.dto.validation.OnUpdate;
 import com.toporkov.automobileapp.web.mapper.EnterpriseMapper;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,6 +51,14 @@ public class EnterpriseRestController {
         // TODO: Перенести маппинг в слой контроллера
         final Enterprise enterprise = enterpriseService.getById(id);
         return enterpriseMapper.mapEntityToDto(enterprise);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<HttpStatus> updateTimezone(@PathVariable("id") Integer id,
+                                                     @RequestBody TimezoneDTO timezoneDTO) {
+        // TODO: Перенести маппинг в слой контроллера
+        enterpriseService.updateTimezone(id, timezoneDTO);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping

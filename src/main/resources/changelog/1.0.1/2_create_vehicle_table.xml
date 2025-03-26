@@ -45,6 +45,10 @@
                 <constraints nullable="false"/>
             </column>
 
+            <column name="purchase_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
 
         <addForeignKeyConstraint baseTableName="vehicle"

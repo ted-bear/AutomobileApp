@@ -40,6 +40,9 @@ public class Enterprise {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @Column(name = "timezone")
+    private String timezone;
+
     @OneToMany(mappedBy = "enterprise")
     private List<Vehicle> vehicles = new ArrayList<>();
 
@@ -59,11 +62,13 @@ public class Enterprise {
     public Enterprise(final String name,
                       final String country,
                       final String city,
-                      final Integer employeesNumber) {
+                      final Integer employeesNumber,
+                      final String timezone) {
         this.name = name;
         this.country = country;
         this.city = city;
         this.employeesNumber = employeesNumber;
+        this.timezone = timezone;
     }
 
     public Boolean getActive() {
@@ -112,6 +117,14 @@ public class Enterprise {
 
     public void setEmployeesNumber(Integer employeesNumber) {
         this.employeesNumber = employeesNumber;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
     }
 
     public List<Vehicle> getVehicles() {
