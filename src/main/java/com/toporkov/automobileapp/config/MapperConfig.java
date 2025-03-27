@@ -4,7 +4,9 @@ import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Vehicle;
+import com.toporkov.automobileapp.model.VehicleCoordinate;
 import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
+import com.toporkov.automobileapp.web.dto.domain.VehicleCoordinateDTO;
 import com.toporkov.automobileapp.web.dto.domain.driver.DriverDTO;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseDTO;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
@@ -13,9 +15,11 @@ import com.toporkov.automobileapp.web.mapper.converter.DriverListToIdListConvert
 import com.toporkov.automobileapp.web.mapper.converter.EnterpriseIdListToEnterpriseSetConverter;
 import com.toporkov.automobileapp.web.mapper.converter.EnterpriseIdToEnterpriseConverter;
 import com.toporkov.automobileapp.web.mapper.converter.EnterpriseToEnterpriseIdConverter;
+import com.toporkov.automobileapp.web.mapper.converter.PointToCoordinatesConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleListToIdListConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleModelIdToVehicleModelConverter;
 import com.toporkov.automobileapp.web.mapper.converter.VehicleModelToVehicleModelIdConverter;
+import com.toporkov.automobileapp.web.mapper.converter.VehicleToVehicleIdConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
@@ -99,6 +103,24 @@ public class MapperConfig {
                     protected void configure() {
                         using(new DriverAssignmentListToActiveVehicleIdConverter())
                                 .map(source.getDriverAssignments(), destination.getActiveVehicleId());
+                    }
+                });
+
+        modelMapper.typeMap(VehicleCoordinate.class, VehicleCoordinateDTO.class)
+                .addMappings(new PropertyMap<>() {
+                    @Override
+                    protected void configure() {
+                        using(new VehicleToVehicleIdConverter())
+                                .map(source.getVehicle(), destination.getVehicleId());
+                    }
+                });
+
+        modelMapper.typeMap(VehicleCoordinate.class, VehicleCoordinateDTO.class)
+                .addMappings(new PropertyMap<>() {
+                    @Override
+                    protected void configure() {
+                        using(new PointToCoordinatesConverter())
+                                .map(source.getPosition(), destination.getPosition());
                     }
                 });
 

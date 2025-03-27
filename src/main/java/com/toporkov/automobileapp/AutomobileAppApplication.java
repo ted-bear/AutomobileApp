@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp;
 
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.PrecisionModel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,8 +21,15 @@ public class AutomobileAppApplication {
         SpringApplication.run(AutomobileAppApplication.class, args);
     }
 
+    private static final int SRID = 4326;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public GeometryFactory geometryFactory() {
+        return new GeometryFactory(new PrecisionModel(), SRID);
     }
 }
