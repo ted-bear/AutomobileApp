@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import org.locationtech.jts.geom.Point;
 
 import java.time.Instant;
 
@@ -28,6 +29,9 @@ public class VehicleCoordinate {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
+    @Column(name = "position", nullable = false)
+    private Point position;
+
     @ManyToOne
     @JoinColumn(
             name =  "vehicle_id",
@@ -42,11 +46,13 @@ public class VehicleCoordinate {
     public VehicleCoordinate(final Instant createAt,
                              final Double latitude,
                              final Double longitude,
-                             final Vehicle vehicle) {
+                             final Vehicle vehicle,
+                             final Point position) {
         this.createAt = createAt;
         this.latitude = latitude;
         this.longitude = longitude;
         this.vehicle = vehicle;
+        this.position = position;
     }
 
     public long getId() {
@@ -87,5 +93,13 @@ public class VehicleCoordinate {
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
     }
 }

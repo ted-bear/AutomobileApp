@@ -1,0 +1,44 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="10_create_vehicle_coordinate_table" author="Egor Toporkov">
+        <createTable tableName="vehicle_coordinate">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="create_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="latitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="longitude" type="float">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="position" type="geometry(POINT, 4326)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="vehicle_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="vehicle_coordinate"
+                                 baseColumnNames="vehicle_id"
+                                 constraintName="fk_vehicle"
+                                 referencedTableName="vehicle"
+                                 referencedColumnNames="id"/>
+
+        <rollback>
+            <dropTable tableName="vehicle_coordinate"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
