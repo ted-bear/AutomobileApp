@@ -2,7 +2,6 @@ package com.toporkov.automobileapp.service;
 
 import com.toporkov.automobileapp.model.VehicleCoordinate;
 import com.toporkov.automobileapp.repository.VehicleCoordinateRepository;
-import com.toporkov.automobileapp.web.mapper.VehicleCoordinateMapper;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
@@ -17,14 +16,11 @@ import java.util.List;
 public class VehicleCoordinateService {
 
     private final GeometryFactory geometryFactory;
-    private final VehicleCoordinateMapper vehicleCoordinateMapper;
     private final VehicleCoordinateRepository vehicleCoordinateRepository;
 
     public VehicleCoordinateService(final GeometryFactory geometryFactory,
-                                    final VehicleCoordinateMapper vehicleCoordinateMapper,
                                     final VehicleCoordinateRepository vehicleCoordinateRepository) {
         this.geometryFactory = geometryFactory;
-        this.vehicleCoordinateMapper = vehicleCoordinateMapper;
         this.vehicleCoordinateRepository = vehicleCoordinateRepository;
     }
 
