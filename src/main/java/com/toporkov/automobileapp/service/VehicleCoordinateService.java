@@ -43,6 +43,15 @@ public class VehicleCoordinateService {
         vehicleCoordinateRepository.save(vehicleCoordinate);
     }
 
+    @Transactional
+    public void saveAllCoordinates(final List<CreateCoordinateDTO> coordinateDTOList) {
+        vehicleCoordinateRepository.saveAll(
+                coordinateDTOList.stream()
+                        .map(this::mapDtoToEntity)
+                        .toList()
+        );
+    }
+
     private VehicleCoordinate mapDtoToEntity(CreateCoordinateDTO createCoordinateDTO) {
         var vehicleCoordinate = new VehicleCoordinate();
 
