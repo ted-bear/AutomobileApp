@@ -11,11 +11,15 @@ import com.toporkov.automobileapp.repository.DriverRepository;
 import com.toporkov.automobileapp.repository.EnterpriseRepository;
 import com.toporkov.automobileapp.repository.VehicleModelRepository;
 import com.toporkov.automobileapp.repository.VehicleRepository;
+import com.toporkov.automobileapp.service.VehicleCoordinateService;
+import com.toporkov.automobileapp.util.graphhopper.GraphHopperHttpClient;
+import com.toporkov.automobileapp.web.dto.domain.coordinate.CreateCoordinateDTO;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Random;
 
@@ -53,17 +57,20 @@ public class GenerateDataCommands {
     private final DriverAssignmentRepository driverAssignmentRepository;
     private final EnterpriseRepository enterpriseRepository;
     private final VehicleModelRepository vehicleModelRepository;
+    private final VehicleCoordinateService vehicleCoordinateService;
 
     public GenerateDataCommands(final VehicleRepository vehicleRepository,
                                 final DriverRepository driverRepository,
                                 final DriverAssignmentRepository driverAssignmentRepository,
                                 final EnterpriseRepository enterpriseRepository,
-                                final VehicleModelRepository vehicleModelRepository) {
+                                final VehicleModelRepository vehicleModelRepository,
+                                final VehicleCoordinateService vehicleCoordinateService) {
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.driverAssignmentRepository = driverAssignmentRepository;
         this.enterpriseRepository = enterpriseRepository;
         this.vehicleModelRepository = vehicleModelRepository;
+        this.vehicleCoordinateService = vehicleCoordinateService;
     }
 
     @ShellMethod(key = "generate-data",
@@ -92,6 +99,45 @@ public class GenerateDataCommands {
                     });
         }
         return "Generation is successful";
+    }
+
+    //      long      latitude
+//    30.274033, 60.007767
+//    30.295577, 60.006566
+//    30.285320, 60.014610
+//    30.285062, 60.003777
+    @ShellMethod(key = "generate-track",
+            value = "Generate track for the vehicle.")
+    public void generateTrackForVehicle(@ShellOption final Integer vehicleId,
+                                        @ShellOption final Double minLatitude,
+                                        @ShellOption final Double maxLatitude,
+                                        @ShellOption final Double minLongitude,
+                                        @ShellOption final Double maxLongitude) {
+
+        var startLatitude = random.nextDouble(minLatitude, maxLatitude);
+        var startLongitude = random.nextDouble(minLongitude, maxLongitude);
+
+        var endLatitude = random.nextDouble(minLatitude, maxLatitude);
+        var endLongitude = random.nextDouble(minLongitude, maxLongitude);
+
+        var track = GraphHopperHttpClient.getTrack(startLatitude, startLongitude, endLatitude, endLongitude);
+
+        for (var point : track) {
+            try {
+                Thread.sleep(1_000);
+                vehicleCoordinateService.saveCoordinate(
+                        new CreateCoordinateDTO(
+                                Instant.now(),
+                                point.get(0),
+                                point.get(1),
+                                vehicleId
+                        )
+                );
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 
     private Vehicle generateRandomVehicle(Enterprise enterprise, List<VehicleModel> models) {
