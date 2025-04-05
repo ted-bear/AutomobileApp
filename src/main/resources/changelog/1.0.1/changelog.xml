@@ -15,4 +15,5 @@
     <include relativeToChangelogFile="true" file="9_insert_test_driver_assignments.xml"/>
     <include relativeToChangelogFile="true" file="10_create_vehicle_coordinate_table.xml"/>
     <include relativeToChangelogFile="true" file="11_insert_test_vehicle_coordinates.xml"/>
+    <include relativeToChangelogFile="true" file="12_create_trip_table.xml"/>
 </databaseChangeLog>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,13 +21,16 @@ public class VehicleCoordinateService {
     private final GeometryFactory geometryFactory;
     private final VehicleCoordinateRepository vehicleCoordinateRepository;
     private final VehicleRepository vehicleRepository;
+    private final TripService tripService;
 
     public VehicleCoordinateService(final GeometryFactory geometryFactory,
                                     final VehicleCoordinateRepository vehicleCoordinateRepository,
-                                    final VehicleRepository vehicleRepository) {
+                                    final VehicleRepository vehicleRepository,
+                                    final TripService tripService) {
         this.geometryFactory = geometryFactory;
         this.vehicleCoordinateRepository = vehicleCoordinateRepository;
         this.vehicleRepository = vehicleRepository;
+        this.tripService = tripService;
     }
 
     public List<VehicleCoordinate> findAllByTime(final int vehicleId,
@@ -37,10 +41,21 @@ public class VehicleCoordinateService {
                 .findAllByVehicleIdAndCreateAtBetween(vehicleId, startTime, stopTime);
     }
 
-    @Transactional
-    public void saveCoordinate(final CreateCoordinateDTO createCoordinateDTO) {
-        var vehicleCoordinate = mapDtoToEntity(createCoordinateDTO);
-        vehicleCoordinateRepository.save(vehicleCoordinate);
+    public List<VehicleCoordinate> findAllByTrips(final Instant startTime, final Instant stopTime) {
+        var tripsInInterval = tripService.findAllByInterval(startTime, stopTime);
+        List<VehicleCoordinate> tripCoordinates = new ArrayList<>();
+
+        for (var trip : tripsInInterval) {
+            tripCoordinates.addAll(
+                    findAllByTime(
+                            trip.getVehicle().getId(),
+                            trip.getStartedAt(),
+                            trip.getEndedAt()
+                    )
+            );
+        }
+
+        return tripCoordinates;
     }
 
     @Transactional
@@ -55,7 +70,7 @@ public class VehicleCoordinateService {
     private VehicleCoordinate mapDtoToEntity(CreateCoordinateDTO createCoordinateDTO) {
         var vehicleCoordinate = new VehicleCoordinate();
 
-        vehicleCoordinate.setCreateAt(Instant.now());
+        vehicleCoordinate.setCreateAt(createCoordinateDTO.getCreateAt());
         vehicleCoordinate.setLatitude(createCoordinateDTO.getLatitude());
         vehicleCoordinate.setLongitude(createCoordinateDTO.getLongitude());
         vehicleCoordinate.setPosition(

@@ -71,6 +71,12 @@ public class GraphHopperResponse {
         @JsonProperty("street_name")
         private String streetName;
 
+        @JsonProperty("street_ref")
+        private String streetRef;
+
+        @JsonProperty("exit_number")
+        private Integer exitNumber;
+
         @JsonProperty("last_heading")
         private Double lastHeading; // Только для последней инструкции
     }

@@ -1,0 +1,31 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="12_create_trip_table" author="Egor Toporkov">
+        <createTable tableName="trip">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="vehicle_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="started_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="ended_at" type="timestamp"/>
+
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="trip"
+                baseColumnNames="vehicle_id"
+                referencedTableName="vehicle"
+                referencedColumnNames="id"
+                constraintName="fk_trip_vehicle"/>
+
+    </changeSet>
+</databaseChangeLog>

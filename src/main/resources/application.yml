@@ -18,6 +18,8 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
+  jpa:
+    show-sql: true
 security:
   jwt:
     secret: ${JWT_SECRET}

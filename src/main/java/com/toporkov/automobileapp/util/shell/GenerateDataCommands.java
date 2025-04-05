@@ -4,14 +4,15 @@ import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.DriverAssignment;
 import com.toporkov.automobileapp.model.Enterprise;
+import com.toporkov.automobileapp.model.Trip;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.DriverAssignmentRepository;
 import com.toporkov.automobileapp.repository.DriverRepository;
 import com.toporkov.automobileapp.repository.EnterpriseRepository;
-import com.toporkov.automobileapp.repository.TripRepository;
 import com.toporkov.automobileapp.repository.VehicleModelRepository;
 import com.toporkov.automobileapp.repository.VehicleRepository;
+import com.toporkov.automobileapp.service.TripService;
 import com.toporkov.automobileapp.service.VehicleCoordinateService;
 import com.toporkov.automobileapp.util.graphhopper.GraphHopperHttpClient;
 import com.toporkov.automobileapp.web.dto.domain.coordinate.CreateCoordinateDTO;
@@ -60,7 +61,7 @@ public class GenerateDataCommands {
     private final EnterpriseRepository enterpriseRepository;
     private final VehicleModelRepository vehicleModelRepository;
     private final VehicleCoordinateService vehicleCoordinateService;
-    private final TripRepository tripRepository;
+    private final TripService tripService;
 
     public GenerateDataCommands(final VehicleRepository vehicleRepository,
                                 final DriverRepository driverRepository,
@@ -68,14 +69,14 @@ public class GenerateDataCommands {
                                 final EnterpriseRepository enterpriseRepository,
                                 final VehicleModelRepository vehicleModelRepository,
                                 final VehicleCoordinateService vehicleCoordinateService,
-                                final TripRepository tripRepository) {
+                                final TripService tripService) {
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.driverAssignmentRepository = driverAssignmentRepository;
         this.enterpriseRepository = enterpriseRepository;
         this.vehicleModelRepository = vehicleModelRepository;
         this.vehicleCoordinateService = vehicleCoordinateService;
-        this.tripRepository = tripRepository;
+        this.tripService = tripService;
     }
 
     @ShellMethod(key = "generate-data",
@@ -119,11 +120,11 @@ public class GenerateDataCommands {
                                         @ShellOption final Double minLongitude,
                                         @ShellOption final Double maxLongitude) {
 
-        var startLatitude = random.nextDouble(minLatitude, maxLatitude);
-        var startLongitude = random.nextDouble(minLongitude, maxLongitude);
+        var startLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) * 1e-6;
+        var startLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) * 1e-6;
 
-        var endLatitude = random.nextDouble(minLatitude, maxLatitude);
-        var endLongitude = random.nextDouble(minLongitude, maxLongitude);
+        var endLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) * 1e-6;
+        var endLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) * 1e-6;
 
         var path = GraphHopperHttpClient.getTrack(startLatitude,
                 startLongitude,
@@ -132,23 +133,30 @@ public class GenerateDataCommands {
         );
 
         var track = path.getPoints().getCoordinates();
-        List<CreateCoordinateDTO> batch = new ArrayList<>();
+        var batch = new ArrayList<CreateCoordinateDTO>();
+        var trip = new Trip();
+        var currentTime = Instant.now();
+        trip.setVehicle(vehicleRepository.findById(vehicleId).orElseThrow(RuntimeException::new));
+        trip.setStartedAt(currentTime);
 
         for (var point : track) {
             try {
-                Thread.sleep(1_000);
+                Thread.sleep(1000);
                 batch.add(
                         new CreateCoordinateDTO(
-                                Instant.now(),
+                                currentTime,
                                 point.get(0),
                                 point.get(1),
                                 vehicleId
                         ));
+                currentTime = Instant.now();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+        trip.setEndedAt(currentTime);
 
+        tripService.saveTrip(trip);
         vehicleCoordinateService.saveAllCoordinates(batch);
     }
 
