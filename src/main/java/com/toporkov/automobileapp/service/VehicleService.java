@@ -1,10 +1,6 @@
 package com.toporkov.automobileapp.service;
 
-import com.toporkov.automobileapp.model.DriverAssignment;
-import com.toporkov.automobileapp.model.Enterprise;
-import com.toporkov.automobileapp.model.Manager;
-import com.toporkov.automobileapp.model.Vehicle;
-import com.toporkov.automobileapp.model.VehicleModel;
+import com.toporkov.automobileapp.model.*;
 import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.exception.ManagerDoNotHaveAccessException;
@@ -46,6 +42,12 @@ public class VehicleService {
 
         return vehicleRepository
                 .findByIsActiveTrueAndEnterpriseIdIn(enterpriseIds, pageable)
+                .map(vehicleMapper::mapEntityToDto);
+    }
+
+    public Page<VehicleDTO> findAllByEnterpriseId(Pageable pageable, Integer enterpriseId) {
+        return vehicleRepository
+                .findAllByEnterpriseId(enterpriseId, pageable)
                 .map(vehicleMapper::mapEntityToDto);
     }
 
