@@ -11,4 +11,6 @@ import java.util.List;
 public interface VehicleCoordinateRepository extends JpaRepository<VehicleCoordinate, Long> {
 
     List<VehicleCoordinate> findAllByVehicleIdAndCreateAtBetween(int vehicleId, Instant start, Instant end);
+
+    VehicleCoordinate findByVehicleIdAndCreateAt(int vehicleId, Instant createAt);
 }

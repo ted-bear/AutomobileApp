@@ -25,3 +25,11 @@ security:
     secret: ${JWT_SECRET}
     access: 1
     refresh: 30
+external:
+  geocoding:
+    url: ${GEOCODING_API_URL}
+    api-key: ${GEOCODING_API_KEY}
+    timeout: 5000
+    retry:
+      max-attempts: 3
+      backoff: 1000

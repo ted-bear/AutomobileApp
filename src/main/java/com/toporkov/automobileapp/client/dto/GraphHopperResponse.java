@@ -1,4 +1,4 @@
-package com.toporkov.automobileapp.util.graphhopper;
+package com.toporkov.automobileapp.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

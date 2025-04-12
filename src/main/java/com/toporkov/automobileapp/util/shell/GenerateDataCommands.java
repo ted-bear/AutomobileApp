@@ -1,5 +1,6 @@
 package com.toporkov.automobileapp.util.shell;
 
+import com.toporkov.automobileapp.client.GraphHopperHttpClient;
 import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.DriverAssignment;
@@ -14,7 +15,6 @@ import com.toporkov.automobileapp.repository.VehicleModelRepository;
 import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.service.TripService;
 import com.toporkov.automobileapp.service.VehicleCoordinateService;
-import com.toporkov.automobileapp.util.graphhopper.GraphHopperHttpClient;
 import com.toporkov.automobileapp.web.dto.domain.coordinate.CreateCoordinateDTO;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -120,11 +120,11 @@ public class GenerateDataCommands {
                                         @ShellOption final Double minLongitude,
                                         @ShellOption final Double maxLongitude) {
 
-        var startLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) * 1e-6;
-        var startLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) * 1e-6;
+        var startLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
+        var startLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
 
-        var endLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) * 1e-6;
-        var endLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) * 1e-6;
+        var endLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
+        var endLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
 
         var path = GraphHopperHttpClient.getTrack(startLatitude,
                 startLongitude,
@@ -139,17 +139,19 @@ public class GenerateDataCommands {
         trip.setVehicle(vehicleRepository.findById(vehicleId).orElseThrow(RuntimeException::new));
         trip.setStartedAt(currentTime);
 
-        for (var point : track) {
+        for (int i = 0; i < track.size(); i++) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
                 batch.add(
                         new CreateCoordinateDTO(
                                 currentTime,
-                                point.get(0),
-                                point.get(1),
+                                track.get(i).get(0),
+                                track.get(i).get(1),
                                 vehicleId
                         ));
-                currentTime = Instant.now();
+                if (i != track.size() - 1) {
+                    currentTime = Instant.now();
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

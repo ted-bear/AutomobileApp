@@ -1,6 +1,7 @@
-package com.toporkov.automobileapp.util.graphhopper;
+package com.toporkov.automobileapp.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toporkov.automobileapp.client.dto.GraphHopperResponse;
 
 import java.io.IOException;
 import java.net.URI;
@@ -17,7 +18,7 @@ public class GraphHopperHttpClient {
     private static final String API_KEY = "8f4b0a74-e814-4c91-8d69-5791daa969aa";
 
     public static GraphHopperResponse.Path getTrack(final Double startLat, final Double startLong,
-                                              final Double endLat, final Double endLong) {
+                                                    final Double endLat, final Double endLong) {
         var httpClient = HttpClient.newBuilder().build();
 
         HashMap<String, String> params = new HashMap<>();
