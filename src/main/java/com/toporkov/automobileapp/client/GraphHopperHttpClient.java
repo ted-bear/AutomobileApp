@@ -26,8 +26,8 @@ public class GraphHopperHttpClient {
         params.put("profile", "car");
         params.put("points_encoded", "false");
 
-        String pointParams = "&point=" + startLong + "," +
-                             startLat + "&point=" + endLong + "," + endLat;
+        String pointParams = "&point=" + startLat + "," + startLong +
+                "&point=" + endLat + "," + endLong;
 
         var query = params.keySet().stream()
                 .map(key -> key + "=" + URLEncoder.encode(params.get(key), StandardCharsets.UTF_8))

@@ -60,8 +60,8 @@ public class TripService {
     private String findAddressByCoordinate(VehicleCoordinate vehicleCoordinate) {
         var addressSuggestions = geoApiClient
                 .getAddressSuggestions(
-                        vehicleCoordinate.getLatitude(),
-                        vehicleCoordinate.getLongitude()
+                        vehicleCoordinate.getLongitude(),
+                        vehicleCoordinate.getLatitude()
                 ).getSuggestions();
 
         return !addressSuggestions.isEmpty() ? addressSuggestions.get(0).getValue() : "";
