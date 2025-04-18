@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.model;
 
+import java.time.Instant;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.locationtech.jts.geom.Point;
-
-import java.time.Instant;
 
 @Entity
 @Table(name = "vehicle_coordinate")
@@ -34,20 +34,22 @@ public class VehicleCoordinate {
 
     @ManyToOne
     @JoinColumn(
-            name =  "vehicle_id",
-            referencedColumnName = "id",
-            nullable = false
+        name = "vehicle_id",
+        referencedColumnName = "id",
+        nullable = false
     )
     private Vehicle vehicle;
 
     public VehicleCoordinate() {
     }
 
-    public VehicleCoordinate(final Instant createAt,
-                             final Double latitude,
-                             final Double longitude,
-                             final Vehicle vehicle,
-                             final Point position) {
+    public VehicleCoordinate(
+        final Instant createAt,
+        final Double latitude,
+        final Double longitude,
+        final Vehicle vehicle,
+        final Point position
+    ) {
         this.createAt = createAt;
         this.latitude = latitude;
         this.longitude = longitude;

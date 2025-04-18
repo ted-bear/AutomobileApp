@@ -127,15 +127,18 @@ public class EnterpriseRestController {
     @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> updateTimezone(
         @PathVariable("id") Integer id,
-                                                     @RequestBody TimezoneDTO timezoneDTO) {
+        @RequestBody TimezoneDTO timezoneDTO
+    ) {
         // TODO: Перенести маппинг в слой контроллера
         enterpriseService.updateTimezone(id, timezoneDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createEnterprise(@Validated(OnCreate.class)
-                                                           @RequestBody EnterpriseDTO enterpriseDTO) {
+    public ResponseEntity<HttpStatus> createEnterprise(
+        @Validated(OnCreate.class)
+        @RequestBody EnterpriseDTO enterpriseDTO
+    ) {
         // TODO: Перенести маппинг в слой контроллера
         enterpriseService.save(enterpriseMapper.mapDtoToEntity(enterpriseDTO));
         return new ResponseEntity<>(HttpStatus.CREATED);

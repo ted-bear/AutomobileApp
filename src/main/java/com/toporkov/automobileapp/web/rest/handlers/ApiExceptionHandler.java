@@ -12,7 +12,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(GeoApiClientException.class)
     public ResponseEntity<String> handleGeoCodingException(GeoApiClientException ex) {
         return ResponseEntity
-                .status(HttpStatus.BAD_GATEWAY)
-                .body(ex.getMessage());
+            .status(HttpStatus.BAD_GATEWAY)
+            .body(ex.getMessage());
     }
 }

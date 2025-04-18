@@ -1,5 +1,10 @@
 package com.toporkov.automobileapp.security;
 
+import java.security.Key;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Role;
 import com.toporkov.automobileapp.service.ManagerService;
@@ -16,11 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-
 @Service
 public class JwtTokenProvider {
 
@@ -29,9 +29,11 @@ public class JwtTokenProvider {
     private final ManagerService managerService;
     private Key key;
 
-    public JwtTokenProvider(final JwtProperties jwtProperties,
-                            final UserDetailsService userDetailsService,
-                            final ManagerService managerService) {
+    public JwtTokenProvider(
+        final JwtProperties jwtProperties,
+        final UserDetailsService userDetailsService,
+        final ManagerService managerService
+    ) {
         this.jwtProperties = jwtProperties;
         this.userDetailsService = userDetailsService;
         this.managerService = managerService;
@@ -50,10 +52,10 @@ public class JwtTokenProvider {
         final Instant validity = Instant.now().plus(jwtProperties.getAccess(), ChronoUnit.HOURS);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(Date.from(validity))
-                .signWith(key)
-                .compact();
+            .setClaims(claims)
+            .setExpiration(Date.from(validity))
+            .signWith(key)
+            .compact();
     }
 
     public String createRefreshToken(Integer userId, String username) {
@@ -61,13 +63,13 @@ public class JwtTokenProvider {
         claims.put("id", userId);
 
         final Instant validity = Instant.now()
-                .plus(jwtProperties.getAccess(), ChronoUnit.DAYS);
+            .plus(jwtProperties.getAccess(), ChronoUnit.DAYS);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setExpiration(Date.from(validity))
-                .signWith(key)
-                .compact();
+            .setClaims(claims)
+            .setExpiration(Date.from(validity))
+            .signWith(key)
+            .compact();
     }
 
     public JwtResponse refreshUserTokens(String refreshToken) {
@@ -103,22 +105,22 @@ public class JwtTokenProvider {
 
     private String getId(String token) {
         return Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .get("id")
-                .toString();
+            .parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .get("id")
+            .toString();
     }
 
     private String getUsername(String token) {
         return Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+            .parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
     }
 }

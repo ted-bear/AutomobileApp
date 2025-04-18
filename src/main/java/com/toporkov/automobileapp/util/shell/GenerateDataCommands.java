@@ -1,5 +1,11 @@
 package com.toporkov.automobileapp.util.shell;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import com.toporkov.automobileapp.client.GraphHopperHttpClient;
 import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.model.Driver;
@@ -20,37 +26,31 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 @ShellComponent
 public class GenerateDataCommands {
 
     private final List<String> vehicleNumbers = List.of(
-            "А123ВГ", "Б456ЕЖ", "В789ЗИ", "Г321КЛ", "Д654МН",
-            "Е987ОП", "Ж234РС", "З567ТУ", "И890ФХ", "К321ЦЧ",
-            "Л654ШЩ", "М987ЫЭ", "Н234ЮЯ", "О567АБ", "П890ВГ",
-            "Р321ДЕ", "С654ЖЗ", "Т987ИЙ", "У234КЛ", "Ф567МН"
+        "А123ВГ", "Б456ЕЖ", "В789ЗИ", "Г321КЛ", "Д654МН",
+        "Е987ОП", "Ж234РС", "З567ТУ", "И890ФХ", "К321ЦЧ",
+        "Л654ШЩ", "М987ЫЭ", "Н234ЮЯ", "О567АБ", "П890ВГ",
+        "Р321ДЕ", "С654ЖЗ", "Т987ИЙ", "У234КЛ", "Ф567МН"
     );
 
     private final List<String> vehicleColors = List.of(
-            "Красный", "Синий", "Зеленый", "Желтый", "Оранжевый",
-            "Фиолетовый", "Розовый", "Коричневый", "Серый", "Белый"
+        "Красный", "Синий", "Зеленый", "Желтый", "Оранжевый",
+        "Фиолетовый", "Розовый", "Коричневый", "Серый", "Белый"
     );
 
     private final List<String> firstnames = List.of(
-            "Александр", "Елена", "Дмитрий", "Ольга", "Сергей",
-            "Анна", "Иван", "Мария", "Андрей", "Татьяна", "Николай",
-            "Ирина", "Алексей", "Екатерина"
+        "Александр", "Елена", "Дмитрий", "Ольга", "Сергей",
+        "Анна", "Иван", "Мария", "Андрей", "Татьяна", "Николай",
+        "Ирина", "Алексей", "Екатерина"
     );
 
     private final List<String> lastnames = List.of(
-            "Иванов", "Петров", "Сидоров", "Смирнов", "Кузнецов",
-            "Васильев", "Попов", "Соколов", "Михайлов", "Федоров",
-            "Морозов", "Волков", "Алексеев", "Лебедев", "Семенов", "Егоров"
+        "Иванов", "Петров", "Сидоров", "Смирнов", "Кузнецов",
+        "Васильев", "Попов", "Соколов", "Михайлов", "Федоров",
+        "Морозов", "Волков", "Алексеев", "Лебедев", "Семенов", "Егоров"
     );
 
     private final Random random = new Random();
@@ -63,13 +63,15 @@ public class GenerateDataCommands {
     private final VehicleCoordinateService vehicleCoordinateService;
     private final TripService tripService;
 
-    public GenerateDataCommands(final VehicleRepository vehicleRepository,
-                                final DriverRepository driverRepository,
-                                final DriverAssignmentRepository driverAssignmentRepository,
-                                final EnterpriseRepository enterpriseRepository,
-                                final VehicleModelRepository vehicleModelRepository,
-                                final VehicleCoordinateService vehicleCoordinateService,
-                                final TripService tripService) {
+    public GenerateDataCommands(
+        final VehicleRepository vehicleRepository,
+        final DriverRepository driverRepository,
+        final DriverAssignmentRepository driverAssignmentRepository,
+        final EnterpriseRepository enterpriseRepository,
+        final VehicleModelRepository vehicleModelRepository,
+        final VehicleCoordinateService vehicleCoordinateService,
+        final TripService tripService
+    ) {
         this.vehicleRepository = vehicleRepository;
         this.driverRepository = driverRepository;
         this.driverAssignmentRepository = driverAssignmentRepository;
@@ -80,29 +82,29 @@ public class GenerateDataCommands {
     }
 
     @ShellMethod(key = "generate-data",
-            value = "Generate N random vehicles and drivers for specific enterprise.")
+        value = "Generate N random vehicles and drivers for specific enterprise.")
     public String generateVehiclesAndDrivers(
-            @ShellOption(defaultValue = "1") Integer number,
-            @ShellOption(defaultValue = "") List<Integer> enterpriseIds
+        @ShellOption(defaultValue = "1") Integer number,
+        @ShellOption(defaultValue = "") List<Integer> enterpriseIds
     ) {
         final List<VehicleModel> vehicleModels = vehicleModelRepository.findAllByIsActiveTrue();
         for (var id : enterpriseIds) {
             enterpriseRepository.findById(id)
-                    .ifPresent(enterprise -> {
-                        for (int i = 0; i < number; i++) {
-                            final Vehicle vehicle = generateRandomVehicle(enterprise, vehicleModels);
-                            final Driver driver = generateRandomDriver(enterprise);
-                            final DriverAssignment driverAssignment = new DriverAssignment(
-                                    driver,
-                                    vehicle,
-                                    getRandomBooleanWithFactor(0.1)
-                            );
+                .ifPresent(enterprise -> {
+                    for (int i = 0; i < number; i++) {
+                        final Vehicle vehicle = generateRandomVehicle(enterprise, vehicleModels);
+                        final Driver driver = generateRandomDriver(enterprise);
+                        final DriverAssignment driverAssignment = new DriverAssignment(
+                            driver,
+                            vehicle,
+                            getRandomBooleanWithFactor(0.1)
+                        );
 
-                            vehicleRepository.save(vehicle);
-                            driverRepository.save(driver);
-                            driverAssignmentRepository.save(driverAssignment);
-                        }
-                    });
+                        vehicleRepository.save(vehicle);
+                        driverRepository.save(driver);
+                        driverAssignmentRepository.save(driverAssignment);
+                    }
+                });
         }
         return "Generation is successful";
     }
@@ -113,12 +115,14 @@ public class GenerateDataCommands {
 //    30.285320, 60.014610
 //    30.285062, 60.003777
     @ShellMethod(key = "generate-track",
-            value = "Generate track for the vehicle.")
-    public void generateTrackForVehicle(@ShellOption final Integer vehicleId,
-                                        @ShellOption final Double minLatitude,
-                                        @ShellOption final Double maxLatitude,
-                                        @ShellOption final Double minLongitude,
-                                        @ShellOption final Double maxLongitude) {
+        value = "Generate track for the vehicle.")
+    public void generateTrackForVehicle(
+        @ShellOption final Integer vehicleId,
+        @ShellOption final Double minLatitude,
+        @ShellOption final Double maxLatitude,
+        @ShellOption final Double minLongitude,
+        @ShellOption final Double maxLongitude
+    ) {
 
         var startLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
         var startLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
@@ -127,9 +131,9 @@ public class GenerateDataCommands {
         var endLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
 
         var path = GraphHopperHttpClient.getTrack(startLatitude,
-                startLongitude,
-                endLatitude,
-                endLongitude
+            startLongitude,
+            endLatitude,
+            endLongitude
         );
 
         var track = path.getPoints().getCoordinates();
@@ -143,12 +147,12 @@ public class GenerateDataCommands {
             try {
                 Thread.sleep(500);
                 batch.add(
-                        new CreateCoordinateDTO(
-                                currentTime,
-                                track.get(i).get(0),
-                                track.get(i).get(1),
-                                vehicleId
-                        ));
+                    new CreateCoordinateDTO(
+                        currentTime,
+                        track.get(i).get(0),
+                        track.get(i).get(1),
+                        vehicleId
+                    ));
                 if (i != track.size() - 1) {
                     currentTime = Instant.now();
                 }

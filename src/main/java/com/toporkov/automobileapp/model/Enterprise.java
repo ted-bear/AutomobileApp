@@ -51,19 +51,21 @@ public class Enterprise {
 
     @ManyToMany
     @JoinTable(name = "manager_enterprise",
-            joinColumns = @JoinColumn(name = "enterprise_id"),
-            inverseJoinColumns = @JoinColumn(name = "manager_id")
+        joinColumns = @JoinColumn(name = "enterprise_id"),
+        inverseJoinColumns = @JoinColumn(name = "manager_id")
     )
     private Set<Manager> managers;
 
     public Enterprise() {
     }
 
-    public Enterprise(final String name,
-                      final String country,
-                      final String city,
-                      final Integer employeesNumber,
-                      final String timezone) {
+    public Enterprise(
+        final String name,
+        final String country,
+        final String city,
+        final Integer employeesNumber,
+        final String timezone
+    ) {
         this.name = name;
         this.country = country;
         this.city = city;
@@ -173,10 +175,15 @@ public class Enterprise {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Enterprise that = (Enterprise) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(employeesNumber, that.employeesNumber);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(country, that.country)
+            && Objects.equals(city, that.city) && Objects.equals(employeesNumber, that.employeesNumber);
     }
 
     @Override

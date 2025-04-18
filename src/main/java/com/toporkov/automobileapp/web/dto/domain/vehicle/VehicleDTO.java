@@ -18,63 +18,63 @@ public class VehicleDTO {
     private UUID id;
 
     @NotNull(message = "number must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
-            max = 255,
-            message = "number length must be smaller than 255 symbols",
-            groups = {OnCreate.class, OnUpdate.class})
+        max = 255,
+        message = "number length must be smaller than 255 symbols",
+        groups = {OnCreate.class, OnUpdate.class})
     @Pattern(regexp = "[А-Я][0-9]{3}[А-Я]{2}")
     private String number;
 
     @NotNull(message = "year must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 1900,
-            message = "year length must be more then 1900",
-            groups = {OnCreate.class, OnUpdate.class})
+        message = "year length must be more then 1900",
+        groups = {OnCreate.class, OnUpdate.class})
     private Integer year;
 
     @NotNull(message = "color must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
-            max = 255,
-            message = "color length must be smaller than 255 symbols",
-            groups = {OnCreate.class, OnUpdate.class})
+        max = 255,
+        message = "color length must be smaller than 255 symbols",
+        groups = {OnCreate.class, OnUpdate.class})
     private String color;
 
     @NotNull(message = "mileage must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
-            message = "mileage length must be a positive number",
-            groups = {OnCreate.class, OnUpdate.class})
+        message = "mileage length must be a positive number",
+        groups = {OnCreate.class, OnUpdate.class})
     private Integer mileage;
 
     @NotNull(message = "price must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
-            message = "price length must be a positive number",
-            groups = {OnCreate.class, OnUpdate.class})
+        message = "price length must be a positive number",
+        groups = {OnCreate.class, OnUpdate.class})
     private Double price;
 
     @NotNull(message = "condition must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     private Condition condition;
 
     @NotNull(message = "purchaseDate must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     private ZonedDateTime purchaseDate;
 
     @NotNull(message = "vehicleModelId must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
-            message = "vehicleModelId length must be a positive number",
-            groups = {OnCreate.class, OnUpdate.class})
+        message = "vehicleModelId length must be a positive number",
+        groups = {OnCreate.class, OnUpdate.class})
     private Integer vehicleModelId;
 
     @NotNull(message = "enterpriseId must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 0,
-            message = "enterpriseId length must be a positive number",
-            groups = {OnCreate.class, OnUpdate.class})
+        message = "enterpriseId length must be a positive number",
+        groups = {OnCreate.class, OnUpdate.class})
     private Integer enterpriseId;
 
     public UUID getId() {

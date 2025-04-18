@@ -22,10 +22,10 @@ public class DriverRestController {
 
     @GetMapping
     public Page<DriverDTO> getAllDrivers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "true") boolean ascending
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
+        @RequestParam(defaultValue = "id") String sortBy,
+        @RequestParam(defaultValue = "true") boolean ascending
     ) {
         final Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         final PageRequest pageRequest = PageRequest.of(page, size, sort);

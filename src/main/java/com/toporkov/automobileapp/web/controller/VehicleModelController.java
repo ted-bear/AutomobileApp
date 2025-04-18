@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.web.controller;
 
+import java.util.List;
+
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.service.VehicleModelService;
 import jakarta.validation.Valid;
@@ -13,8 +15,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/vehicleModels")
@@ -54,9 +54,11 @@ public class VehicleModelController {
     }
 
     @PatchMapping("/{id}")
-    public String updateVehicleModel(@PathVariable("id") int id,
-                                     @ModelAttribute("vehicleModel") @Valid VehicleModel vehicleModel,
-                                     BindingResult bindingResult) {
+    public String updateVehicleModel(
+        @PathVariable("id") int id,
+        @ModelAttribute("vehicleModel") @Valid VehicleModel vehicleModel,
+        BindingResult bindingResult
+    ) {
         if (bindingResult.hasErrors()) {
             return "vehicleModels/editVehicleModelPage";
         }
@@ -67,8 +69,10 @@ public class VehicleModelController {
     }
 
     @PostMapping
-    public String createVehicleModel(@ModelAttribute("vehicleModel") @Valid VehicleModel vehicleModel,
-                                     BindingResult bindingResult) {
+    public String createVehicleModel(
+        @ModelAttribute("vehicleModel") @Valid VehicleModel vehicleModel,
+        BindingResult bindingResult
+    ) {
         if (bindingResult.hasErrors()) {
             return "vehicleModels/createVehicleModelPage";
         }

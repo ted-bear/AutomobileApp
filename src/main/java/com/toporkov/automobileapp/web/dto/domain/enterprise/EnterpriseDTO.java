@@ -16,34 +16,34 @@ public class EnterpriseDTO {
     private UUID id;
 
     @NotNull(message = "name must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
-            max = 255,
-            message = "country length must be smaller than 255 symbols",
-            groups = {OnCreate.class, OnUpdate.class})
+        max = 255,
+        message = "country length must be smaller than 255 symbols",
+        groups = {OnCreate.class, OnUpdate.class})
     private String name;
 
     @NotNull(message = "country must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
-            max = 255,
-            message = "country length must be smaller than 255 symbols",
-            groups = {OnCreate.class, OnUpdate.class})
+        max = 255,
+        message = "country length must be smaller than 255 symbols",
+        groups = {OnCreate.class, OnUpdate.class})
     private String country;
 
     @NotNull(message = "city must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,
-            max = 255,
-            message = "city length must be smaller than 255 symbols",
-            groups = {OnCreate.class, OnUpdate.class})
+        max = 255,
+        message = "city length must be smaller than 255 symbols",
+        groups = {OnCreate.class, OnUpdate.class})
     private String city;
 
     @NotNull(message = "employeesNumber must not be null",
-            groups = {OnCreate.class, OnUpdate.class})
+        groups = {OnCreate.class, OnUpdate.class})
     @Min(value = 1,
-            message = "employeesNumber length must be a positive number",
-            groups = {OnCreate.class, OnUpdate.class})
+        message = "employeesNumber length must be a positive number",
+        groups = {OnCreate.class, OnUpdate.class})
     private Integer employeesNumber;
 
     @NotNull(message = "timezone must not be null")

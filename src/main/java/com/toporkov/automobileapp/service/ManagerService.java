@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.service;
 
+import java.util.List;
+
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.model.Role;
 import com.toporkov.automobileapp.repository.ManagerRepository;
@@ -9,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional(readOnly = true)
 public class ManagerService {
@@ -18,8 +18,10 @@ public class ManagerService {
     private final ManagerRepository managerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public ManagerService(final ManagerRepository managerRepository,
-                          final PasswordEncoder passwordEncoder) {
+    public ManagerService(
+        final ManagerRepository managerRepository,
+        final PasswordEncoder passwordEncoder
+    ) {
         this.managerRepository = managerRepository;
         this.passwordEncoder = passwordEncoder;
     }

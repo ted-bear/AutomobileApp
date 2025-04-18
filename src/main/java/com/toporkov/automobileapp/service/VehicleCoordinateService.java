@@ -24,10 +24,12 @@ public class VehicleCoordinateService {
     private final VehicleRepository vehicleRepository;
     private final TripService tripService;
 
-    public VehicleCoordinateService(final GeometryFactory geometryFactory,
-                                    final VehicleCoordinateRepository vehicleCoordinateRepository,
-                                    final VehicleRepository vehicleRepository,
-                                    final TripService tripService) {
+    public VehicleCoordinateService(
+        final GeometryFactory geometryFactory,
+        final VehicleCoordinateRepository vehicleCoordinateRepository,
+        final VehicleRepository vehicleRepository,
+        final TripService tripService
+    ) {
         this.geometryFactory = geometryFactory;
         this.vehicleCoordinateRepository = vehicleCoordinateRepository;
         this.vehicleRepository = vehicleRepository;
@@ -50,11 +52,11 @@ public class VehicleCoordinateService {
 
         for (var trip : tripsInInterval) {
             tripCoordinates.addAll(
-                    findAllByTime(
-                            trip.getVehicle().getId(),
-                            trip.getStartedAt(),
-                            trip.getEndedAt()
-                    )
+                findAllByTime(
+                    trip.getVehicle().getId(),
+                    trip.getStartedAt(),
+                    trip.getEndedAt()
+                )
             );
         }
 
@@ -64,9 +66,9 @@ public class VehicleCoordinateService {
     @Transactional
     public void saveAllCoordinates(final List<CreateCoordinateDTO> coordinateDTOList) {
         vehicleCoordinateRepository.saveAll(
-                coordinateDTOList.stream()
-                        .map(this::mapDtoToEntity)
-                        .toList()
+            coordinateDTOList.stream()
+                .map(this::mapDtoToEntity)
+                .toList()
         );
     }
 
@@ -77,14 +79,14 @@ public class VehicleCoordinateService {
         vehicleCoordinate.setLatitude(createCoordinateDTO.getLatitude());
         vehicleCoordinate.setLongitude(createCoordinateDTO.getLongitude());
         vehicleCoordinate.setPosition(
-                getPoint(
-                        createCoordinateDTO.getLatitude(),
-                        createCoordinateDTO.getLongitude()
-                )
+            getPoint(
+                createCoordinateDTO.getLatitude(),
+                createCoordinateDTO.getLongitude()
+            )
         );
         vehicleCoordinate.setVehicle(vehicleRepository
-                .findById(createCoordinateDTO.getVehicleId())
-                .orElseThrow(RuntimeException::new)
+            .findById(createCoordinateDTO.getVehicleId())
+            .orElseThrow(RuntimeException::new)
         );
 
         return vehicleCoordinate;

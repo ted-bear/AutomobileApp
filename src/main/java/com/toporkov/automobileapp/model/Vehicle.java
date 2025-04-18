@@ -61,7 +61,7 @@ public class Vehicle {
 
     @ManyToOne
     @JoinColumn(name = "vehicle_model_id",
-            referencedColumnName = "id")
+        referencedColumnName = "id")
     private VehicleModel vehicleModel;
 
     @Column(name = "purchase_date")
@@ -69,7 +69,7 @@ public class Vehicle {
 
     @ManyToOne
     @JoinColumn(name = "enterprise_id",
-            referencedColumnName = "id")
+        referencedColumnName = "id")
     private Enterprise enterprise;
 
     @OneToMany(mappedBy = "vehicle")
@@ -78,13 +78,15 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(final String number,
-                   final int year,
-                   final String color,
-                   final int mileage,
-                   final double price,
-                   final Condition condition,
-                   final Instant purchaseDate) {
+    public Vehicle(
+        final String number,
+        final int year,
+        final String color,
+        final int mileage,
+        final double price,
+        final Condition condition,
+        final Instant purchaseDate
+    ) {
         this.number = number;
         this.year = year;
         this.color = color;
@@ -197,10 +199,16 @@ public class Vehicle {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Vehicle vehicle = (Vehicle) o;
-        return id == vehicle.id && year == vehicle.year && mileage == vehicle.mileage && Double.compare(price, vehicle.price) == 0 && Objects.equals(number, vehicle.number) && Objects.equals(color, vehicle.color) && condition == vehicle.condition;
+        return id == vehicle.id && year == vehicle.year && mileage == vehicle.mileage
+            && Double.compare(price, vehicle.price) == 0 && Objects.equals(number, vehicle.number) && Objects.equals(
+            color, vehicle.color) && condition == vehicle.condition;
     }
 
     @Override

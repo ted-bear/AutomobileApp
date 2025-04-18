@@ -1,5 +1,10 @@
 package com.toporkov.automobileapp.model;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,11 +17,6 @@ import jakarta.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "manager")
@@ -53,12 +53,14 @@ public class Manager implements UserDetails {
     public Manager() {
     }
 
-    public Manager(int id,
-                   String username,
-                   String firstname,
-                   String lastname,
-                   String password,
-                   Role role) {
+    public Manager(
+        int id,
+        String username,
+        String firstname,
+        String lastname,
+        String password,
+        Role role
+    ) {
         this.id = id;
         this.username = username;
         this.firstname = firstname;
@@ -132,10 +134,16 @@ public class Manager implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Manager manager = (Manager) o;
-        return id == manager.id && Objects.equals(username, manager.username) && Objects.equals(firstname, manager.firstname) && Objects.equals(lastname, manager.lastname) && Objects.equals(password, manager.password) && role == manager.role;
+        return id == manager.id && Objects.equals(username, manager.username) && Objects.equals(firstname,
+            manager.firstname) && Objects.equals(lastname, manager.lastname) && Objects.equals(password,
+            manager.password) && role == manager.role;
     }
 
     @Override

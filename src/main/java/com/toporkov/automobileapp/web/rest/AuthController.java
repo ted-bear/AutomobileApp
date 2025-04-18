@@ -22,9 +22,11 @@ public class AuthController {
     private final ManagerService managerService;
     private final ManagerMapper managerMapper;
 
-    public AuthController(final AuthService authService,
-                          final ManagerService managerService,
-                          final ManagerMapper managerMapper) {
+    public AuthController(
+        final AuthService authService,
+        final ManagerService managerService,
+        final ManagerMapper managerMapper
+    ) {
         this.authService = authService;
         this.managerService = managerService;
         this.managerMapper = managerMapper;
@@ -37,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<HttpStatus> register(
-            @RequestBody RegistrationManagerDTO registrationManagerDTO
+        @RequestBody RegistrationManagerDTO registrationManagerDTO
     ) {
         if (!registrationManagerDTO.getPassword().equals(registrationManagerDTO.getPasswordConfirmation())) {
             throw new IllegalStateException("Password and password confirmation do not match");

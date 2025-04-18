@@ -18,9 +18,11 @@ public class AuthService {
     private final ManagerService managerService;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public AuthService(final AuthenticationManager authenticationManager,
-                       final ManagerService managerService,
-                       final JwtTokenProvider jwtTokenProvider) {
+    public AuthService(
+        final AuthenticationManager authenticationManager,
+        final ManagerService managerService,
+        final JwtTokenProvider jwtTokenProvider
+    ) {
         this.authenticationManager = authenticationManager;
         this.managerService = managerService;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -28,8 +30,8 @@ public class AuthService {
 
     public JwtResponse login(JwtRequest loginRequest) {
         final Authentication authentication = new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
+            loginRequest.getUsername(),
+            loginRequest.getPassword()
         );
 
         authenticationManager.authenticate(authentication);

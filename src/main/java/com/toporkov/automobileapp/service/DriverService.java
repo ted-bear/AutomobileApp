@@ -23,9 +23,11 @@ public class DriverService {
     private final ManagerService managerService;
     private final DriverMapper driverMapper;
 
-    public DriverService(final DriverRepository driverRepository,
-                         final ManagerService managerService,
-                         final DriverMapper driverMapper) {
+    public DriverService(
+        final DriverRepository driverRepository,
+        final ManagerService managerService,
+        final DriverMapper driverMapper
+    ) {
         this.driverRepository = driverRepository;
         this.managerService = managerService;
         this.driverMapper = driverMapper;
@@ -39,8 +41,8 @@ public class DriverService {
             .toList();
 
         return driverRepository
-                .findByEnterpriseIdIn(enterpriseIds, pageable)
-                .map(driverMapper::mapEntityToDto);
+            .findByEnterpriseIdIn(enterpriseIds, pageable)
+            .map(driverMapper::mapEntityToDto);
     }
 
 

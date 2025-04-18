@@ -32,7 +32,7 @@ public class EnterpriseVehicleRestController {
 
     @GetMapping("/{enterpriseId}/vehicles")
     public Page<VehicleDTO> findAllByEnterprise(
-            @RequestParam(defaultValue = "0") Integer page,
+        @RequestParam(defaultValue = "0") Integer page,
         @RequestParam(defaultValue = "10") Integer size,
         @RequestParam(defaultValue = "id") String sortBy,
         @RequestParam(defaultValue = "true") Boolean ascending,

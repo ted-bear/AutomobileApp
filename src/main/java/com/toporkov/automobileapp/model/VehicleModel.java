@@ -1,5 +1,9 @@
 package com.toporkov.automobileapp.model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,10 +13,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "vehicle_model")
@@ -80,18 +80,20 @@ public class VehicleModel {
     public VehicleModel() {
     }
 
-    public VehicleModel(final String brandName,
-                        final String modelName,
-                        final String bodyType,
-                        final String drive,
-                        final String engineType,
-                        final int enginePower,
-                        final double engineVolume,
-                        final int maxSpeed,
-                        final String transmission,
-                        final int seatsNumber,
-                        final int doorsNumber,
-                        final String suspension) {
+    public VehicleModel(
+        final String brandName,
+        final String modelName,
+        final String bodyType,
+        final String drive,
+        final String engineType,
+        final int enginePower,
+        final double engineVolume,
+        final int maxSpeed,
+        final String transmission,
+        final int seatsNumber,
+        final int doorsNumber,
+        final String suspension
+    ) {
         this.brandName = brandName;
         this.modelName = modelName;
         this.bodyType = bodyType;
@@ -233,28 +235,32 @@ public class VehicleModel {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         VehicleModel that = (VehicleModel) o;
         return id == that.id &&
-                enginePower == that.enginePower &&
-                Double.compare(engineVolume, that.engineVolume) == 0 &&
-                maxSpeed == that.maxSpeed &&
-                seatsNumber == that.seatsNumber &&
-                doorsNumber == that.doorsNumber &&
-                Objects.equals(brandName, that.brandName) &&
-                Objects.equals(modelName, that.modelName) &&
-                Objects.equals(bodyType, that.bodyType) &&
-                Objects.equals(drive, that.drive) &&
-                Objects.equals(engineType, that.engineType) &&
-                Objects.equals(transmission, that.transmission) &&
-                Objects.equals(suspension, that.suspension);
+            enginePower == that.enginePower &&
+            Double.compare(engineVolume, that.engineVolume) == 0 &&
+            maxSpeed == that.maxSpeed &&
+            seatsNumber == that.seatsNumber &&
+            doorsNumber == that.doorsNumber &&
+            Objects.equals(brandName, that.brandName) &&
+            Objects.equals(modelName, that.modelName) &&
+            Objects.equals(bodyType, that.bodyType) &&
+            Objects.equals(drive, that.drive) &&
+            Objects.equals(engineType, that.engineType) &&
+            Objects.equals(transmission, that.transmission) &&
+            Objects.equals(suspension, that.suspension);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, brandName, modelName, bodyType,
-                drive, engineType, enginePower, engineVolume,
-                maxSpeed, transmission, seatsNumber, doorsNumber, suspension);
+            drive, engineType, enginePower, engineVolume,
+            maxSpeed, transmission, seatsNumber, doorsNumber, suspension);
     }
 }

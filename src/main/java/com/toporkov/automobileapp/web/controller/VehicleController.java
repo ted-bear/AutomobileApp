@@ -30,9 +30,11 @@ public class VehicleController {
     private final VehicleModelService vehicleModelService;
     private final VehicleValidator vehicleValidator;
 
-    public VehicleController(final VehicleService vehicleService,
-                             VehicleModelService vehicleModelService,
-                             VehicleValidator vehicleValidator) {
+    public VehicleController(
+        final VehicleService vehicleService,
+        VehicleModelService vehicleModelService,
+        VehicleValidator vehicleValidator
+    ) {
         this.vehicleService = vehicleService;
         this.vehicleModelService = vehicleModelService;
         this.vehicleValidator = vehicleValidator;
@@ -71,8 +73,10 @@ public class VehicleController {
     }
 
     @GetMapping("/create")
-    public String getVehicleCreatePage(@ModelAttribute("vehicle") Vehicle vehicle,
-                                       Model model) {
+    public String getVehicleCreatePage(
+        @ModelAttribute("vehicle") Vehicle vehicle,
+        Model model
+    ) {
         final List<VehicleModel> vehicleModels = vehicleModelService.findAll();
         final List<Condition> conditions = Condition.getAsList();
 
@@ -83,9 +87,11 @@ public class VehicleController {
     }
 
     @PostMapping
-    public String createVehicle(@ModelAttribute("vehicle") @Valid Vehicle vehicle,
-                                BindingResult bindingResult,
-                                Model model) {
+    public String createVehicle(
+        @ModelAttribute("vehicle") @Valid Vehicle vehicle,
+        BindingResult bindingResult,
+        Model model
+    ) {
         vehicleValidator.validate(vehicle, bindingResult);
 
         if (bindingResult.hasErrors()) {

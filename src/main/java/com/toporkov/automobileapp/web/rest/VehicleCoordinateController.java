@@ -24,8 +24,10 @@ public class VehicleCoordinateController {
     private final VehicleCoordinateService vehicleCoordinateService;
     private final VehicleCoordinateMapper vehicleCoordinateMapper;
 
-    public VehicleCoordinateController(final VehicleCoordinateService vehicleCoordinateService,
-                                       final VehicleCoordinateMapper vehicleCoordinateMapper) {
+    public VehicleCoordinateController(
+        final VehicleCoordinateService vehicleCoordinateService,
+        final VehicleCoordinateMapper vehicleCoordinateMapper
+    ) {
         this.vehicleCoordinateService = vehicleCoordinateService;
         this.vehicleCoordinateMapper = vehicleCoordinateMapper;
     }
@@ -50,8 +52,8 @@ public class VehicleCoordinateController {
         }
 
         return ResponseEntity.ok(allByTime.stream()
-                .map(vehicleCoordinateMapper::mapEntityToDTO)
-                .toList());
+            .map(vehicleCoordinateMapper::mapEntityToDTO)
+            .toList());
     }
 
     private static class FeatureCollection {

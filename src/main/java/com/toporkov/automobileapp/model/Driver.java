@@ -38,7 +38,7 @@ public class Driver {
 
     @ManyToOne
     @JoinColumn(name = "enterprise_id",
-            referencedColumnName = "id")
+        referencedColumnName = "id")
     private Enterprise enterprise;
 
     @OneToMany(mappedBy = "driver")
@@ -47,10 +47,12 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(final String firstname,
-                  final String lastname,
-                  final BigDecimal salary,
-                  final Integer drivingExperience) {
+    public Driver(
+        final String firstname,
+        final String lastname,
+        final BigDecimal salary,
+        final Integer drivingExperience
+    ) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.salary = salary;
@@ -120,10 +122,16 @@ public class Driver {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Driver driver = (Driver) o;
-        return Objects.equals(id, driver.id) && Objects.equals(firstname, driver.firstname) && Objects.equals(lastname, driver.lastname) && Objects.equals(salary, driver.salary) && Objects.equals(drivingExperience, driver.drivingExperience);
+        return Objects.equals(id, driver.id) && Objects.equals(firstname, driver.firstname) && Objects.equals(lastname,
+            driver.lastname) && Objects.equals(salary, driver.salary) && Objects.equals(drivingExperience,
+            driver.drivingExperience);
     }
 
     @Override

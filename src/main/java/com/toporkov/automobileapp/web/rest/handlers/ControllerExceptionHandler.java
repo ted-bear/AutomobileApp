@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.web.rest.handlers;
 
+import java.time.LocalDateTime;
+
 import com.toporkov.automobileapp.util.exception.ManagerDoNotHaveAccessException;
 import com.toporkov.automobileapp.util.exception.UserNotFoundException;
 import com.toporkov.automobileapp.util.exception.VehicleModelNotFoundException;
@@ -13,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
@@ -34,7 +34,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<HttpStatus> handleUserNotFoundException(UserNotFoundException e) {
         return new ResponseEntity<>(
-                HttpStatus.UNAUTHORIZED
+            HttpStatus.UNAUTHORIZED
         );
     }
 

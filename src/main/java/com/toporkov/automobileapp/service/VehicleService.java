@@ -30,9 +30,11 @@ public class VehicleService {
     private final ManagerService managerService;
     private final VehicleMapper vehicleMapper;
 
-    public VehicleService(final VehicleRepository vehicleRepository,
-                          final ManagerService managerService,
-                          final VehicleMapper vehicleMapper) {
+    public VehicleService(
+        final VehicleRepository vehicleRepository,
+        final ManagerService managerService,
+        final VehicleMapper vehicleMapper
+    ) {
         this.vehicleRepository = vehicleRepository;
         this.managerService = managerService;
         this.vehicleMapper = vehicleMapper;
@@ -46,13 +48,13 @@ public class VehicleService {
             .toList();
 
         return vehicleRepository
-                .findByIsActiveTrueAndEnterpriseIdIn(enterpriseIds, pageable)
-                .map(vehicleMapper::mapEntityToDto);
+            .findByIsActiveTrueAndEnterpriseIdIn(enterpriseIds, pageable)
+            .map(vehicleMapper::mapEntityToDto);
     }
 
     public Page<VehicleDTO> findAllByEnterpriseId(Pageable pageable, Integer enterpriseId) {
         return vehicleRepository
-                .findAllByEnterpriseId(enterpriseId, pageable)
+            .findAllByEnterpriseId(enterpriseId, pageable)
             .map(vehicleMapper::mapEntityToDto);
     }
 
@@ -131,7 +133,7 @@ public class VehicleService {
                 final Optional<DriverAssignment> activeDriver = vehicle.getDriverVehicles()
                     .stream()
                     .filter(DriverAssignment::getActive)
-                            .findFirst();
+                    .findFirst();
 
                 if (activeDriver.isPresent()) {
                     throw new VehicleNotDeletedException("Транспорт имеет активного водителя");

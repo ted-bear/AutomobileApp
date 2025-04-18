@@ -15,7 +15,7 @@ public class VehicleCoordinateGeoJson {
 
     public static VehicleCoordinateGeoJson fromEntity(VehicleCoordinate entity) {
         VehicleCoordinateGeoJson dto = new VehicleCoordinateGeoJson();
-        dto.setCoordinate(new Point(new Double[]{entity.getLongitude(), entity.getLatitude()}));
+        dto.setCoordinate(new Point(new Double[] {entity.getLongitude(), entity.getLatitude()}));
 
         Properties props = new Properties();
         props.setId(entity.getId());

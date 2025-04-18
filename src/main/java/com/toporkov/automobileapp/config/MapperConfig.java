@@ -34,9 +34,11 @@ public class MapperConfig {
     private final EnterpriseIdToEnterpriseConverter enterpriseIdToEnterpriseConverter;
     private final EnterpriseIdListToEnterpriseSetConverter enterpriseIdListToEnterpriseSetConverter;
 
-    public MapperConfig(final VehicleModelIdToVehicleModelConverter vehicleModelIdToVehicleModelConverter,
-                        final EnterpriseIdToEnterpriseConverter enterpriseIdToEnterpriseConverter,
-                        final EnterpriseIdListToEnterpriseSetConverter enterpriseIdListToEnterpriseSetConverter) {
+    public MapperConfig(
+        final VehicleModelIdToVehicleModelConverter vehicleModelIdToVehicleModelConverter,
+        final EnterpriseIdToEnterpriseConverter enterpriseIdToEnterpriseConverter,
+        final EnterpriseIdListToEnterpriseSetConverter enterpriseIdListToEnterpriseSetConverter
+    ) {
         this.vehicleModelIdToVehicleModelConverter = vehicleModelIdToVehicleModelConverter;
         this.enterpriseIdToEnterpriseConverter = enterpriseIdToEnterpriseConverter;
         this.enterpriseIdListToEnterpriseSetConverter = enterpriseIdListToEnterpriseSetConverter;
@@ -47,47 +49,47 @@ public class MapperConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         modelMapper.typeMap(Enterprise.class, EnterpriseDTO.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new VehicleListToIdListConverter())
-                                .map(source.getVehicles(), destination.getVehicles());
-                    }
-                })
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new DriverListToIdListConverter())
-                                .map(source.getDrivers(), destination.getDrivers());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new VehicleListToIdListConverter())
+                        .map(source.getVehicles(), destination.getVehicles());
+                }
+            })
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new DriverListToIdListConverter())
+                        .map(source.getDrivers(), destination.getDrivers());
+                }
+            });
 
         modelMapper.typeMap(Vehicle.class, VehicleDTO.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new VehicleModelToVehicleModelIdConverter())
-                                .map(source.getVehicleModel(), destination.getVehicleModelId());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new VehicleModelToVehicleModelIdConverter())
+                        .map(source.getVehicleModel(), destination.getVehicleModelId());
+                }
+            });
 
         modelMapper.typeMap(Vehicle.class, VehicleDTO.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new EnterpriseToEnterpriseIdConverter())
-                                .map(source.getEnterprise(), destination.getEnterpriseId());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new EnterpriseToEnterpriseIdConverter())
+                        .map(source.getEnterprise(), destination.getEnterpriseId());
+                }
+            });
 
         modelMapper.typeMap(VehicleDTO.class, Vehicle.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(vehicleModelIdToVehicleModelConverter)
-                                .map(source.getVehicleModelId(), destination.getVehicleModel());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(vehicleModelIdToVehicleModelConverter)
+                        .map(source.getVehicleModelId(), destination.getVehicleModel());
+                }
+            });
 
         modelMapper.typeMap(VehicleDTO.class, Vehicle.class)
             .addMappings(new PropertyMap<>() {
@@ -126,31 +128,31 @@ public class MapperConfig {
             });
 
         modelMapper.typeMap(VehicleCoordinate.class, VehicleCoordinateDTO.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new VehicleToVehicleIdConverter())
-                                .map(source.getVehicle(), destination.getVehicleId());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new VehicleToVehicleIdConverter())
+                        .map(source.getVehicle(), destination.getVehicleId());
+                }
+            });
 
         modelMapper.typeMap(VehicleCoordinate.class, VehicleCoordinateDTO.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new PointToCoordinatesConverter())
-                                .map(source.getPosition(), destination.getPosition());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new PointToCoordinatesConverter())
+                        .map(source.getPosition(), destination.getPosition());
+                }
+            });
 
         modelMapper.typeMap(RegistrationManagerDTO.class, Manager.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(enterpriseIdListToEnterpriseSetConverter)
-                                .map(source.getEnterprises(), destination.getEnterprises());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(enterpriseIdListToEnterpriseSetConverter)
+                        .map(source.getEnterprises(), destination.getEnterprises());
+                }
+            });
 
         return modelMapper;
     }

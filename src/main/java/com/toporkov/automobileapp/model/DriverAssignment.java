@@ -1,6 +1,8 @@
 package com.toporkov.automobileapp.model;
 
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
-import java.util.Objects;
 
 @Entity
 @Table(name = "driver_assignment")
@@ -23,12 +23,12 @@ public class DriverAssignment {
 
     @ManyToOne
     @JoinColumn(name = "driver_id",
-            referencedColumnName = "id")
+        referencedColumnName = "id")
     private Driver driver;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id",
-            referencedColumnName = "id")
+        referencedColumnName = "id")
     private Vehicle vehicle;
 
     @Column(name = "is_active")
@@ -37,9 +37,11 @@ public class DriverAssignment {
     public DriverAssignment() {
     }
 
-    public DriverAssignment(final Driver driver,
-                            final Vehicle vehicle,
-                            final Boolean isActive) {
+    public DriverAssignment(
+        final Driver driver,
+        final Vehicle vehicle,
+        final Boolean isActive
+    ) {
         this.driver = driver;
         this.vehicle = vehicle;
         this.isActive = isActive;
@@ -79,10 +81,15 @@ public class DriverAssignment {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DriverAssignment that = (DriverAssignment) o;
-        return id == that.id && Objects.equals(driver, that.driver) && Objects.equals(vehicle, that.vehicle) && Objects.equals(isActive, that.isActive);
+        return id == that.id && Objects.equals(driver, that.driver) && Objects.equals(vehicle, that.vehicle)
+            && Objects.equals(isActive, that.isActive);
     }
 
     @Override

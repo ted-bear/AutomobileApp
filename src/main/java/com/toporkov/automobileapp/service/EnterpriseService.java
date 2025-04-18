@@ -20,8 +20,10 @@ public class EnterpriseService {
     private final EnterpriseRepository enterpriseRepository;
     private final ManagerService managerService;
 
-    public EnterpriseService(final EnterpriseRepository enterpriseRepository,
-                             final ManagerService managerService) {
+    public EnterpriseService(
+        final EnterpriseRepository enterpriseRepository,
+        final ManagerService managerService
+    ) {
         this.enterpriseRepository = enterpriseRepository;
         this.managerService = managerService;
     }
@@ -42,7 +44,9 @@ public class EnterpriseService {
     public void save(Enterprise enterprise) {
         Assert.notNull(enterprise, "Объект предприятия не может быть null");
 
-        if (enterprise.getTimezone() == null) enterprise.setTimezone("UTC");
+        if (enterprise.getTimezone() == null) {
+            enterprise.setTimezone("UTC");
+        }
 
         enterprise.setActive(true);
         enterpriseRepository.save(enterprise);
@@ -54,8 +58,8 @@ public class EnterpriseService {
         Assert.notNull(timezoneDTO, "Временная зона не может быть null");
 
         enterpriseRepository
-                .findById(id)
-                .ifPresent(enterprise -> enterprise.setTimezone(timezoneDTO.getTimezone()));
+            .findById(id)
+            .ifPresent(enterprise -> enterprise.setTimezone(timezoneDTO.getTimezone()));
     }
 
     @Transactional

@@ -1,13 +1,13 @@
 package com.toporkov.automobileapp.service;
 
+import java.util.List;
+
 import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleModelRepository;
 import com.toporkov.automobileapp.util.exception.VehicleModelNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,10 +48,10 @@ public class VehicleModelService {
     public void delete(Integer id) {
         Assert.notNull(id, "VehicleModel id shouldn't be null");
         vehicleModelRepository
-                .findById(id)
-                .ifPresent(vehicleModel -> {
-                    vehicleModel.setActive(false);
-                    vehicleModelRepository.save(vehicleModel);
-                });
+            .findById(id)
+            .ifPresent(vehicleModel -> {
+                vehicleModel.setActive(false);
+                vehicleModelRepository.save(vehicleModel);
+            });
     }
 }

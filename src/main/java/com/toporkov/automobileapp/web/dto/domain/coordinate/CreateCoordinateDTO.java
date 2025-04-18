@@ -15,10 +15,12 @@ public class CreateCoordinateDTO {
     public CreateCoordinateDTO() {
     }
 
-    public CreateCoordinateDTO(Instant createAt,
-                               Double latitude,
-                               Double longitude,
-                               Integer vehicleId) {
+    public CreateCoordinateDTO(
+        Instant createAt,
+        Double latitude,
+        Double longitude,
+        Integer vehicleId
+    ) {
         this.createAt = createAt;
         this.latitude = latitude;
         this.longitude = longitude;
