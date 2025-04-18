@@ -3,6 +3,7 @@ package com.toporkov.automobileapp.web.rest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.UUID;
 
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -117,7 +118,7 @@ public class EnterpriseRestController {
     }
 
     @GetMapping("/{id}")
-    public EnterpriseDTO getEnterprise(@PathVariable("id") Integer id) {
+    public EnterpriseDTO getEnterprise(@PathVariable("id") UUID id) {
         // TODO: Перенести маппинг в слой контроллера
         final Enterprise enterprise = enterpriseService.getById(id);
         return enterpriseMapper.mapEntityToDto(enterprise);
@@ -141,16 +142,18 @@ public class EnterpriseRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> updateEnterprise(@PathVariable("id") Integer id,
-                                                       @Validated(OnUpdate.class)
-                                                       @RequestBody EnterpriseDTO enterpriseDTO) {
+    public ResponseEntity<HttpStatus> updateEnterprise(
+        @PathVariable("id") UUID id,
+        @Validated(OnUpdate.class)
+        @RequestBody EnterpriseDTO enterpriseDTO
+    ) {
         // TODO: Перенести маппинг в слой контроллера
         enterpriseService.update(id, enterpriseMapper.mapDtoToEntity(enterpriseDTO));
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteEnterprise(@PathVariable("id") Integer id) {
+    public ResponseEntity<HttpStatus> deleteEnterprise(@PathVariable("id") UUID id) {
         enterpriseService.delete(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

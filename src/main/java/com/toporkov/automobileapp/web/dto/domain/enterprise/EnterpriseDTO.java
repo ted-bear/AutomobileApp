@@ -1,5 +1,8 @@
 package com.toporkov.automobileapp.web.dto.domain.enterprise;
 
+import java.util.List;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
 import com.toporkov.automobileapp.web.dto.validation.OnUpdate;
@@ -7,12 +10,10 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.List;
-
 public class EnterpriseDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Integer id;
+    private UUID id;
 
     @NotNull(message = "name must not be null",
             groups = {OnCreate.class, OnUpdate.class})
@@ -54,11 +55,11 @@ public class EnterpriseDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Integer> drivers;
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -1,12 +1,14 @@
 package com.toporkov.automobileapp.web.mapper.converter;
 
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.service.EnterpriseService;
 import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<Integer, Enterprise> {
+public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<UUID, Enterprise> {
 
     private final EnterpriseService enterpriseService;
 
@@ -15,7 +17,7 @@ public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<Integer
     }
 
     @Override
-    protected Enterprise convert(Integer id) {
+    protected Enterprise convert(UUID id) {
         return enterpriseService.getById(id);
     }
 }

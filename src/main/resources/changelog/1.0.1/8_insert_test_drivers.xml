@@ -8,7 +8,7 @@
             <column name="lastname" value="Темерский"/>
             <column name="salary" value="1000.00"/>
             <column name="driving_experience" value="5"/>
-            <column name="enterprise_id" value="1"/>
+            <column name="enterprise_id" value="82a57b74-bafd-48a8-813a-1343b64b4e2e"/>
         </insert>
 
         <insert tableName="driver">
@@ -16,7 +16,7 @@
             <column name="lastname" value="Трескучий"/>
             <column name="salary" value="1100.00"/>
             <column name="driving_experience" value="7"/>
-            <column name="enterprise_id" value="2"/>
+            <column name="enterprise_id" value="ca44b661-5b9a-4784-bd0d-d977692a93d2"/>
         </insert>
 
         <insert tableName="driver">
@@ -24,7 +24,7 @@
             <column name="lastname" value="Кетон"/>
             <column name="salary" value="900.00"/>
             <column name="driving_experience" value="3"/>
-            <column name="enterprise_id" value="2"/>
+            <column name="enterprise_id" value="ca44b661-5b9a-4784-bd0d-d977692a93d2"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

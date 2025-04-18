@@ -39,11 +39,11 @@ public class VehicleService {
     }
 
     public Page<VehicleDTO> findAll(Pageable pageable) {
-        final List<Integer> enterpriseIds = managerService.getCurrentManager()
-                .getEnterprises()
-                .stream()
-                .map(Enterprise::getId)
-                .toList();
+        final List<UUID> enterpriseIds = managerService.getCurrentManager()
+            .getEnterprises()
+            .stream()
+            .map(Enterprise::getId)
+            .toList();
 
         return vehicleRepository
                 .findByIsActiveTrueAndEnterpriseIdIn(enterpriseIds, pageable)

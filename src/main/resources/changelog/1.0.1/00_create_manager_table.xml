@@ -36,7 +36,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="enterprise_id" type="int">
+            <column name="enterprise_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
 

@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.dto.domain.vehicle;
 
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
@@ -15,6 +16,9 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class VehicleCsvDTO {
+
+    @CsvBindByName(column = "id", required = true)
+    private UUID id;
 
     @NotNull(message = "number must not be null",
         groups = {OnCreate.class, OnUpdate.class})

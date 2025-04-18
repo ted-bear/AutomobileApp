@@ -1,5 +1,9 @@
 package com.toporkov.automobileapp.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.model.Manager;
 import com.toporkov.automobileapp.repository.EnterpriseRepository;
@@ -8,9 +12,6 @@ import com.toporkov.automobileapp.web.dto.domain.enterprise.TimezoneDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,10 +32,10 @@ public class EnterpriseService {
         return enterpriseRepository.findAllByManagersContains(currentManager);
     }
 
-    public Enterprise getById(Integer enterpriseId) {
+    public Enterprise getById(UUID enterpriseId) {
         Assert.notNull(enterpriseId, "ID предприятия не может быть null");
         return findById(enterpriseId)
-                .orElseThrow(() -> new EnterpriseNotFoundException("Предприятие с ID " + enterpriseId + " не найдено"));
+            .orElseThrow(() -> new EnterpriseNotFoundException("Предприятие с ID " + enterpriseId + " не найдено"));
     }
 
     @Transactional
@@ -58,26 +59,26 @@ public class EnterpriseService {
     }
 
     @Transactional
-    public void update(Integer id, Enterprise enterprise) {
+    public void update(UUID id, Enterprise enterprise) {
         Assert.notNull(id, "ID предприятия не может быть null");
         Assert.notNull(enterprise, "Объект предприятия не может быть null");
-        
+
         enterprise.setId(id);
         enterprise.setActive(true);
         enterpriseRepository.save(enterprise);
     }
 
     @Transactional
-    public void delete(Integer id) {
+    public void delete(UUID id) {
         Assert.notNull(id, "ID предприятия не может быть null");
         findById(id)
-                .ifPresent(enterprise -> {
-                    enterprise.setActive(false);
-                    enterpriseRepository.save(enterprise);
-                });
+            .ifPresent(enterprise -> {
+                enterprise.setActive(false);
+                enterpriseRepository.save(enterprise);
+            });
     }
 
-    private Optional<Enterprise> findById(Integer id) {
+    private Optional<Enterprise> findById(UUID id) {
         return enterpriseRepository.findById(id);
     }
 }

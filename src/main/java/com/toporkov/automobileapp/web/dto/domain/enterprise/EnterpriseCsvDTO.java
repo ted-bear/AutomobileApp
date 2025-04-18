@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.web.dto.domain.enterprise;
 
+import java.util.UUID;
+
 import com.opencsv.bean.CsvBindByName;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
 import com.toporkov.automobileapp.web.dto.validation.OnUpdate;
@@ -10,6 +12,10 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class EnterpriseCsvDTO {
+
+    @CsvBindByName(column = "id", required = true)
+    private UUID id;
+
     @NotNull(message = "name must not be null",
         groups = {OnCreate.class, OnUpdate.class})
     @Length(min = 1,

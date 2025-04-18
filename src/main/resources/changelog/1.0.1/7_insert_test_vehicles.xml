@@ -12,7 +12,7 @@
             <column name="condition" value="USED"/>
             <column name="vehicle_model_id" value="1"/>
             <column name="is_active" value="true"/>
-            <column name="enterprise_id" value="1"/>
+            <column name="enterprise_id" value="82a57b74-bafd-48a8-813a-1343b64b4e2e"/>
             <column name="purchase_date" value="2023-10-01T12:00:00"/>
         </insert>
         <insert tableName="vehicle">
@@ -24,7 +24,7 @@
             <column name="condition" value="USED"/>
             <column name="vehicle_model_id" value="2"/>
             <column name="is_active" value="true"/>
-            <column name="enterprise_id" value="1"/>
+            <column name="enterprise_id" value="82a57b74-bafd-48a8-813a-1343b64b4e2e"/>
             <column name="purchase_date" value="2023-10-01T12:00:00"/>
         </insert>
         <insert tableName="vehicle">
@@ -36,7 +36,7 @@
             <column name="condition" value="NEW"/>
             <column name="vehicle_model_id" value="3"/>
             <column name="is_active" value="true"/>
-            <column name="enterprise_id" value="2"/>
+            <column name="enterprise_id" value="ca44b661-5b9a-4784-bd0d-d977692a93d2"/>
             <column name="purchase_date" value="2023-10-01T12:00:00"/>
         </insert>
     </changeSet>

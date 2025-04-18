@@ -4,20 +4,20 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="9_insert_test_driver_assignments" author="Egor Toporkov">
         <insert tableName="driver_assignment">
-            <column name="driver_id" value="89821477-e0b7-4f1c-ad1f-f06623e2102e"/>
-            <column name="vehicle_id" value="416b17a9-3e1a-4736-96d5-e87c6fb2ea68"/>
+            <column name="driver_id" value="c608da43-814e-4ca0-ad77-507be72da894"/>
+            <column name="vehicle_id" value="06198f6d-a91b-47de-97c3-106461b6552b"/>
             <column name="is_active" value="true"/>
         </insert>
 
         <insert tableName="driver_assignment">
-            <column name="driver_id" value="3ba87ccd-550e-4119-8db3-8ed862f47640"/>
-            <column name="vehicle_id" value="24fb271f-160c-4914-9597-600f9c799c53"/>
+            <column name="driver_id" value="0b0a6817-c6cd-41b8-9c25-5c0d23893ec1"/>
+            <column name="vehicle_id" value="36e782ab-76d8-4a04-8b24-53f05783a245"/>
             <column name="is_active" value="false"/>
         </insert>
 
         <insert tableName="driver_assignment">
-            <column name="driver_id" value="20a83f95-19c8-4f12-bd6c-b1778d530be1"/>
-            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
+            <column name="driver_id" value="4fed9544-f215-464d-8163-47c08817ac0a"/>
+            <column name="vehicle_id" value="e15f1bd3-1735-49ca-baa7-e22658c1ded1"/>
             <column name="is_active" value="false"/>
         </insert>
     </changeSet>

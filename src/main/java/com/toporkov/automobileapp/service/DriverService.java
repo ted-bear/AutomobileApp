@@ -1,5 +1,8 @@
 package com.toporkov.automobileapp.service;
 
+import java.util.List;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.Driver;
 import com.toporkov.automobileapp.model.Enterprise;
 import com.toporkov.automobileapp.repository.DriverRepository;
@@ -11,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,11 +32,11 @@ public class DriverService {
     }
 
     public Page<DriverDTO> findAll(Pageable pageable) {
-        final List<Integer> enterpriseIds = managerService.getCurrentManager()
-                .getEnterprises()
-                .stream()
-                .map(Enterprise::getId)
-                .toList();
+        final List<UUID> enterpriseIds = managerService.getCurrentManager()
+            .getEnterprises()
+            .stream()
+            .map(Enterprise::getId)
+            .toList();
 
         return driverRepository
                 .findByEnterpriseIdIn(enterpriseIds, pageable)
