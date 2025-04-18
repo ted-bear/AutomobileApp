@@ -5,15 +5,15 @@
 
     <changeSet id="4_create_driver_assignment_table" author="Egor Toporkov">
         <createTable tableName="driver_assignment">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="driver_id" type="int">
+            <column name="driver_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
 
-            <column name="vehicle_id" type="int">
+            <column name="vehicle_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
 

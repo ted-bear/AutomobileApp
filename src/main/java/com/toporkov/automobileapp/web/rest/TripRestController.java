@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -67,7 +68,7 @@ public class TripRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<TripDTO>> getTrips(
-        @PathVariable("id") Integer vehicleId, @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime start,
+        @PathVariable("id") UUID vehicleId, @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime start,
         @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime stop
     ) {
         var trips = tripService.findTripsBetween(vehicleId, start.toInstant(), stop.toInstant());
@@ -102,7 +103,7 @@ public class TripRestController {
 
     @GetMapping("/{id}/export-csv")
     public void getTripsCsv(
-        HttpServletResponse response, @PathVariable("id") Integer vehicleId,
+        HttpServletResponse response, @PathVariable("id") UUID vehicleId,
         @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime start,
         @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime stop
     ) throws CsvRequiredFieldEmptyException, CsvDataTypeMismatchException, IOException {

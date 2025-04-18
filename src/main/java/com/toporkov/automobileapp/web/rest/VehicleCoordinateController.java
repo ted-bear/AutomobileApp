@@ -1,5 +1,9 @@
 package com.toporkov.automobileapp.web.rest;
 
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.service.VehicleCoordinateService;
 import com.toporkov.automobileapp.web.dto.domain.VehicleCoordinateGeoJson;
 import com.toporkov.automobileapp.web.mapper.VehicleCoordinateMapper;
@@ -10,9 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.ZonedDateTime;
-import java.util.List;
 
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
@@ -31,15 +32,17 @@ public class VehicleCoordinateController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?>
-    findAllVehicleCoordinates(@PathVariable("id") int vehicleId,
-                              @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime start,
-                              @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime stop,
-                              @RequestParam(required = false, defaultValue = "false") boolean isGeo) {
+    findAllVehicleCoordinates(
+        @PathVariable("id") UUID vehicleId,
+        @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime start,
+        @RequestParam @DateTimeFormat(iso = DATE_TIME) ZonedDateTime stop,
+        @RequestParam(required = false, defaultValue = "false") boolean isGeo
+    ) {
         var allByTime = vehicleCoordinateService.findAllByTime(vehicleId, start.toInstant(), stop.toInstant());
         if (isGeo) {
             List<VehicleCoordinateGeoJson> features = allByTime.stream()
-                    .map(VehicleCoordinateGeoJson::fromEntity)
-                    .toList();
+                .map(VehicleCoordinateGeoJson::fromEntity)
+                .toList();
 
             FeatureCollection featureCollection = new FeatureCollection();
             featureCollection.setFeatures(features);

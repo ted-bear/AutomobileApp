@@ -1,5 +1,10 @@
 package com.toporkov.automobileapp.service;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.VehicleCoordinate;
 import com.toporkov.automobileapp.repository.VehicleCoordinateRepository;
 import com.toporkov.automobileapp.repository.VehicleRepository;
@@ -9,10 +14,6 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -33,12 +34,14 @@ public class VehicleCoordinateService {
         this.tripService = tripService;
     }
 
-    public List<VehicleCoordinate> findAllByTime(final int vehicleId,
-                                                 final Instant startTime,
-                                                 final Instant stopTime) {
+    public List<VehicleCoordinate> findAllByTime(
+        final UUID vehicleId,
+        final Instant startTime,
+        final Instant stopTime
+    ) {
 
         return vehicleCoordinateRepository
-                .findAllByVehicleIdAndCreateAtBetween(vehicleId, startTime, stopTime);
+            .findAllByVehicleIdAndCreateAtBetween(vehicleId, startTime, stopTime);
     }
 
     public List<VehicleCoordinate> findAllByTrips(final Instant startTime, final Instant stopTime) {

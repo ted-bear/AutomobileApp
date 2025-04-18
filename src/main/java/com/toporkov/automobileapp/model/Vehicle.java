@@ -4,13 +4,12 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -20,15 +19,16 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "vehicle")
 public class Vehicle {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    @Column(columnDefinition = "UUID")
+    private UUID id;
 
     @NotBlank(message = "Номер автомобиля не должен быть пустым")
     @Pattern(regexp = "[А-Я][0-9]{3}[А-Я]{2}", message = "Номер автомобиля должен быть в формате А999АА")
@@ -94,12 +94,12 @@ public class Vehicle {
         this.purchaseDate = purchaseDate;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public UUID getId() {
+        return id;
     }
 
-    public int getId() {
-        return id;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getNumber() {

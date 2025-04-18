@@ -3,6 +3,7 @@ package com.toporkov.automobileapp.web.rest;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.UUID;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.toporkov.automobileapp.service.VehicleImportService;
@@ -97,7 +98,7 @@ public class VehicleRestController {
     }
 
     @GetMapping("/{id}")
-    public VehicleDTO getVehicle(@PathVariable("id") int id) {
+    public VehicleDTO getVehicle(@PathVariable("id") UUID id) {
         return vehicleService.getById(id);
     }
 
@@ -115,7 +116,7 @@ public class VehicleRestController {
 
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateVehicle(
-        @PathVariable("id") Integer id,
+        @PathVariable("id") UUID id,
         @Validated(OnUpdate.class)
         @RequestBody VehicleDTO vehicleDTO,
         BindingResult bindingResult
@@ -128,7 +129,7 @@ public class VehicleRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteVehicle(@PathVariable("id") int id) {
+    public ResponseEntity<HttpStatus> deleteVehicle(@PathVariable("id") UUID id) {
         vehicleService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

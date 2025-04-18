@@ -5,7 +5,7 @@
 
     <changeSet id="2_create_vehicle_table" author="Egor Toporkov">
         <createTable tableName="vehicle">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 

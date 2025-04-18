@@ -1,13 +1,14 @@
 package com.toporkov.automobileapp.repository;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.Vehicle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
@@ -19,4 +20,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     Optional<Vehicle> findByNumber(String number);
 
     List<Vehicle> findAllByIsActiveTrue();
+
+    Optional<Vehicle> findById(UUID id);
 }

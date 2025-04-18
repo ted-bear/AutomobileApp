@@ -1,17 +1,18 @@
 package com.toporkov.automobileapp.repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.DriverAssignment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface DriverAssignmentRepository extends JpaRepository<DriverAssignment, Integer> {
+public interface DriverAssignmentRepository extends JpaRepository<DriverAssignment, UUID> {
 
-    Optional<DriverAssignment> findByDriverId(Integer driverId);
+    Optional<DriverAssignment> findByDriverId(UUID driverId);
 
-    Optional<DriverAssignment> findByVehicleId(Integer vehicleId);
+    Optional<DriverAssignment> findByVehicleId(UUID vehicleId);
 
-    Optional<DriverAssignment> findByVehicleIdAndDriverId(Integer vehicleId, Integer driverId);
+    Optional<DriverAssignment> findByVehicleIdAndDriverId(UUID vehicleId, UUID driverId);
 }

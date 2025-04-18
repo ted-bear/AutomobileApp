@@ -1,6 +1,15 @@
 package com.toporkov.automobileapp.service;
 
-import com.toporkov.automobileapp.model.*;
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import com.toporkov.automobileapp.model.DriverAssignment;
+import com.toporkov.automobileapp.model.Enterprise;
+import com.toporkov.automobileapp.model.Manager;
+import com.toporkov.automobileapp.model.Vehicle;
+import com.toporkov.automobileapp.model.VehicleModel;
 import com.toporkov.automobileapp.repository.VehicleRepository;
 import com.toporkov.automobileapp.util.SecurityUtil;
 import com.toporkov.automobileapp.util.exception.ManagerDoNotHaveAccessException;
@@ -12,10 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -48,21 +53,21 @@ public class VehicleService {
     public Page<VehicleDTO> findAllByEnterpriseId(Pageable pageable, Integer enterpriseId) {
         return vehicleRepository
                 .findAllByEnterpriseId(enterpriseId, pageable)
-                .map(vehicleMapper::mapEntityToDto);
+            .map(vehicleMapper::mapEntityToDto);
     }
 
     public List<VehicleDTO> findAll() {
         return vehicleRepository
-                .findAllByIsActiveTrue().stream()
-                .map(vehicleMapper::mapEntityToDto)
-                .toList();
+            .findAllByIsActiveTrue().stream()
+            .map(vehicleMapper::mapEntityToDto)
+            .toList();
     }
 
-    private static void checkManagerAccess(Integer id, Manager currentManager) {
-        final List<Integer> availableIds = currentManager.getEnterprises().stream()
-                .flatMap(enterprise -> enterprise.getVehicles().stream())
-                .map(Vehicle::getId)
-                .toList();
+    private static void checkManagerAccess(UUID id, Manager currentManager) {
+        final List<UUID> availableIds = currentManager.getEnterprises().stream()
+            .flatMap(enterprise -> enterprise.getVehicles().stream())
+            .map(Vehicle::getId)
+            .toList();
         if (!availableIds.contains(id)) {
             throw new ManagerDoNotHaveAccessException();
         }
@@ -78,16 +83,16 @@ public class VehicleService {
         }
     }
 
-    public VehicleDTO getById(Integer id) {
+    public VehicleDTO getById(UUID id) {
         checkIdValidity(id);
 
         final Manager manager = managerService.getById(SecurityUtil.getCurrentManager().getId());
         checkManagerAccess(id, manager);
 
         return vehicleRepository
-                .findById(id)
-                .map(vehicleMapper::mapEntityToDto)
-                .orElseThrow(VehicleNotFoundException::new);
+            .findById(id)
+            .map(vehicleMapper::mapEntityToDto)
+            .orElseThrow(VehicleNotFoundException::new);
     }
 
     @Transactional
@@ -102,7 +107,7 @@ public class VehicleService {
     }
 
     @Transactional
-    public void update(Integer id, Vehicle vehicle) {
+    public void update(UUID id, Vehicle vehicle) {
         final Manager manager = managerService.getCurrentManager();
 
         checkIdValidity(id);
@@ -115,37 +120,37 @@ public class VehicleService {
     }
 
     @Transactional
-    public void delete(Integer id) {
+    public void delete(UUID id) {
         final Manager manager = managerService.getCurrentManager();
         checkIdValidity(id);
         checkManagerAccess(id, manager);
 
         vehicleRepository
-                .findById(id)
-                .ifPresent(vehicle -> {
-                    final Optional<DriverAssignment> activeDriver = vehicle.getDriverVehicles()
-                            .stream()
-                            .filter(DriverAssignment::getActive)
+            .findById(id)
+            .ifPresent(vehicle -> {
+                final Optional<DriverAssignment> activeDriver = vehicle.getDriverVehicles()
+                    .stream()
+                    .filter(DriverAssignment::getActive)
                             .findFirst();
 
-                    if (activeDriver.isPresent()) {
-                        throw new VehicleNotDeletedException("Транспорт имеет активного водителя");
-                    }
+                if (activeDriver.isPresent()) {
+                    throw new VehicleNotDeletedException("Транспорт имеет активного водителя");
+                }
 
-                    vehicle.setActive(false);
-                    vehicleRepository.save(vehicle);
-                });
+                vehicle.setActive(false);
+                vehicleRepository.save(vehicle);
+            });
     }
 
-    private void checkIdValidity(Integer id) {
-        final List<Integer> idList = vehicleRepository.findAll().stream().map(Vehicle::getId).toList();
+    private void checkIdValidity(UUID id) {
+        final List<UUID> idList = vehicleRepository.findAll().stream().map(Vehicle::getId).toList();
 
         if (!idList.contains(id)) {
             throw new VehicleNotFoundException();
         }
     }
 
-    private void updateRelations(Integer id, Vehicle vehicle) {
+    private void updateRelations(UUID id, Vehicle vehicle) {
         final Optional<Vehicle> optionalVehicle = vehicleRepository.findById(id);
 
         if (optionalVehicle.isPresent()) {

@@ -4,20 +4,20 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="9_insert_test_driver_assignments" author="Egor Toporkov">
         <insert tableName="driver_assignment">
-            <column name="driver_id" value="1"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="driver_id" value="89821477-e0b7-4f1c-ad1f-f06623e2102e"/>
+            <column name="vehicle_id" value="416b17a9-3e1a-4736-96d5-e87c6fb2ea68"/>
             <column name="is_active" value="true"/>
         </insert>
 
         <insert tableName="driver_assignment">
-            <column name="driver_id" value="1"/>
-            <column name="vehicle_id" value="2"/>
+            <column name="driver_id" value="3ba87ccd-550e-4119-8db3-8ed862f47640"/>
+            <column name="vehicle_id" value="24fb271f-160c-4914-9597-600f9c799c53"/>
             <column name="is_active" value="false"/>
         </insert>
 
         <insert tableName="driver_assignment">
-            <column name="driver_id" value="2"/>
-            <column name="vehicle_id" value="2"/>
+            <column name="driver_id" value="20a83f95-19c8-4f12-bd6c-b1778d530be1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
             <column name="is_active" value="false"/>
         </insert>
     </changeSet>

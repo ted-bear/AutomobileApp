@@ -1,5 +1,8 @@
 package com.toporkov.automobileapp.web.controller;
 
+import java.util.List;
+import java.util.UUID;
+
 import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.model.Vehicle;
 import com.toporkov.automobileapp.model.VehicleModel;
@@ -18,8 +21,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/vehicles")
@@ -46,16 +47,18 @@ public class VehicleController {
     }
 
     @GetMapping("/{id}")
-    public String showVehiclePage(@PathVariable("id") int id, Model model) {
+    public String showVehiclePage(@PathVariable("id") UUID id, Model model) {
         final VehicleDTO vehicle = vehicleService.getById(id);
         model.addAttribute("vehicle", vehicle);
         return "vehicles/vehiclePage";
     }
 
     @GetMapping("/{id}/edit")
-    public String getVehicleEditPage(@PathVariable("id") int id,
-                                     @ModelAttribute("vehicleModel") VehicleModel vehicleModel,
-                                     Model model) {
+    public String getVehicleEditPage(
+        @PathVariable("id") UUID id,
+        @ModelAttribute("vehicleModel") VehicleModel vehicleModel,
+        Model model
+    ) {
         final VehicleDTO vehicle = vehicleService.getById(id);
         final List<VehicleModel> vehicleModels = vehicleModelService.findAll();
         final List<Condition> conditions = Condition.getAsList();
@@ -100,9 +103,11 @@ public class VehicleController {
     }
 
     @PatchMapping("/{id}")
-    public String updateVehicle(@PathVariable("id") int id,
-                                @ModelAttribute("vehicle") @Valid Vehicle vehicle,
-                                BindingResult bindingResult) {
+    public String updateVehicle(
+        @PathVariable("id") UUID id,
+        @ModelAttribute("vehicle") @Valid Vehicle vehicle,
+        BindingResult bindingResult
+    ) {
         vehicleValidator.validate(vehicle, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -114,7 +119,7 @@ public class VehicleController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteVehicle(@PathVariable("id") int id) {
+    public String deleteVehicle(@PathVariable("id") UUID id) {
         vehicleService.delete(id);
         return "redirect:/vehicles";
     }

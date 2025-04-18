@@ -8,7 +8,7 @@
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="44.8336800"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(44.8336800, 41.6941100), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -16,7 +16,7 @@
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="44.8336800"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(44.8336800, 41.6941100), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -24,7 +24,7 @@
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="44.8336800"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(44.8336800, 41.6941100), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -32,7 +32,7 @@
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="142.73476"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(142.73476, 41.6941100), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -40,7 +40,7 @@
             <column name="latitude" value="64.748"/>
             <column name="longitude" value="153.80"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(153.80, 64.748), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -48,7 +48,7 @@
             <column name="latitude" value="46.96411"/>
             <column name="longitude" value="142.73476"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(142.73476, 46.96411), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -56,7 +56,7 @@
             <column name="latitude" value="51.90503"/>
             <column name="longitude" value="126.62002"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(126.62002, 51.90503), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -64,7 +64,7 @@
             <column name="latitude" value="59.938879"/>
             <column name="longitude" value="30.315212"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(30.315212, 59.938879), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -72,7 +72,7 @@
             <column name="latitude" value="54.7538337"/>
             <column name="longitude" value="37.6211812"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(37.6211812, 54.7538337), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
         <insert tableName="vehicle_coordinate">
@@ -80,7 +80,7 @@
             <column name="latitude" value="55.7538337"/>
             <column name="longitude" value="37.6211812"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(37.6211812, 55.7538337), 4326)"/>
-            <column name="vehicle_id" value="1"/>
+            <column name="vehicle_id" value="b3ea68e8-57ce-40a6-adf5-b36f135df8e7"/>
         </insert>
 
     </changeSet>

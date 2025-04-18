@@ -1,5 +1,8 @@
 package com.toporkov.automobileapp.web.dto.domain.vehicle;
 
+import java.time.ZonedDateTime;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
@@ -9,12 +12,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
-import java.time.ZonedDateTime;
-
 public class VehicleDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Integer id;
+    private UUID id;
 
     @NotNull(message = "number must not be null",
             groups = {OnCreate.class, OnUpdate.class})
@@ -76,11 +77,11 @@ public class VehicleDTO {
             groups = {OnCreate.class, OnUpdate.class})
     private Integer enterpriseId;
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

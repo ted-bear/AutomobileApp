@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.dto.domain.trip;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public class TripDTO {
 
@@ -10,7 +11,7 @@ public class TripDTO {
 
     private Instant endedAt;
 
-    private Integer vehicleId;
+    private UUID vehicleId;
 
     private Long startCoordinateId;
 
@@ -23,14 +24,16 @@ public class TripDTO {
     public TripDTO() {
     }
 
-    public TripDTO(final Integer id,
-                   final Instant startedAt,
-                   final Instant endedAt,
-                   final Integer vehicleId,
-                   final Long startCoordinateId,
-                   final Long endCoordinateId,
-                   final String startAddress,
-                   final String endAddress) {
+    public TripDTO(
+        final Integer id,
+        final Instant startedAt,
+        final Instant endedAt,
+        final UUID vehicleId,
+        final Long startCoordinateId,
+        final Long endCoordinateId,
+        final String startAddress,
+        final String endAddress
+    ) {
         this.id = id;
         this.startedAt = startedAt;
         this.endedAt = endedAt;
@@ -65,11 +68,11 @@ public class TripDTO {
         this.endedAt = endedAt;
     }
 
-    public Integer getVehicleId() {
+    public UUID getVehicleId() {
         return vehicleId;
     }
 
-    public void setVehicleId(Integer vehicleId) {
+    public void setVehicleId(UUID vehicleId) {
         this.vehicleId = vehicleId;
     }
 

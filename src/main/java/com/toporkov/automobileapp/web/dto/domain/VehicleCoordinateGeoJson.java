@@ -1,5 +1,7 @@
 package com.toporkov.automobileapp.web.dto.domain;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toporkov.automobileapp.model.VehicleCoordinate;
 
@@ -75,7 +77,7 @@ public class VehicleCoordinateGeoJson {
 
     static class Properties {
         private Long id;
-        private Integer vehicleId;
+        private UUID vehicleId;
         private String createAt;
 
         public Long getId() {
@@ -86,11 +88,11 @@ public class VehicleCoordinateGeoJson {
             this.id = id;
         }
 
-        public Integer getVehicleId() {
+        public UUID getVehicleId() {
             return vehicleId;
         }
 
-        public void setVehicleId(Integer vehicleId) {
+        public void setVehicleId(UUID vehicleId) {
             this.vehicleId = vehicleId;
         }
 
