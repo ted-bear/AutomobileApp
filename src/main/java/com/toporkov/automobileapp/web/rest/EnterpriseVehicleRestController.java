@@ -47,7 +47,7 @@ public class EnterpriseVehicleRestController {
     @GetMapping("/{enterpriseId}/vehicles-export")
     public void exportAllByEnterprise(HttpServletResponse response)
         throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
-        //set file name and content type
+
         String filename = "vehicles_by_enterprise.csv";
 
         response.setContentType("text/csv");
@@ -55,14 +55,12 @@ public class EnterpriseVehicleRestController {
         response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
             "attachment; filename=\"" + filename + "\"");
 
-        //create a csv writer
         var writer = new StatefulBeanToCsvBuilder<VehicleDTO>(response.getWriter())
             .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
             .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
             .withOrderedResults(false)
             .build();
 
-        //write all users to csv file
         writer.write(vehicleService.findAll());
     }
 

@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.mapper;
 
 import com.toporkov.automobileapp.model.Enterprise;
+import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseCsvDTO;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,10 @@ public class EnterpriseMapper {
     }
 
     public Enterprise mapDtoToEntity(EnterpriseDTO dto) {
+        return modelMapper.map(dto, Enterprise.class);
+    }
+
+    public Enterprise mapCsvDtoToEntity(EnterpriseCsvDTO dto) {
         return modelMapper.map(dto, Enterprise.class);
     }
 

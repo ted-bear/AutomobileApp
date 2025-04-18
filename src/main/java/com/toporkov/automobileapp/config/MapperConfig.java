@@ -9,6 +9,7 @@ import com.toporkov.automobileapp.web.dto.domain.RegistrationManagerDTO;
 import com.toporkov.automobileapp.web.dto.domain.VehicleCoordinateDTO;
 import com.toporkov.automobileapp.web.dto.domain.driver.DriverDTO;
 import com.toporkov.automobileapp.web.dto.domain.enterprise.EnterpriseDTO;
+import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleCsvDTO;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import com.toporkov.automobileapp.web.mapper.converter.DriverAssignmentListToActiveVehicleIdConverter;
 import com.toporkov.automobileapp.web.mapper.converter.DriverListToIdListConverter;
@@ -89,22 +90,40 @@ public class MapperConfig {
                 });
 
         modelMapper.typeMap(VehicleDTO.class, Vehicle.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(enterpriseIdToEnterpriseConverter)
-                                .map(source.getEnterpriseId(), destination.getEnterprise());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(enterpriseIdToEnterpriseConverter)
+                        .map(source.getEnterpriseId(), destination.getEnterprise());
+                }
+            });
+
+        modelMapper.typeMap(VehicleCsvDTO.class, Vehicle.class)
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(vehicleModelIdToVehicleModelConverter)
+                        .map(source.getVehicleModelId(), destination.getVehicleModel());
+                }
+            });
+
+        modelMapper.typeMap(VehicleCsvDTO.class, Vehicle.class)
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(enterpriseIdToEnterpriseConverter)
+                        .map(source.getEnterpriseId(), destination.getEnterprise());
+                }
+            });
 
         modelMapper.typeMap(Driver.class, DriverDTO.class)
-                .addMappings(new PropertyMap<>() {
-                    @Override
-                    protected void configure() {
-                        using(new DriverAssignmentListToActiveVehicleIdConverter())
-                                .map(source.getDriverAssignments(), destination.getActiveVehicleId());
-                    }
-                });
+            .addMappings(new PropertyMap<>() {
+                @Override
+                protected void configure() {
+                    using(new DriverAssignmentListToActiveVehicleIdConverter())
+                        .map(source.getDriverAssignments(), destination.getActiveVehicleId());
+                }
+            });
 
         modelMapper.typeMap(VehicleCoordinate.class, VehicleCoordinateDTO.class)
                 .addMappings(new PropertyMap<>() {

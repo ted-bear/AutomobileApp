@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.mapper;
 
 import com.toporkov.automobileapp.model.Vehicle;
+import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleCsvDTO;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -20,13 +21,17 @@ public class VehicleMapper {
         return modelMapper.map(vehicleDto, Vehicle.class);
     }
 
+    public Vehicle mapCsvDtoToEntity(VehicleCsvDTO vehicleDto) {
+        return modelMapper.map(vehicleDto, Vehicle.class);
+    }
+
     public VehicleDTO mapEntityToDto(Vehicle vehicle) {
         final VehicleDTO dto = modelMapper.map(vehicle, VehicleDTO.class);
         dto.setPurchaseDate(
-                toEnterpriseTime(
-                        vehicle.getPurchaseDate(),
-                        vehicle.getEnterprise().getTimezone()
-                )
+            toEnterpriseTime(
+                vehicle.getPurchaseDate(),
+                vehicle.getEnterprise().getTimezone()
+            )
         );
         return dto;
     }

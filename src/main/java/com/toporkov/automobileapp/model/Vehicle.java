@@ -1,5 +1,10 @@
 package com.toporkov.automobileapp.model;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,11 +20,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "vehicle")
@@ -51,7 +51,7 @@ public class Vehicle {
     @Column(name = "price", nullable = false)
     private double price;
 
-    @NotNull(message = "Цена не должна быть пустой")
+    @NotNull(message = "Состояние не должно быть пустым")
     @Column(name = "condition", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Condition condition;
