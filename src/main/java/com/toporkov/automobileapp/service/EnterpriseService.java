@@ -48,6 +48,7 @@ public class EnterpriseService {
             enterprise.setTimezone("UTC");
         }
 
+        enterprise.setId(UUID.randomUUID());
         enterprise.setActive(true);
         enterpriseRepository.save(enterprise);
     }

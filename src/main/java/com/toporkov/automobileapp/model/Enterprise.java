@@ -14,14 +14,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "enterprise")
 public class Enterprise {
 
     @Id
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     @Column(columnDefinition = "UUID")
     private UUID id;
 

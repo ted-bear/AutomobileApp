@@ -4,14 +4,16 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="8_insert_test_drivers" author="Egor Toporkov">
         <insert tableName="driver">
+            <column name="id" value="c608da43-814e-4ca0-ad77-507be72da894"/>
             <column name="firstname" value="Авалакх"/>
             <column name="lastname" value="Темерский"/>
             <column name="salary" value="1000.00"/>
             <column name="driving_experience" value="5"/>
-            <column name="enterprise_id" value="82a57b74-bafd-48a8-813a-1343b64b4e2e"/>
+            <column name="enterprise_id" value="d19a4311-24b5-4938-b90f-7961733a1f66"/>
         </insert>
 
         <insert tableName="driver">
+            <column name="id" value="0b0a6817-c6cd-41b8-9c25-5c0d23893ec1"/>
             <column name="firstname" value="Ламер"/>
             <column name="lastname" value="Трескучий"/>
             <column name="salary" value="1100.00"/>
@@ -20,6 +22,7 @@
         </insert>
 
         <insert tableName="driver">
+            <column name="id" value="980e79fa-fb84-432e-a205-695d5be574ba"/>
             <column name="firstname" value="Генольд"/>
             <column name="lastname" value="Кетон"/>
             <column name="salary" value="900.00"/>

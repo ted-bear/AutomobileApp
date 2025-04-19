@@ -8,7 +8,7 @@ import org.modelmapper.AbstractConverter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<UUID, Enterprise> {
+public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<String, Enterprise> {
 
     private final EnterpriseService enterpriseService;
 
@@ -17,7 +17,7 @@ public class EnterpriseIdToEnterpriseConverter extends AbstractConverter<UUID, E
     }
 
     @Override
-    protected Enterprise convert(UUID id) {
-        return enterpriseService.getById(id);
+    protected Enterprise convert(String id) {
+        return enterpriseService.getById(UUID.fromString(id));
     }
 }

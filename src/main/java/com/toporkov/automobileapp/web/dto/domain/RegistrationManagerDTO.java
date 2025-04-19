@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.dto.domain;
 
 import java.util.List;
+import java.util.UUID;
 
 public class RegistrationManagerDTO {
 
@@ -14,7 +15,7 @@ public class RegistrationManagerDTO {
 
     private String passwordConfirmation;
 
-    private List<Integer> enterprises;
+    private List<UUID> enterprises;
 
     public String getLastname() {
         return lastname;
@@ -56,11 +57,11 @@ public class RegistrationManagerDTO {
         this.passwordConfirmation = passwordConfirmation;
     }
 
-    public List<Integer> getEnterprises() {
+    public List<UUID> getEnterprises() {
         return enterprises;
     }
 
-    public void setEnterprises(List<Integer> enterprises) {
+    public void setEnterprises(List<UUID> enterprises) {
         this.enterprises = enterprises;
     }
 }

@@ -4,6 +4,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="6_insert_test_enterprises" author="Egor Toporkov">
         <insert tableName="enterprise">
+            <column name="id" value="d19a4311-24b5-4938-b90f-7961733a1f66"/>
             <column name="name" value="ООО 'РОГА КОПЫТА'"/>
             <column name="country" value="Тридевятое царство"/>
             <column name="city" value="Былин"/>
@@ -13,6 +14,7 @@
         </insert>
 
         <insert tableName="enterprise">
+            <column name="id" value="ca44b661-5b9a-4784-bd0d-d977692a93d2"/>
             <column name="name" value="ООО 'БНАЛ'"/>
             <column name="country" value="Настоева"/>
             <column name="city" value="Кудык"/>
@@ -22,6 +24,7 @@
         </insert>
 
         <insert tableName="enterprise">
+            <column name="id" value="4fed9544-f215-464d-8163-47c08817ac0a"/>
             <column name="name" value="ОАО 'МЕГАБОЙ'"/>
             <column name="country" value="Авана"/>
             <column name="city" value="Рык"/>

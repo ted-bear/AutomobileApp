@@ -102,6 +102,7 @@ public class VehicleService {
         final Manager manager = managerService.getCurrentManager();
         checkManagerAccessToEnterprise(vehicle, manager);
 
+        vehicle.setId(UUID.randomUUID());
         vehicle.setActive(true);
         vehicle.setPurchaseDate(Instant.now());
         vehicle.getVehicleModel().addVehicle(vehicle);

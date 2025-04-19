@@ -4,6 +4,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
     <changeSet id="7_insert_test_vehicles" author="Egor Toporkov">
         <insert tableName="vehicle">
+            <column name="id" value="566aaaf8-c0e9-4d5e-b517-515cfe103927"/>
             <column name="number" value="А999АА"/>
             <column name="year" value="2020"/>
             <column name="color" value="Синий"/>
@@ -12,10 +13,11 @@
             <column name="condition" value="USED"/>
             <column name="vehicle_model_id" value="1"/>
             <column name="is_active" value="true"/>
-            <column name="enterprise_id" value="82a57b74-bafd-48a8-813a-1343b64b4e2e"/>
+            <column name="enterprise_id" value="d19a4311-24b5-4938-b90f-7961733a1f66"/>
             <column name="purchase_date" value="2023-10-01T12:00:00"/>
         </insert>
         <insert tableName="vehicle">
+            <column name="id" value="2b267ba4-330d-490d-9e27-b4ff3a596b68"/>
             <column name="number" value="Х000ХХ"/>
             <column name="year" value="2018"/>
             <column name="color" value="Красный"/>
@@ -24,10 +26,11 @@
             <column name="condition" value="USED"/>
             <column name="vehicle_model_id" value="2"/>
             <column name="is_active" value="true"/>
-            <column name="enterprise_id" value="82a57b74-bafd-48a8-813a-1343b64b4e2e"/>
+            <column name="enterprise_id" value="ca44b661-5b9a-4784-bd0d-d977692a93d2"/>
             <column name="purchase_date" value="2023-10-01T12:00:00"/>
         </insert>
         <insert tableName="vehicle">
+            <column name="id" value="7ac2f4d8-100c-4b4c-9e53-9e11d329a6c9"/>
             <column name="number" value="В111ВВ"/>
             <column name="year" value="2022"/>
             <column name="color" value="Черный"/>
@@ -36,7 +39,7 @@
             <column name="condition" value="NEW"/>
             <column name="vehicle_model_id" value="3"/>
             <column name="is_active" value="true"/>
-            <column name="enterprise_id" value="ca44b661-5b9a-4784-bd0d-d977692a93d2"/>
+            <column name="enterprise_id" value="4fed9544-f215-464d-8163-47c08817ac0a"/>
             <column name="purchase_date" value="2023-10-01T12:00:00"/>
         </insert>
     </changeSet>
