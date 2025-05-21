@@ -12,7 +12,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-21T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:01:00"/>
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="44.8336800"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(44.8336800, 41.6941100), 4326)"/>
@@ -20,7 +20,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-22T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:02:00"/>
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="44.8336800"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(44.8336800, 41.6941100), 4326)"/>
@@ -28,7 +28,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-22T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:03:00"/>
             <column name="latitude" value="41.6941100"/>
             <column name="longitude" value="142.73476"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(142.73476, 41.6941100), 4326)"/>
@@ -36,7 +36,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-23T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:04:00"/>
             <column name="latitude" value="64.748"/>
             <column name="longitude" value="153.80"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(153.80, 64.748), 4326)"/>
@@ -44,7 +44,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-23T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:05:00"/>
             <column name="latitude" value="46.96411"/>
             <column name="longitude" value="142.73476"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(142.73476, 46.96411), 4326)"/>
@@ -52,7 +52,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-24T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:06:00"/>
             <column name="latitude" value="51.90503"/>
             <column name="longitude" value="126.62002"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(126.62002, 51.90503), 4326)"/>
@@ -60,7 +60,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-24T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:07:00"/>
             <column name="latitude" value="59.938879"/>
             <column name="longitude" value="30.315212"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(30.315212, 59.938879), 4326)"/>
@@ -68,7 +68,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-25T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:08:00"/>
             <column name="latitude" value="54.7538337"/>
             <column name="longitude" value="37.6211812"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(37.6211812, 54.7538337), 4326)"/>
@@ -76,7 +76,7 @@
         </insert>
 
         <insert tableName="vehicle_coordinate">
-            <column name="create_at" value="2025-03-25T12:00:00"/>
+            <column name="create_at" value="2025-03-21T12:09:00"/>
             <column name="latitude" value="55.7538337"/>
             <column name="longitude" value="37.6211812"/>
             <column name="position" valueComputed="st_setsrid(st_makepoint(37.6211812, 55.7538337), 4326)"/>

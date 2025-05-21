@@ -61,7 +61,7 @@ public class VehicleRestController {
     }
 
     @GetMapping
-    public Page<VehicleDTO> findAll(
+    public Page<VehicleDTO> findAllWithPaging(
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "10") int size,
         @RequestParam(defaultValue = "id") String sortBy,
@@ -71,6 +71,11 @@ public class VehicleRestController {
         final Pageable pageable = PageRequest.of(page, size, sort);
 
         return vehicleService.findAll(pageable);
+    }
+
+    @GetMapping("/all")
+    public List<VehicleDTO> findAll() {
+        return vehicleService.findAll();
     }
 
     @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -121,7 +126,7 @@ public class VehicleRestController {
         @RequestBody VehicleDTO vehicleDTO,
         BindingResult bindingResult
     ) {
-        vehicleDTO.setId(id);
+        vehicleDTO.setId(id.toString());
         vehicleValidator.validate(vehicleDTO, bindingResult);
         vehicleService.update(id, vehicleMapper.mapDtoToEntity(vehicleDTO));
 

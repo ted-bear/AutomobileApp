@@ -52,7 +52,7 @@ public class VehicleService {
             .map(vehicleMapper::mapEntityToDto);
     }
 
-    public Page<VehicleDTO> findAllByEnterpriseId(Pageable pageable, Integer enterpriseId) {
+    public Page<VehicleDTO> findAllByEnterpriseId(Pageable pageable, UUID enterpriseId) {
         return vehicleRepository
             .findAllByEnterpriseId(enterpriseId, pageable)
             .map(vehicleMapper::mapEntityToDto);

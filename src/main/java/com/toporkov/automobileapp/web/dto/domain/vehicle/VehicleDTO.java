@@ -1,7 +1,6 @@
 package com.toporkov.automobileapp.web.dto.domain.vehicle;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toporkov.automobileapp.model.Condition;
@@ -15,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
 public class VehicleDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID id;
+    private String id;
 
     @NotNull(message = "number must not be null",
         groups = {OnCreate.class, OnUpdate.class})
@@ -75,13 +74,13 @@ public class VehicleDTO {
     @Min(value = 0,
         message = "enterpriseId length must be a positive number",
         groups = {OnCreate.class, OnUpdate.class})
-    private Integer enterpriseId;
+    private String enterpriseId;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -149,11 +148,11 @@ public class VehicleDTO {
         this.vehicleModelId = vehicleModelId;
     }
 
-    public Integer getEnterpriseId() {
+    public String getEnterpriseId() {
         return enterpriseId;
     }
 
-    public void setEnterpriseId(Integer enterpriseId) {
+    public void setEnterpriseId(String enterpriseId) {
         this.enterpriseId = enterpriseId;
     }
 }

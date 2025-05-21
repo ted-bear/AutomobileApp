@@ -85,7 +85,7 @@ public class VehicleCoordinateService {
             )
         );
         vehicleCoordinate.setVehicle(vehicleRepository
-            .findById(createCoordinateDTO.getVehicleId())
+            .findById(UUID.fromString(createCoordinateDTO.getVehicleId()))
             .orElseThrow(RuntimeException::new)
         );
 

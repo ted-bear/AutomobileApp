@@ -10,7 +10,7 @@ public class CreateCoordinateDTO {
 
     private Double longitude;
 
-    private Integer vehicleId;
+    private String vehicleId;
 
     public CreateCoordinateDTO() {
     }
@@ -19,7 +19,7 @@ public class CreateCoordinateDTO {
         Instant createAt,
         Double latitude,
         Double longitude,
-        Integer vehicleId
+        String vehicleId
     ) {
         this.createAt = createAt;
         this.latitude = latitude;
@@ -51,11 +51,11 @@ public class CreateCoordinateDTO {
         this.longitude = longitude;
     }
 
-    public Integer getVehicleId() {
+    public String getVehicleId() {
         return vehicleId;
     }
 
-    public void setVehicleId(Integer vehicleId) {
+    public void setVehicleId(String vehicleId) {
         this.vehicleId = vehicleId;
     }
 }

@@ -1,5 +1,6 @@
 package com.toporkov.automobileapp.util.validator;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import com.toporkov.automobileapp.model.Vehicle;
@@ -30,7 +31,7 @@ public class VehicleValidator implements Validator {
         final Optional<Vehicle> vehicleByNumber = vehicleService.getByNumber(vehicleToValidate.getNumber());
 
         boolean vehicleExists = vehicleByNumber.isPresent() &&
-            vehicleByNumber.get().getId() != vehicleToValidate.getId();
+            !Objects.equals(vehicleByNumber.get().getId().toString(), vehicleToValidate.getId());
 
         if (vehicleExists) {
             errors.rejectValue("number", "", "Машина с таким номер уже существует");

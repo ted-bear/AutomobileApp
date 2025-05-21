@@ -15,7 +15,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 
     Page<Vehicle> findByIsActiveTrueAndEnterpriseIdIn(List<UUID> enterpriseIds, Pageable pageable);
 
-    Page<Vehicle> findAllByEnterpriseId(Integer enterpriseId, Pageable pageable);
+    Page<Vehicle> findAllByEnterpriseId(UUID enterpriseId, Pageable pageable);
 
     Optional<Vehicle> findByNumber(String number);
 

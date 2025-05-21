@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import com.toporkov.automobileapp.client.GraphHopperHttpClient;
 import com.toporkov.automobileapp.model.Condition;
@@ -117,7 +118,7 @@ public class GenerateDataCommands {
     @ShellMethod(key = "generate-track",
         value = "Generate track for the vehicle.")
     public void generateTrackForVehicle(
-        @ShellOption final Integer vehicleId,
+        @ShellOption final String vehicleId,
         @ShellOption final Double minLatitude,
         @ShellOption final Double maxLatitude,
         @ShellOption final Double minLongitude,
@@ -140,7 +141,7 @@ public class GenerateDataCommands {
         var batch = new ArrayList<CreateCoordinateDTO>();
         var trip = new Trip();
         var currentTime = Instant.now();
-        trip.setVehicle(vehicleRepository.findById(vehicleId).orElseThrow(RuntimeException::new));
+        trip.setVehicle(vehicleRepository.findById(UUID.fromString(vehicleId)).orElseThrow(RuntimeException::new));
         trip.setStartedAt(currentTime);
 
         for (int i = 0; i < track.size(); i++) {

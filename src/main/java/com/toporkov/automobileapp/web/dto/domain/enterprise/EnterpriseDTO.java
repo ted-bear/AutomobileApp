@@ -1,7 +1,6 @@
 package com.toporkov.automobileapp.web.dto.domain.enterprise;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.toporkov.automobileapp.web.dto.validation.OnCreate;
@@ -13,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
 public class EnterpriseDTO {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private UUID id;
+    private String id;
 
     @NotNull(message = "name must not be null",
         groups = {OnCreate.class, OnUpdate.class})
@@ -50,16 +49,16 @@ public class EnterpriseDTO {
     private String timezone;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<Integer> vehicles;
+    private List<String> vehicles;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<Integer> drivers;
+    private List<String> drivers;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -103,19 +102,19 @@ public class EnterpriseDTO {
         this.timezone = timezone;
     }
 
-    public List<Integer> getVehicles() {
+    public List<String> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(List<Integer> vehicles) {
+    public void setVehicles(List<String> vehicles) {
         this.vehicles = vehicles;
     }
 
-    public List<Integer> getDrivers() {
+    public List<String> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(List<Integer> drivers) {
+    public void setDrivers(List<String> drivers) {
         this.drivers = drivers;
     }
 }

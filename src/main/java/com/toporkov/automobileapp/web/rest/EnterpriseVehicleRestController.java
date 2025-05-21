@@ -1,6 +1,7 @@
 package com.toporkov.automobileapp.web.rest;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -36,12 +37,12 @@ public class EnterpriseVehicleRestController {
         @RequestParam(defaultValue = "10") Integer size,
         @RequestParam(defaultValue = "id") String sortBy,
         @RequestParam(defaultValue = "true") Boolean ascending,
-        @PathVariable("enterpriseId") Integer enterpriseId
+        @PathVariable("enterpriseId") String enterpriseId
     ) {
         final Sort sort = ascending ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
         final Pageable pageable = PageRequest.of(page, size, sort);
 
-        return vehicleService.findAllByEnterpriseId(pageable, enterpriseId);
+        return vehicleService.findAllByEnterpriseId(pageable, UUID.fromString(enterpriseId));
     }
 
     @GetMapping("/{enterpriseId}/vehicles-export")

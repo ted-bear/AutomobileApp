@@ -1,17 +1,15 @@
 package com.toporkov.automobileapp.web.mapper.converter;
 
-import java.util.UUID;
-
 import com.toporkov.automobileapp.model.Enterprise;
 import org.modelmapper.AbstractConverter;
 import org.springframework.util.Assert;
 
-public class EnterpriseToEnterpriseIdConverter extends AbstractConverter<Enterprise, UUID> {
+public class EnterpriseToEnterpriseIdConverter extends AbstractConverter<Enterprise, String> {
 
     @Override
-    protected UUID convert(Enterprise enterprise) {
+    protected String convert(Enterprise enterprise) {
         Assert.notNull(enterprise, "enterprise argument is null");
 
-        return enterprise.getId();
+        return enterprise.getId().toString();
     }
 }
