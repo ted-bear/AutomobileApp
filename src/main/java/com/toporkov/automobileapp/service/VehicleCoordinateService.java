@@ -1,19 +1,21 @@
 package com.toporkov.automobileapp.service;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
+import com.toporkov.automobileapp.model.Trip;
 import com.toporkov.automobileapp.model.VehicleCoordinate;
 import com.toporkov.automobileapp.repository.VehicleCoordinateRepository;
 import com.toporkov.automobileapp.repository.VehicleRepository;
+import com.toporkov.automobileapp.util.exception.InvalidTripTimeException;
 import com.toporkov.automobileapp.web.dto.domain.coordinate.CreateCoordinateDTO;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -72,7 +74,29 @@ public class VehicleCoordinateService {
         );
     }
 
-    private VehicleCoordinate mapDtoToEntity(CreateCoordinateDTO createCoordinateDTO) {
+    @Transactional
+    public void saveTripAndCoordinates(final List<CreateCoordinateDTO> coordinateDTOList,
+                                       final UUID vehicleId) {
+        final var startTime = coordinateDTOList.get(0).getCreateAt();
+        final var stopTime = coordinateDTOList.get(coordinateDTOList.size() - 1).getCreateAt();
+
+        var allByTime = findAllByTime(vehicleId, startTime, stopTime);
+
+        if (!allByTime.isEmpty()) {
+            throw new InvalidTripTimeException("Время поездки накладывается с уже существующими");
+        }
+
+        var trip = new Trip();
+        var vehicle = vehicleRepository.findById(vehicleId).orElseThrow(RuntimeException::new);
+        trip.setVehicle(vehicle);
+        trip.setStartedAt(startTime);
+        trip.setEndedAt(stopTime);
+
+        tripService.saveTrip(trip);
+        saveAllCoordinates(coordinateDTOList);
+    }
+
+    private VehicleCoordinate mapDtoToEntity(final CreateCoordinateDTO createCoordinateDTO) {
         var vehicleCoordinate = new VehicleCoordinate();
 
         vehicleCoordinate.setCreateAt(createCoordinateDTO.getCreateAt());

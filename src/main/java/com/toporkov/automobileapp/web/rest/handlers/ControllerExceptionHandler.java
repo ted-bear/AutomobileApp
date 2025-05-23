@@ -1,7 +1,6 @@
 package com.toporkov.automobileapp.web.rest.handlers;
 
-import java.time.LocalDateTime;
-
+import com.toporkov.automobileapp.util.exception.InvalidTripTimeException;
 import com.toporkov.automobileapp.util.exception.ManagerDoNotHaveAccessException;
 import com.toporkov.automobileapp.util.exception.UserNotFoundException;
 import com.toporkov.automobileapp.util.exception.VehicleModelNotFoundException;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -28,6 +29,12 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(VehicleNotDeletedException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ExceptionBody handleVehicleNotDeleterException(VehicleNotDeletedException e) {
+        return new ExceptionBody(e.getMessage(), LocalDateTime.now());
+    }
+
+    @ExceptionHandler(InvalidTripTimeException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ExceptionBody handleVehicleNotDeleterException(InvalidTripTimeException e) {
         return new ExceptionBody(e.getMessage(), LocalDateTime.now());
     }
 

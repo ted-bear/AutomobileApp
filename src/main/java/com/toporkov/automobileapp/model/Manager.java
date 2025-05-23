@@ -1,10 +1,5 @@
 package com.toporkov.automobileapp.model;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,10 +9,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+@Setter
+@Getter
 @Entity
 @Table(name = "manager")
 public class Manager implements UserDetails {
@@ -29,6 +33,7 @@ public class Manager implements UserDetails {
     @Column(name = "username", nullable = false)
     private String username;
 
+    @Getter
     @Column(name = "firstname", nullable = false)
     private String firstname;
 
@@ -67,64 +72,6 @@ public class Manager implements UserDetails {
         this.lastname = lastname;
         this.password = password;
         this.role = role;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Set<Enterprise> getEnterprises() {
-        return enterprises;
-    }
-
-    public void setEnterprises(Set<Enterprise> enterprises) {
-        this.enterprises = enterprises;
     }
 
     public void addEnterprise(Enterprise enterprise) {

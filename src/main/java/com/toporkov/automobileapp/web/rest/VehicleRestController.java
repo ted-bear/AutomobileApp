@@ -1,13 +1,10 @@
 package com.toporkov.automobileapp.web.rest;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-import java.util.UUID;
-
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.toporkov.automobileapp.service.VehicleCoordinateService;
 import com.toporkov.automobileapp.service.VehicleImportService;
 import com.toporkov.automobileapp.service.VehicleService;
+import com.toporkov.automobileapp.util.GpxParser;
 import com.toporkov.automobileapp.util.validator.VehicleValidator;
 import com.toporkov.automobileapp.web.dto.domain.ImportResult;
 import com.toporkov.automobileapp.web.dto.domain.vehicle.VehicleCsvDTO;
@@ -39,6 +36,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.UnsupportedMediaTypeException;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/vehicles")
 public class VehicleRestController {
@@ -47,17 +49,20 @@ public class VehicleRestController {
     private final VehicleImportService vehicleImportService;
     private final VehicleValidator vehicleValidator;
     private final VehicleMapper vehicleMapper;
+    private final VehicleCoordinateService vehicleCoordinateService;
 
     public VehicleRestController(
         final VehicleService vehicleService,
         final VehicleImportService vehicleImportService,
         final VehicleValidator vehicleValidator,
-        final VehicleMapper vehicleMapper
+        final VehicleMapper vehicleMapper,
+        final VehicleCoordinateService vehicleCoordinateService
     ) {
         this.vehicleService = vehicleService;
         this.vehicleImportService = vehicleImportService;
         this.vehicleValidator = vehicleValidator;
         this.vehicleMapper = vehicleMapper;
+        this.vehicleCoordinateService = vehicleCoordinateService;
     }
 
     @GetMapping
@@ -137,5 +142,25 @@ public class VehicleRestController {
     public ResponseEntity<HttpStatus> deleteVehicle(@PathVariable("id") UUID id) {
         vehicleService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(value = "/{vehicleId}/upload-track", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<HttpStatus> uploadTrack(
+            @PathVariable("vehicleId") UUID vehicleId,
+            @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        if (file.isEmpty()) {
+            throw new BadRequestException("Файл пустой");
+        }
+        String filename = file.getOriginalFilename();
+        if (filename == null || !filename.toLowerCase().endsWith(".gpx")) {
+            throw new UnsupportedMediaTypeException("Только файлы .gpx поддерживаются");
+        }
+        // Парсинг GPX
+        var coordinates = GpxParser.parseGpx(file, vehicleId.toString());
+        // Сохраняем координаты
+        vehicleCoordinateService.saveTripAndCoordinates(coordinates, vehicleId);
+
+        return ResponseEntity.ok().build();
     }
 }

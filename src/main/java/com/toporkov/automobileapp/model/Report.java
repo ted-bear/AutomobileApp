@@ -1,5 +1,9 @@
 package com.toporkov.automobileapp.model;
 
+import com.toporkov.automobileapp.util.CoordinatesUtil;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -7,8 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.toporkov.automobileapp.util.CoordinatesUtil;
-
+@Setter
+@Getter
 public class Report {
     private String name;
 
@@ -21,54 +25,6 @@ public class Report {
     private LocalDateTime generatedAt;
 
     private Map<String, Double> results;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public PeriodType getPeriodType() {
-        return periodType;
-    }
-
-    public void setPeriodType(PeriodType periodType) {
-        this.periodType = periodType;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getStopDate() {
-        return stopDate;
-    }
-
-    public void setStopDate(LocalDateTime stopDate) {
-        this.stopDate = stopDate;
-    }
-
-    public LocalDateTime getGeneratedAt() {
-        return generatedAt;
-    }
-
-    public void setGeneratedAt(LocalDateTime generatedAt) {
-        this.generatedAt = generatedAt;
-    }
-
-    public Map<String, Double> getResults() {
-        return results;
-    }
-
-    public void setResults(Map<String, Double> results) {
-        this.results = results;
-    }
 
     public void calculateMileageResults(List<VehicleCoordinate> vehicleCoordinates) {
         Map<String, Double> mileageByPeriod = new HashMap<>();
