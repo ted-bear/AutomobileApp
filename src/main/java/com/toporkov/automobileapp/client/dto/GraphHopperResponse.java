@@ -77,6 +77,12 @@ public class GraphHopperResponse {
         @JsonProperty("exit_number")
         private Integer exitNumber;
 
+        @JsonProperty("exited")
+        private Boolean exited;
+
+        @JsonProperty("turn_angle")
+        private Double turnAngle;
+
         @JsonProperty("last_heading")
         private Double lastHeading; // Только для последней инструкции
     }
