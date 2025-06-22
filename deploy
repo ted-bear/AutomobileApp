@@ -1,0 +1,50 @@
+#!/bin/bash
+
+REMOTE_USER=""
+REMOTE_HOST=""
+REMOTE_DIR=""
+DOCKER_COMPOSE_FILE="docker-compose.yml"
+PROJECT_NAME="automobile-app"
+BUILD_DIR="target"
+JAR_FILE="AutomobileApp-0.0.1-SNAPSHOT.jar"
+
+handle_error() {
+  echo "Ошибка в строке $1: $2"
+  echo "Деплой не удался"
+  cd ..
+  rm -fR ./automobile-app
+  exit 1
+}
+
+trap 'handle_error $LINENO "${BASH_COMMAND}"' ERR
+
+echo "Build project"
+mvn clean package -Dmaven.test.skip
+
+if [ ! -f "${BUILD_DIR}/${JAR_FILE}" ]; then
+  echo  "Файл ${BUILD_DIR}/${JAR_FILE} не найден, сборка не удалась"
+  exit 1
+fi
+
+echo "Создаем рабочую директорию на сервере..."
+ssh ${REMOTE_USER}@${REMOTE_HOST} "mkdir -p ${REMOTE_DIR}"
+
+echo "Коприуем файлы на сервер..."
+scp .env ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
+scp Dockerfile ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
+scp ${DOCKER_COMPOSE_FILE} ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
+scp "${BUILD_DIR}/${JAR_FILE}" ${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/
+
+echo "Останавливаем старые контейнеры"
+ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} && docker-compose -f ${DOCKER_COMPOSE_FILE} down || true"
+
+echo "Собираем и запускаем приложение"
+ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} && docker-compose -f ${DOCKER_COMPOSE_FILE} up -d --build"
+
+sleep 10
+
+echo "Проверяем приложения"
+ssh ${REMOTE_USER}@${REMOTE_HOST} "cd ${REMOTE_DIR} && docker-compose -f ${DOCKER_COMPOSE_FILE} ps"
+
+echo "Деплой успешно завершен"
+
