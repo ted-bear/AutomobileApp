@@ -1,12 +1,5 @@
 package com.toporkov.automobileapp.util.shell;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
 import com.toporkov.automobileapp.client.GraphHopperHttpClient;
 import com.toporkov.automobileapp.model.Condition;
 import com.toporkov.automobileapp.model.Driver;
@@ -26,6 +19,16 @@ import com.toporkov.automobileapp.web.dto.domain.coordinate.CreateCoordinateDTO;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 @ShellComponent
 public class GenerateDataCommands {
@@ -86,7 +89,7 @@ public class GenerateDataCommands {
         value = "Generate N random vehicles and drivers for specific enterprise.")
     public String generateVehiclesAndDrivers(
         @ShellOption(defaultValue = "1") Integer number,
-        @ShellOption(defaultValue = "") List<Integer> enterpriseIds
+        @ShellOption(defaultValue = "") List<UUID> enterpriseIds
     ) {
         final List<VehicleModel> vehicleModels = vehicleModelRepository.findAllByIsActiveTrue();
         for (var id : enterpriseIds) {
@@ -100,6 +103,7 @@ public class GenerateDataCommands {
                             vehicle,
                             getRandomBooleanWithFactor(0.1)
                         );
+                        driverAssignment.setId(UUID.randomUUID());
 
                         vehicleRepository.save(vehicle);
                         driverRepository.save(driver);
@@ -118,57 +122,65 @@ public class GenerateDataCommands {
     @ShellMethod(key = "generate-track",
         value = "Generate track for the vehicle.")
     public void generateTrackForVehicle(
-        @ShellOption final String vehicleId,
         @ShellOption final Double minLatitude,
         @ShellOption final Double maxLatitude,
         @ShellOption final Double minLongitude,
         @ShellOption final Double maxLongitude
     ) {
+        var allIds = vehicleRepository.findAll().stream().map(Vehicle::getId).toList();
+        for (var vehicleId : allIds) {
+            for (int i = 0; i < 10; i++) {
 
-        var startLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
-        var startLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
+                var startLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
+                var startLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
 
-        var endLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
-        var endLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
+                var endLatitude = Math.round(random.nextDouble(minLatitude, maxLatitude) * 1e6) / 1_000_000.0d;
+                var endLongitude = Math.round(random.nextDouble(minLongitude, maxLongitude) * 1e6) / 1_000_000.0d;
 
-        var path = GraphHopperHttpClient.getTrack(startLatitude,
-            startLongitude,
-            endLatitude,
-            endLongitude
-        );
+                var path = GraphHopperHttpClient.getTrack(startLatitude,
+                        startLongitude,
+                        endLatitude,
+                        endLongitude
+                );
 
-        var track = path.getPoints().getCoordinates();
-        var batch = new ArrayList<CreateCoordinateDTO>();
-        var trip = new Trip();
-        var currentTime = Instant.now();
-        trip.setVehicle(vehicleRepository.findById(UUID.fromString(vehicleId)).orElseThrow(RuntimeException::new));
-        trip.setStartedAt(currentTime);
+                var track = path.getPoints().getCoordinates();
+                var batch = new ArrayList<CreateCoordinateDTO>();
+                var trip = new Trip();
+                var month = random.nextInt(11) + 1;
+                var dayOfMonth = random.nextInt(25) + 1;
+                var year = random.nextInt(2000, 2024);
+                var currentTime = LocalDateTime.of(year, month, dayOfMonth, 15, 14).toInstant(ZoneOffset.UTC);
+                trip.setVehicle(vehicleRepository.findById(vehicleId).orElseThrow(RuntimeException::new));
+                trip.setStartedAt(currentTime);
 
-        for (int i = 0; i < track.size(); i++) {
-            try {
-                Thread.sleep(500);
-                batch.add(
-                    new CreateCoordinateDTO(
-                        currentTime,
-                        track.get(i).get(0),
-                        track.get(i).get(1),
-                        vehicleId
-                    ));
-                if (i != track.size() - 1) {
-                    currentTime = Instant.now();
+                for (int j = 0; j < track.size(); j++) {
+                    currentTime.plus(500, ChronoUnit.SECONDS);
+                    batch.add(
+                            new CreateCoordinateDTO(
+                                    currentTime,
+                                    track.get(j).get(0),
+                                    track.get(j).get(1),
+                                    vehicleId.toString()
+                            ));
+                    if (j != track.size() - 1) {
+                        currentTime = Instant.now();
+                    }
                 }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                trip.setEndedAt(currentTime);
+
+                tripService.saveTrip(trip);
+                vehicleCoordinateService.saveAllCoordinates(batch);
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                }
             }
         }
-        trip.setEndedAt(currentTime);
-
-        tripService.saveTrip(trip);
-        vehicleCoordinateService.saveAllCoordinates(batch);
     }
 
     private Vehicle generateRandomVehicle(Enterprise enterprise, List<VehicleModel> models) {
         final Vehicle vehicle = new Vehicle();
+        vehicle.setId(UUID.randomUUID());
         vehicle.setNumber(vehicleNumbers.get(random.nextInt(vehicleNumbers.size())));
         vehicle.setColor(vehicleColors.get(random.nextInt(vehicleColors.size())));
         vehicle.setMileage(random.nextInt(0, 100_000));
@@ -178,12 +190,14 @@ public class GenerateDataCommands {
         vehicle.setEnterprise(enterprise);
         vehicle.setActive(true);
         vehicle.setVehicleModel(models.get(random.nextInt(0, models.size())));
+        vehicle.setPurchaseDate(Instant.now());
 
         return vehicle;
     }
 
     private Driver generateRandomDriver(Enterprise enterprise) {
         final Driver driver = new Driver();
+        driver.setId(UUID.randomUUID());
         driver.setEnterprise(enterprise);
         driver.setFirstname(firstnames.get(random.nextInt(0, firstnames.size())));
         driver.setLastname(lastnames.get(random.nextInt(0, lastnames.size())));
