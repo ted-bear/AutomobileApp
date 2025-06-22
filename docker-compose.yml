@@ -9,9 +9,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      POSTGRES_URL: jdbc:postgresql://vehicle-db:5432/postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_URL: ${POSTGRES_URL}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       GEOCODING_API_KEY: ${GEOCODING_API_KEY}
       GEOCODING_API_URL: ${GEOCODING_API_URL}
@@ -23,8 +23,8 @@ services:
     restart: always
     shm_size: 128mb
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5434:5432"
     volumes:
