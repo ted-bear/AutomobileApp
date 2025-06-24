@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CheckRestController {
 
     @GetMapping
-    public ResponseEntity<HttpStatus> check() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> check() {
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 }
