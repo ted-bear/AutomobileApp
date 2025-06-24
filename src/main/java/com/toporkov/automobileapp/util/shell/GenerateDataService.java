@@ -27,8 +27,10 @@ import com.toporkov.automobileapp.service.TripService;
 import com.toporkov.automobileapp.service.VehicleCoordinateService;
 import com.toporkov.automobileapp.web.dto.domain.coordinate.CreateCoordinateDTO;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @Transactional
 public class GenerateDataService {
@@ -106,6 +108,8 @@ public class GenerateDataService {
                     }
                 });
         }
+
+        log.info("Generated vehicles and drivers");
     }
 
     public void generateTrack(

@@ -56,7 +56,7 @@ public class SecurityConfig {
                     }))
             .authorizeHttpRequests(customizer ->
                 customizer
-                    .requestMatchers("/api/v1/auth/**").permitAll()
+                    .requestMatchers("/api/v1/auth/**", "/api/v1/generate/**", "/health").permitAll()
                     .anyRequest().authenticated()
             )
             .anonymous(AbstractHttpConfigurer::disable)
